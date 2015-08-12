@@ -26,7 +26,7 @@ var Login = React.createClass({
           <input type="text" valueLink={this.linkState('username')} placeholder="Username" />
           <input type="password" valueLink={this.linkState('password')} placeholder="Password" />
         </div>
-        <button type="submit" onClick={this.login.bind(this)}>Submit</button>
+        <button type="submit" onClick={this.login.bind(this)}>login</button>
       </form>
     );
   }

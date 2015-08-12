@@ -22,7 +22,7 @@ var LoginStore = {
     return this._username;
   },
 
-  getJwt: function () {
+  getToken: function () {
     return this._token;
   },
 

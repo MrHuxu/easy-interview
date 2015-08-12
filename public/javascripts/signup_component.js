@@ -26,7 +26,7 @@ var Signup = React.createClass({
           <input type="text" valueLink={this.linkState('username')} placeholder="Username" />
           <input type="password" valueLink={this.linkState('password')} placeholder="Password" />
         </div>
-        <button type="submit" onClick={this.signup.bind(this)}>Submit</button>
+        <button type="submit" onClick={this.signup.bind(this)}>signup</button>
       </form>
     );
   }

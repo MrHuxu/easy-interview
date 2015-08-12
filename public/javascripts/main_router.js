@@ -27,10 +27,10 @@ RouterContainer.set(router);
 var username = localStorage.getItem('_easy_interview_username');
 var token = localStorage.getItem('_easy_interview_token');
 if (username && token) {
-  LoginActions.loginUser({
+  Auth.login({
     username: username,
-    token: token}
-  );
+    token: token
+  });
 }
 
 Router.run(routes, function (Handler) {
