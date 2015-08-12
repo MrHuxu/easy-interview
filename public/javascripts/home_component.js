@@ -2,7 +2,6 @@ var Home = React.createClass({
   statics: {
     willTransitionTo: function (transition) {
       if (!LoginStore.isLoggedIn()) {
-        console.log('heh');
         transition.redirect('login');
       }
     }
@@ -18,14 +17,6 @@ var Home = React.createClass({
       user: LoginStore.getUser(),
       jwt: LoginStore.getJwt()
     };
-  },
-
-  componentDidMount: function () {
-    TodoStore.bind('change', this.login);
-  },
-
-  componentWillUnmount: function () {
-    TodoStore.unbind('change', this.login);
   },
 
   login: function () {

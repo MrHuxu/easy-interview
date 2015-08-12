@@ -1,13 +1,17 @@
 var LoginStore = {
-  _user: null,
-  _jwt: null,
+  _username: null,
+  _token: null,
 
   _registerToActions(action) {
     switch(action.actionType) {
       case 'LOGIN_USER':
-        this._jwt = action.jwt;
-        this._user = jwt_decode(this._jwt);
+        this._username = action.username;
+        this._token = action.token;
         this.trigger('login');
+        break;
+      case 'LOGOUT_USER':
+        this._username = null;
+        this._token = null;
         break;
       default:
         break;
@@ -15,15 +19,15 @@ var LoginStore = {
   },
 
   getUser: function () {
-    return this._user;
+    return this._username;
   },
 
   getJwt: function () {
-    return this._jwt;
+    return this._token;
   },
 
   isLoggedIn: function () {
-    return !!this._user;
+    return !!this._username;
   }
 };
 

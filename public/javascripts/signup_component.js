@@ -1,4 +1,4 @@
-var Login = React.createClass({
+var Signup = React.createClass({
   // body...
   mixins: [React.addons.LinkedStateMixin],
 
@@ -9,14 +9,14 @@ var Login = React.createClass({
     };
   },
 
-  login: function (e) {
+  signup: function (e) {
     e.preventDefault();
-    Auth.login({
+    Auth.signup({
       username: this.state.username,
       password: this.state.password
     }).catch(function (err) {
       console.log('Error logging in ', err);
-    });
+    });;
   },
 
   render: function () {
@@ -26,7 +26,7 @@ var Login = React.createClass({
           <input type="text" valueLink={this.linkState('username')} placeholder="Username" />
           <input type="password" valueLink={this.linkState('password')} placeholder="Password" />
         </div>
-        <button type="submit" onClick={this.login.bind(this)}>Submit</button>
+        <button type="submit" onClick={this.signup.bind(this)}>Submit</button>
       </form>
     );
   }

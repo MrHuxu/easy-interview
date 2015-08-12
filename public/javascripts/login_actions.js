@@ -1,10 +1,18 @@
 var LoginActions = {
-  loginUser: function (jwt) {
+  loginUser: function (username, token) {
+    localStorage.setItem('_easy_interview_username', username);
+    localStorage.setItem('_easy_interview_token', token);
     RouterContainer.get().transitionTo('/');
-    localStorage.setItem('account_jwt', jwt);
     AppDispatcher.dispatch({
       actionType: 'LOGIN_USER',
-      jwt: jwt
+      username: username,
+      token: token
     });
+  },
+
+  logout: function () {
+    localStorage.clear();
+    AppDispatcher.dispatch({actionType: 'LOGOUT_USER'});
+    RouterContainer.get().transitionTo('/');
   }
 };
