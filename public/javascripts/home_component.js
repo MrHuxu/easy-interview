@@ -14,8 +14,8 @@ var Home = React.createClass({
   _getLoginState: function () {
     return {
       userLoggedIn: LoginStore.isLoggedIn(),
-      user: LoginStore.getUser(),
-      jwt: LoginStore.getJwt()
+      username: LoginStore.getUser(),
+      token: LoginStore.getToken()
     };
   },
 
@@ -25,7 +25,7 @@ var Home = React.createClass({
 
   render: function () {
     return (
-      <h1>hello {this.state.user}</h1>
+      <h1>hello {this.state.username}</h1>
     );
   }
 
