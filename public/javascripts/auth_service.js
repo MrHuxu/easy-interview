@@ -5,7 +5,7 @@ var Auth = {
       method: 'POST',
       dataType: 'json',
       data: {
-        user: username,
+        username: username,
         password: password
       }
     }).done(function (data, textStatus, jqXHR) {

@@ -22,9 +22,9 @@ var routes = (
 var router = Router.create({routes});
 RouterContainer.set(router);
 
-var jwt = localStorage.getItem('jwt');
-if (jwt) {
-  LoginActions.loginUser(jwt);
+var account_jwt = localStorage.getItem('account_jwt');
+if (account_jwt) {
+  LoginActions.loginUser(account_jwt);
 }
 
 Router.run(routes, function (Handler) {
