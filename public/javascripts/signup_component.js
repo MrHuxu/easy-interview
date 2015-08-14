@@ -1,5 +1,4 @@
 var Signup = React.createClass({
-  // body...
   mixins: [React.addons.LinkedStateMixin],
 
   getInitialState: function () {

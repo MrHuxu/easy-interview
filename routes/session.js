@@ -8,8 +8,7 @@ var createToken = function (user) {
 }
 
 router.post('/login', function (req, res) {
-  User.find({username: req.body.username}).exec(function (err, results) {
-    var user = results[0];
+  User.findOne({username: req.body.username}).exec(function (err, user) {
     if (user.password === req.body.password || user.token === req.body.token) {
       res.status(201).send({
         username: user.username,
