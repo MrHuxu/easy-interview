@@ -9,26 +9,35 @@ var createToken = function (user) {
 
 router.post('/login', function (req, res) {
   User.findOne({username: req.body.username}).exec(function (err, user) {
-    if (user.password === req.body.password || user.token === req.body.token) {
-      res.status(201).send({
-        username: user.username,
-        id_token: user.token
+    if (req.body.password) {
+      user.loginWithPassword(req.body.password, function () {
+        res.status(201).send({
+          username: user.username,
+          id_token: user.crypted_password
+        });
+      });
+    } else if (req.body.token) {
+      user.loginWithToken(req.body.token, function () {
+        res.status(201).send({
+          username: user.username,
+          id_token: user.crypted_password
+        });
       });
     }
   });
 });
 
 router.post('/signup', function (req, res) {
-  var user = new User({
-    username: req.body.username,
-    password: req.body.password,
-    token: createToken(req.body)
-  });
-  user.save();
-  res.status(201).send({
-    username: user.username,
-    id_token: user.token
-  });
+  User.saveWithSalt(req, function (err, user) {
+    if (err) {
+
+    } else {
+      res.status(201).send({
+        username: user.username,
+        id_token: user.crypted_password
+      });
+    }
+  })
 });
 
 module.exports = router;
