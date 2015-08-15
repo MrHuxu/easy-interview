@@ -14,7 +14,8 @@ var RouterContainer = {
 }
 
 var routes = (
-  <Route handler={Dashboard}>
+  <Route handler={Navbar}>
+    <Route name='dashboard' path='/' handler={Dashboard}/>
     <Route name="login" handler={Login}/>
     <Route name="home" handler={Home}/>
     <Route name='signup' handler={Signup}/>
