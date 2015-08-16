@@ -24,53 +24,49 @@ var Signup = React.createClass({
   render: function () {
     console.log(this.state);
     return (
-      <div className='col-lg-4 col-lg-offset-4'>
-        <div className='panel panel-success'>
-          <div className='panel-heading'>Signup</div>
-          <div className='panel-body'>
-            <form role="form-horizontal">
-              <div className='form-group'>
-                <label for='signupName' className='col-sm-2 control-label'>User</label>
-                <div className='col-sm-10'>
-                  <input type='text' className='form-control' id='signupName' valueLink={this.linkState('username')}/>
+      <div className='ui three column grid'>
+        <div className='column'></div>
+        <div className='column'>
+          <div className="ui segments">
+            <div className="ui top attached secondary segment">Signup</div>
+            <div className="ui green segment">
+              <form className="ui form">
+                <h4 className="ui dividing header">User Profile</h4>
+                <div className="field">
+                  <label>Name</label>
+                  <input type="text" valueLink={this.linkState('username')}/>
                 </div>
-              </div>
-              <div className='form-group'>
-                <label for='signupTeam' className='col-sm-2 control-label'>Team</label>
-                <div className='col-sm-4'>
-                  <select className="form-control" id='signupTeam' valueLink={this.linkState('team')}>
-                    <option>UI</option>
-                    <option>Ad Serving</option>
-                    <option>Forcasting</option>
-                    <option>Reporting</option>
-                  </select>
+                <div className='two fields'>
+                  <div className='field'>
+                    <label>Team</label>
+                    <select className="ui dropdown" valueLink={this.linkState('team')}>
+                      <option value="UI">UI</option>
+                      <option value="Ad Serving">Ad Serving</option>
+                      <option value='Forecasting'>Forecasting</option>
+                      <option value='Reporting'>Reporting</option>
+                    </select>
+                  </div>
+                  <div className='field'>
+                    <label>Position</label>
+                    <select className="ui dropdown" valueLink={this.linkState('position')}>
+                      <option value='DEV'>DEV</option>
+                      <option value='QA'>QA</option>
+                    </select>
+                  </div>
                 </div>
-                <label for='signupPosition' className='col-sm-2 control-label'>Position</label>
-                <div className='col-sm-4'>
-                  <select className="form-control" id='signupPosition' valueLink={this.linkState('position')}>
-                    <option>DEV</option>
-                    <option>QA</option>
-                  </select>
+                <div className='field'>
+                  <label>Password</label>
+                  <input type='password' valueLink={this.linkState('password')}/>
                 </div>
-              </div>
-              <div className='form-group'>
-                <label for='signupPassword' className='col-sm-2 control-label'>Password</label>
-                <div className='col-sm-10'>
-                  <input type='password' className='form-control' id='signupPassword' valueLink={this.linkState('password')}/>
+                <div className='field'>
+                  <label>Confirm Password</label>
+                  <input type='password' valueLink={this.linkState('confirmPassword')}/>
                 </div>
-              </div>
-              <div className='form-group'>
-                <label for='confirmPassword' className='col-sm-2 control-label'>Confirm Password</label>
-                <div className='col-sm-10'>
-                  <input type='password' className='form-control' id='confirmPassword' valueLink={this.linkState('confirmPassword')}/>
+                <div className='field'>
+                  <button className='ui blue button small' type="submit" onClick={this.signup.bind(this)}>Signup</button>
                 </div>
-              </div>
-              <div className='form-group'>
-                <div className='col-sm-10 col-sm-offset-2'>
-                  <button className='btn btn-sm btn-info' type="submit" onClick={this.signup.bind(this)}>Signup</button>
-                </div>
-              </div>
-            </form>
+              </form>
+            </div>
           </div>
         </div>
       </div>

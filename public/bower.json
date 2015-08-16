@@ -19,6 +19,7 @@
     "react": "~0.13.3",
     "react-router": "~0.13.3",
     "flux": "~2.0.2",
-    "microevents": "*"
+    "microevents": "*",
+    "semantic-ui": "~2.0.8"
   }
 }

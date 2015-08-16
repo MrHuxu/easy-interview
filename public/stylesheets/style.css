@@ -4,30 +4,17 @@ body {
 }
 
 .navbar * {
-  display: none;
+  display: inline;
 }
 
 a {
   color: #00B7FF;
 }
 
-.form-group {
-  margin: 0 -15px -15px 15px;
-  display: flex;
-  content: " ";
+.form .button {
+  margin: 0 20px 0 0;
 }
 
-.form-group .control-label {
-  padding-top: 7px;
-  margin-bottom: 0;
-  text-align: right;
+.action-item {
+  margin-top: 15px;
 }
-
-.form-group input {
-  width: 100%;
-}
-
-.form-group .btn {
-  margin: 5px 15px 0 0;
-}
-

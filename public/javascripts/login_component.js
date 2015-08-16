@@ -20,30 +20,31 @@ var Login = React.createClass({
 
   render: function () {
     return (
-      <div className='col-lg-4 col-lg-offset-4' id='login-component'>
-        <div className='panel panel-info'>
-          <div className='panel-heading'>Login</div>
-          <div className='panel-body'>
-            <form role="form-horizontal">
-              <div className='form-group'>
-                <label for='loginName' className='col-sm-2 control-label'>User</label>
-                <div className='col-sm-10'>
-                  <input type='text' className='form-control' id='loginName' valueLink={this.linkState('username')}/>
+      <div className='ui stackable grid'>
+        <div className='six wide column'></div>
+        <div className='four wide column'>
+          <div className="ui segments">
+            <div className="ui top attached secondary segment">Login</div>
+            <div className="ui blue segment">
+              <form className="ui form">
+                <h4 className="ui dividing header">Login Confirmation</h4>
+                <div className="field">
+                  <label>Name</label>
+                  <input type="text" valueLink={this.linkState('username')}/>
                 </div>
-              </div>
-              <div className='form-group'>
-                <label for='loginPassword' className='col-sm-2 control-label'>Password</label>
-                <div className='col-sm-10'>
-                  <input type='password' className='form-control' id='loginPassword' valueLink={this.linkState('password')}/>
+                <div className='field'>
+                  <label>Password</label>
+                  <input type='password' valueLink={this.linkState('password')}/>
                 </div>
-              </div>
-              <div className='form-group'>
-                <div className='col-sm-10 col-sm-offset-2'>
-                  <button className='btn btn-sm btn-success' type="submit" onClick={this.login.bind(this)}>Login</button>
-                  <Link className='btn btn-sm btn-primary' to='signup'>Signup</Link>
+                <div className='field'>
+                  <button className='ui green button small' type="submit" onClick={this.login.bind(this)}>Login</button>
+                  <Link className="ui blue labeled small icon button" to='signup'>
+                    <i className="signup icon"></i>
+                    Signup
+                  </Link>
                 </div>
-              </div>
-            </form>
+              </form>
+            </div>
           </div>
         </div>
       </div>

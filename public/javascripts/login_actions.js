@@ -7,7 +7,7 @@ var LoginActions = {
       username: username,
       token: token
     });
-    RouterContainer.get().transitionTo('/');
+    RouterContainer.get().transitionTo('/home');
   },
 
   logout: function () {
