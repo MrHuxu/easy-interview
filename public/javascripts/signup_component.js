@@ -21,6 +21,16 @@ var Signup = React.createClass({
     });;
   },
 
+  componentDidMount: function () {
+    var self = this;
+    $('.signup-team').dropdown('setting', 'onChange', function (value) {
+      self.setState({team: value});
+    });
+    $('.signup-position').dropdown('setting', 'onChange', function (value) {
+      self.setState({position: value});
+    });
+  },
+
   render: function () {
     console.log(this.state);
     return (
@@ -39,7 +49,8 @@ var Signup = React.createClass({
                 <div className='two fields'>
                   <div className='field'>
                     <label>Team</label>
-                    <select className="ui dropdown" valueLink={this.linkState('team')}>
+                    <select className="ui dropdown signup-team">
+                      <option value="">Select Team</option>
                       <option value="UI">UI</option>
                       <option value="Ad Serving">Ad Serving</option>
                       <option value='Forecasting'>Forecasting</option>
@@ -48,7 +59,8 @@ var Signup = React.createClass({
                   </div>
                   <div className='field'>
                     <label>Position</label>
-                    <select className="ui dropdown" valueLink={this.linkState('position')}>
+                    <select className="ui dropdown signup-position">
+                      <option value="">Select Position</option>
                       <option value='DEV'>DEV</option>
                       <option value='QA'>QA</option>
                     </select>
