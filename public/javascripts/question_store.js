@@ -1,0 +1,3 @@
+var QuestionStore = {
+  records: []
+};

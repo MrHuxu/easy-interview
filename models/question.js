@@ -1,7 +1,6 @@
 var mongoose = require('./mongo_config');
 var Schema = mongoose.Schema;
 var timestamp = require('mongoose-timestamp');
-var User = require('./user');
 
 var QuestionSchema = Schema({
   creator     : {
@@ -39,13 +38,11 @@ Question.saveWithCreator = function (args) {
     anwser: args.anwser
   });
   question.save(function (err, question) {
+    var User = require('./user');
     User.findOne({_id: question.creator}, function (err, user) {
       user.questions.push(question._id);
       user.save();
     });
-  });
-  Question.findOne({question: question.question}).populate('craetor').exec(function (e, d) {
-    console.log(d);
   });
 }
 
