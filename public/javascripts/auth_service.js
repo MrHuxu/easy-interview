@@ -9,9 +9,10 @@ var Auth = {
         password: content.password
       }
     }).done(function (data, textStatus, jqXHR) {
+      var id = data.id;
       var username = data.username;
       var token = data.id_token;
-      LoginActions.loginUser(username, token);
+      LoginActions.loginUser(id, username, token);
       return true;
     });
   },
@@ -27,9 +28,10 @@ var Auth = {
         token: content.token
       }
     }).done(function (data, textStatus, jqXHR) {
+      var id = data.id;
       var username = data.username;
       var token = data.id_token;
-      LoginActions.loginUser(username, token);
+      LoginActions.loginUser(id, username, token);
       return true;
     });
   },

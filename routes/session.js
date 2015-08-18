@@ -12,6 +12,7 @@ router.post('/login', function (req, res) {
     if (req.body.password) {
       user.loginWithPassword(req.body.password, function () {
         res.status(201).send({
+          id: user._id,
           username: user.username,
           id_token: user.crypted_password
         });
@@ -19,6 +20,7 @@ router.post('/login', function (req, res) {
     } else if (req.body.token) {
       user.loginWithToken(req.body.token, function () {
         res.status(201).send({
+          id: user._id,
           username: user.username,
           id_token: user.crypted_password
         });

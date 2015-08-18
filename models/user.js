@@ -1,15 +1,21 @@
 var mongoose = require('./mongo_config');
+var Schema = mongoose.Schema;
 var timestamp = require('mongoose-timestamp');
 var crypto = require('crypto');
+var Question = require('./question');
 
-var UserSchema = mongoose.Schema({
-  username: {
-    type: String,
-    required: true,
-    unique: true
+var UserSchema = Schema({
+  username         : {
+    type           : String,
+    required       : true,
+    unique         : true
   },
-  crypted_password: String,
-  salt: String
+  crypted_password : String,
+  salt             : String,
+  questions        : [{
+    type           : Schema.Types.ObjectId,
+    ref            : 'Question'
+  }]
 });
 
 UserSchema.plugin(timestamp);
@@ -17,6 +23,11 @@ UserSchema.plugin(timestamp);
 UserSchema.methods.checkExpired = function () {
   // body...
 }
+
+UserSchema.methods.addQuestion = function (question_id) {
+  this.questions.push(question_id);
+  this.save();
+};
 
 UserSchema.methods.loginWithPassword = function (password, callback) {
   var self = this;

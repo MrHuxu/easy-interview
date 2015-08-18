@@ -1,10 +1,12 @@
 var LoginStore = {
+  _id: null,
   _username: null,
   _token: null,
 
   _registerToActions(action) {
     switch(action.actionType) {
       case 'LOGIN_USER':
+        this._id = action.id;
         this._username = action.username;
         this._token = action.token;
         this.trigger('login');

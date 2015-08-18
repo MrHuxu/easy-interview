@@ -9,10 +9,16 @@ var NewQuestion = React.createClass({
     }
   },
 
+  saveQuestion: function () {
+    QuestionActions.new(this.state);
+  },
+
   getInitialState: function () {
     return {
+      creator_id: LoginStore._id,
       difficulty: 0,
-      type: '',
+      interviewee: '',
+      category: '',
       question: '',
       anwser: ''
     };
@@ -24,7 +30,7 @@ var NewQuestion = React.createClass({
       self.setState({difficulty: value});
     });
     $('.ui.dropdown').dropdown('setting', 'onChange', function (value) {
-      self.setState({type: value});
+      self.setState({interviewee: value});
     });
   },
 
@@ -50,8 +56,8 @@ var NewQuestion = React.createClass({
                   <label>Type</label>
                   <select className="ui dropdown">
                     <option value=''>Select Type</option>
-                    <option value='campus'>Campus</option>
-                    <option value='social'>Social</option>
+                    <option value='Campus'>Campus</option>
+                    <option value='Social'>Social</option>
                   </select>
                 </div>
               </div>
@@ -62,6 +68,9 @@ var NewQuestion = React.createClass({
               <div className='field'>
                 <label>Anwser</label>
                 <input type='text' valueLink={this.linkState('anwser')}/>
+              </div>
+              <div className='field'>
+                <button type='submit' className='ui button teal' onClick={this.saveQuestion.bind(this)}>Save</button>
               </div>
             </div>
             <div className='eight wide column ui form'>
@@ -78,7 +87,7 @@ var NewQuestion = React.createClass({
                   <label>Type:</label>
                 </div>
                 <div className='field'>
-                  <p>{this.state.type}</p>
+                  <p>{this.state.interviewee}</p>
                 </div>
               </div>
               <div className='field'>
