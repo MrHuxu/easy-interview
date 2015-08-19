@@ -80,11 +80,11 @@ var NewQuestion = React.createClass({
               </div>
               <div className='field'>
                 <label>Question</label>
-                <input type='text' valueLink={this.linkState('question')}/>
+                <textarea valueLink={this.linkState('question')}/>
               </div>
               <div className='field'>
                 <label>Anwser</label>
-                <input type='text' valueLink={this.linkState('anwser')}/>
+                <textarea type='text' valueLink={this.linkState('anwser')}/>
               </div>
               <div className='field'>
                 <button type='submit' className='ui button teal' onClick={this.saveQuestion.bind(this)}>Save</button>
@@ -114,16 +114,14 @@ var NewQuestion = React.createClass({
                 </div>
               </div>
               <div className='field'>
-                <label>Title:</label>
-                <p>{this.state.title}</p>
-              </div>
-              <div className='field'>
-                <label>Question:</label>
-                <p>{this.state.question}</p>
-              </div>
-              <div className='field'>
-                <label>Anwser:</label>
-                <p>{this.state.anwser}</p>
+                <div className='ui piled segment'>
+                  <h4 className='ui header'>Title</h4>
+                  <p>{this.state.title}</p>
+                  <h4 className='ui header'>Question</h4>
+                  <p>{this.state.question}</p>
+                  <h4 className='ui header'>Anwser</h4>
+                  <p>{this.state.anwser}</p>
+                </div>
               </div>
             </div>
           </div>
