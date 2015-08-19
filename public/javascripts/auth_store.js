@@ -1,19 +1,26 @@
-var LoginStore = {
+var AuthStore = {
   _id: null,
   _username: null,
   _token: null,
+  _team: null,
+  _position: null,
 
   _registerToActions(action) {
     switch(action.actionType) {
       case 'LOGIN_USER':
-        this._id = action.id;
-        this._username = action.username;
-        this._token = action.token;
+        this._id = action.content.id;
+        this._username = action.content.username;
+        this._token = action.content.token;
+        this._team = action.content.team;
+        this._position = action.content.position;
         this.trigger('login');
         break;
       case 'LOGOUT_USER':
+        this._id = null;
         this._username = null;
         this._token = null;
+        this._team = null;
+        this._position = null;
         break;
       default:
         break;
@@ -33,6 +40,6 @@ var LoginStore = {
   }
 };
 
-MicroEvent.mixin(LoginStore);
+MicroEvent.mixin(AuthStore);
 
-AppDispatcher.register(LoginStore._registerToActions.bind(LoginStore));
+AuthDispatcher.register(AuthStore._registerToActions.bind(AuthStore));

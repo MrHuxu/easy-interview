@@ -3,7 +3,7 @@ var NewQuestion = React.createClass({
 
   statics: {
     willTransitionTo: function (transition) {
-      if (!LoginStore.isLoggedIn()) {
+      if (!AuthStore.isLoggedIn()) {
         transition.redirect('login');
       }
     }
@@ -15,10 +15,11 @@ var NewQuestion = React.createClass({
 
   getInitialState: function () {
     return {
-      creator_id: LoginStore._id,
+      creator_id: AuthStore._id,
       difficulty: 0,
       interviewee: '',
       category: '',
+      title: '',
       question: '',
       anwser: ''
     };
@@ -29,8 +30,11 @@ var NewQuestion = React.createClass({
     $('.ui.rating').rating('setting', 'onRate', function (value) {
       self.setState({difficulty: value});
     });
-    $('.ui.dropdown').dropdown('setting', 'onChange', function (value) {
+    $('.question-interviewee').dropdown('setting', 'onChange', function (value) {
       self.setState({interviewee: value});
+    });
+    $('.question-category').dropdown('setting', 'onChange', function (value) {
+      self.setState({category: value});
     });
   },
 
@@ -47,19 +51,32 @@ var NewQuestion = React.createClass({
             <div className='eight wide column ui form'>
               <h3>Input</h3>
               <div className="ui horizontal divider"><i className="write icon"></i></div>
+              <div className='field'>
+                <label>Difficulty</label>
+                <div className="ui star rating" data-max-rating="5"></div>
+              </div>
               <div className='two fields'>
                 <div className='field'>
-                  <label>Difficulty</label>
-                  <div className="ui star rating" data-max-rating="5"></div>
-                </div>
-                <div className='field'>
-                  <label>Type</label>
-                  <select className="ui dropdown">
-                    <option value=''>Select Type</option>
+                  <label>Interviewee</label>
+                  <select className="ui dropdown question-interviewee">
+                    <option value=''>Select Interviewee</option>
                     <option value='Campus'>Campus</option>
                     <option value='Social'>Social</option>
                   </select>
                 </div>
+                <div className='field'>
+                  <label>Category</label>
+                  <select className="ui dropdown question-category">
+                    <option value=''>Select Category</option>
+                    <option value='Algorithms'>Algorithms</option>
+                    <option value='Database'>Database</option>
+                    <option value='Shell'>Shell</option>
+                  </select>
+                </div>
+              </div>
+              <div className='field'>
+                <label>Title</label>
+                <input type='text' valueLink={this.linkState('title')}/>
               </div>
               <div className='field'>
                 <label>Question</label>
@@ -84,11 +101,21 @@ var NewQuestion = React.createClass({
                   <p>{this.state.difficulty}</p>
                 </div>
                 <div className='field'>
-                  <label>Type:</label>
+                  <label>Interviewee:</label>
                 </div>
                 <div className='field'>
                   <p>{this.state.interviewee}</p>
                 </div>
+                <div className='field'>
+                  <label>Category:</label>
+                </div>
+                <div className='field'>
+                  <p>{this.state.category}</p>
+                </div>
+              </div>
+              <div className='field'>
+                <label>Title:</label>
+                <p>{this.state.title}</p>
               </div>
               <div className='field'>
                 <label>Question:</label>

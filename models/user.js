@@ -10,6 +10,14 @@ var UserSchema = Schema({
     required       : true,
     unique         : true
   },
+  team             : {
+    type           : String,
+    enum           : ['UI', 'Ad Serving', 'Forecasting', 'Reporting']
+  },
+  position         : {
+    type           : String,
+    enum           : ['DEV', 'QA']
+  },
   crypted_password : String,
   salt             : String,
   questions        : [{
@@ -53,7 +61,9 @@ UserSchema.methods.loginWithToken = function (token, callback) {
 var User = mongoose.model('User', UserSchema);
 
 User.saveWithSalt = function (req, callback) {
-  var username = req.body.username;
+  var username = req.body.username,
+      team = req.body.team,
+      position = req.body.position;
   crypto.randomBytes(128, function (err, salt) {
     if (err) {
       throw err;
@@ -67,7 +77,9 @@ User.saveWithSalt = function (req, callback) {
           var user = new User({
             username: username,
             crypted_password: user_crypted_password,
-            salt: user_salt
+            salt: user_salt,
+            team: team,
+            position: position
           });
           user.save(function (err, data) {
             callback.call(null, err, data);

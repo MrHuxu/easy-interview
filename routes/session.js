@@ -14,7 +14,9 @@ router.post('/login', function (req, res) {
         res.status(201).send({
           id: user._id,
           username: user.username,
-          id_token: user.crypted_password
+          id_token: user.crypted_password,
+          team: user.team,
+          position: user.position
         });
       });
     } else if (req.body.token) {
@@ -22,7 +24,9 @@ router.post('/login', function (req, res) {
         res.status(201).send({
           id: user._id,
           username: user.username,
-          id_token: user.crypted_password
+          id_token: user.crypted_password,
+          team: user.team,
+          position: user.position
         });
       });
     }
@@ -35,8 +39,11 @@ router.post('/signup', function (req, res) {
 
     } else {
       res.status(201).send({
+        id: user._id,
         username: user.username,
-        id_token: user.crypted_password
+        id_token: user.crypted_password,
+        team: user.team,
+        position: user.position
       });
     }
   })

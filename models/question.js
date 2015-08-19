@@ -12,6 +12,10 @@ var QuestionSchema = Schema({
     type      : String,
     enum      : ['Campus', 'Social']
   },
+  category    : {
+    type      : String,
+    enum      : ['Algorithms', 'Database', 'Shell']
+  },
   title       : String,
   question    : {
     type      : String,
@@ -27,7 +31,7 @@ QuestionSchema.plugin(timestamp);
 
 var Question = mongoose.model('Question', QuestionSchema);
 
-Question.saveWithCreator = function (args) {
+Question.saveWithCreator = function (args, callback) {
   var question = new Question({
     creator: args.creator_id,
     difficulty: args.difficulty,
@@ -41,7 +45,9 @@ Question.saveWithCreator = function (args) {
     var User = require('./user');
     User.findOne({_id: question.creator}, function (err, user) {
       user.questions.push(question._id);
-      user.save();
+      user.save(function () {
+        callback.call();
+      });
     });
   });
 }

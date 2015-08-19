@@ -1,7 +1,7 @@
 var Home = React.createClass({
   statics: {
     willTransitionTo: function (transition) {
-      if (!LoginStore.isLoggedIn()) {
+      if (!AuthStore.isLoggedIn()) {
         transition.redirect('login');
       }
     }
@@ -13,14 +13,20 @@ var Home = React.createClass({
 
   _getLoginState: function () {
     return {
-      userLoggedIn: LoginStore.isLoggedIn(),
-      username: LoginStore.getUser(),
-      token: LoginStore.getToken()
+      userLoggedIn: AuthStore.isLoggedIn(),
+      username: AuthStore.getUser(),
+      token: AuthStore.getToken()
     };
   },
 
   login: function () {
     this.setState(this._getLoginState());
+  },
+
+  componentDidMount: function () {
+    QuestionActions.get({
+      creator: AuthStore._id
+    });
   },
 
   render: function () {
@@ -35,10 +41,10 @@ var Home = React.createClass({
             <div className='fourteen wide column'>
               <div className='ui grid'>
                 <div className='three wide column'>
-                  <p>Team: Forecasting</p>
+                  <p>Team: {AuthStore._team}</p>
                 </div>
                 <div className='two wide column'>
-                  <p>Position: DEV</p>
+                  <p>Position: {AuthStore._position}</p>
                 </div>
               </div>
             </div>
@@ -48,6 +54,7 @@ var Home = React.createClass({
           </div>
           <div className="ui horizontal divider"><i className="tag icon"></i></div>
           <h5>Go to <strong><Link to='dashboard'>Dashboard</Link></strong> to see all questions!</h5>
+          <QuestionList />
         </div>
       </div>
     );

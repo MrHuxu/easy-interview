@@ -1,42 +1,50 @@
 var Auth = {
-  signup: function (content) {
+  signup: function (args) {
     $.ajax({
       url: '/sessions/signup',
       method: 'POST',
       dataType: 'json',
       data: {
-        username: content.username,
-        password: content.password
+        username: args.username,
+        password: args.password,
+        team: args.team,
+        position: args.position
       }
     }).done(function (data, textStatus, jqXHR) {
-      var id = data.id;
-      var username = data.username;
-      var token = data.id_token;
-      LoginActions.loginUser(id, username, token);
+      AuthActions.loginUser({
+        id: data.id,
+        username: data.username,
+        token: data.id_token,
+        team: data.team,
+        position: data.position
+      });
       return true;
     });
   },
 
-  login: function (content) {
+  login: function (args) {
     $.ajax({
       url: '/sessions/login',
       method: 'POST',
       dataType: 'json',
       data: {
-        username: content.username,
-        password: content.password,
-        token: content.token
+        username: args.username,
+        password: args.password,
+        token: args.token
       }
     }).done(function (data, textStatus, jqXHR) {
-      var id = data.id;
-      var username = data.username;
-      var token = data.id_token;
-      LoginActions.loginUser(id, username, token);
+      AuthActions.loginUser({
+        id: data.id,
+        username: data.username,
+        token: data.id_token,
+        team: data.team,
+        position: data.position
+      });
       return true;
     });
   },
 
   logout: function () {
-    LoginActions.logout();
+    AuthActions.logout();
   }
 };

@@ -13,10 +13,7 @@ var Signup = React.createClass({
 
   signup: function (e) {
     e.preventDefault();
-    Auth.signup({
-      username: this.state.username,
-      password: this.state.password
-    }).catch(function (err) {
+    Auth.signup(this.state).catch(function (err) {
       console.log('Error logging in ', err);
     });;
   },

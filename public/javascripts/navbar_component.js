@@ -4,15 +4,15 @@ var Navbar = React.createClass({
   },
 
   componentDidMount: function () {
-    LoginStore.bind('login', this.login);
+    AuthStore.bind('login', this.login);
   },
 
   componentWillUnmount: function () {
-    LoginStore.unbind('login', this.login);
+    AuthStore.unbind('login', this.login);
   },
 
   login: function () {
-    this.setState({username: LoginStore._username});
+    this.setState({username: AuthStore._username});
   },
 
   logout: function () {
@@ -22,7 +22,7 @@ var Navbar = React.createClass({
 
   render: function () {
     var actionItem;
-    if (LoginStore.isLoggedIn()) {
+    if (AuthStore.isLoggedIn()) {
       actionItem = (
         <div>
           <p>

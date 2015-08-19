@@ -13,8 +13,6 @@ var Login = React.createClass({
     Auth.login({
       username: this.state.username,
       password: this.state.password
-    }).catch(function (err) {
-      console.log('Error logging in ', err);
     });
   },
 
