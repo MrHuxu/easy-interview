@@ -11,7 +11,7 @@ Hackathon project, for easier interview and better FreeWheel!
 
 ### Tech
 
-Mainly written in Javascript, powered by [Nodejs][1] and [Reactjs][2], and use [Bootstrap][3] for UI framework.
+Mainly written in Javascript, powered by [Nodejs][1] and [Reactjs][2], and use [Semantic UI][3] for UI framework.
 
 ### Usage
 
@@ -43,4 +43,4 @@ Mainly written in Javascript, powered by [Nodejs][1] and [Reactjs][2], and use [
 
   [1]: https://nodejs.org/
   [2]: http://facebook.github.io/react/
-  [3]: http://getbootstrap.com/
+  [3]: http://semantic-ui.com/
