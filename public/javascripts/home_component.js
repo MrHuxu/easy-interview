@@ -43,7 +43,7 @@ var Home = React.createClass({
                 <div className='three wide column'>
                   <p>Team: {AuthStore._team}</p>
                 </div>
-                <div className='two wide column'>
+                <div className='three wide column'>
                   <p>Position: {AuthStore._position}</p>
                 </div>
               </div>

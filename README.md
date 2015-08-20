@@ -8,6 +8,7 @@ Hackathon project, for easier interview and better FreeWheel!
 - Qinting Han (PM & QA)
 - Zhongkai Zhao (DEV)
 - Xu Hu (DEV)
+- Xue Zhao (DEV)
 
 ### Tech
 
@@ -19,15 +20,19 @@ Mainly written in Javascript, powered by [Nodejs][1] and [Reactjs][2], and use [
 
         brew install node mongodb
         npm install bower gulp -g
-        
+
 2. Dump this repo and install all dependencies.
 
         git clone https://github.com/MrHuxu/easy-interview easy-interview
         cd easy-interview
         npm install
         cd public && bower install
-        
-3. Use ```gulp``` to watch and start server.
+
+3. Start mongodb as our backend. The default port is 27017.
+
+        mongod
+
+4. Use ```gulp``` to watch and start server.
 
         # under the project directory
         gulp dev
