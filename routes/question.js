@@ -4,8 +4,8 @@ var Question = require('../models/question');
 var User = require('../models/user');
 
 router.post('/new_question', function (req, res) {
-  Question.saveWithCreator(req.body, function () {
-    res.status(201).send();
+  Question.saveWithCreator(req.body, function (err, question) {
+    res.status(201).send({question: question});
   });
 });
 

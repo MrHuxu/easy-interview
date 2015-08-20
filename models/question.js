@@ -43,11 +43,10 @@ Question.saveWithCreator = function (args, callback) {
   });
   question.save(function (err, question) {
     var User = require('./user');
+    callback.call(null, err, question);
     User.findOne({_id: question.creator}, function (err, user) {
       user.questions.push(question._id);
-      user.save(function () {
-        callback.call();
-      });
+      user.save();
     });
   });
 }

@@ -1,14 +1,12 @@
 var QuestionActions = {
   new: function (args) {
-    RouterContainer.get().transitionTo('/home');
     $.ajax({
       type: 'POST',
       url: '/question/new_question',
       data: args,
-      dataType: 'JSON',
-      success: function () {
-        RouterContainer.get().transitionTo('/home');
-      }
+      dataType: 'JSON'
+    }).done(function (data, textStatus, jqXHR) {
+      RouterContainer.get().transitionTo('/home');
     });
   },
 

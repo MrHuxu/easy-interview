@@ -1,7 +1,7 @@
 var Auth = {
   signup: function (args) {
     $.ajax({
-      url: '/sessions/signup',
+      url: '/auth/signup',
       method: 'POST',
       dataType: 'json',
       data: {
@@ -24,7 +24,7 @@ var Auth = {
 
   login: function (args) {
     $.ajax({
-      url: '/sessions/login',
+      url: '/auth/login',
       method: 'POST',
       dataType: 'json',
       data: {

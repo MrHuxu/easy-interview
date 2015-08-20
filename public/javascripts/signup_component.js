@@ -4,8 +4,8 @@ var Signup = React.createClass({
   getInitialState: function () {
     return {
       username: '',
-      team: 'UI',
-      position: 'DEV',
+      team: '',
+      position: '',
       password: '',
       confirmPassword: ''
     };
@@ -13,9 +13,7 @@ var Signup = React.createClass({
 
   signup: function (e) {
     e.preventDefault();
-    Auth.signup(this.state).catch(function (err) {
-      console.log('Error logging in ', err);
-    });;
+    Auth.signup(this.state);
   },
 
   componentDidMount: function () {
