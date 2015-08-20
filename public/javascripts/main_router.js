@@ -23,7 +23,7 @@ var routes = (
   </Route>
 );
 
-var router = Router.create({routes});
+var router = Router.create(routes);
 RouterContainer.set(router);
 
 var username = localStorage.getItem('_easy_interview_username');

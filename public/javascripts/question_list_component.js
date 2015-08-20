@@ -3,7 +3,7 @@ var Question = React.createClass({
     return (
       <tr>
         <td className="collapsing">
-          <div className="ui fitted slider checkbox">
+          <div className="ui fitted toggle checkbox">
             <input type="checkbox"/> <label></label>
           </div>
         </td>

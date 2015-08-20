@@ -5,7 +5,7 @@ var AuthStore = {
   _team: null,
   _position: null,
 
-  _registerToActions(action) {
+  _registerToActions: function (action) {
     switch(action.actionType) {
       case 'LOGIN_USER':
         this._id = action.content.id;

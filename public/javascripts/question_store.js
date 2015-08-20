@@ -1,7 +1,7 @@
 var QuestionStore = {
   _records: [],
 
-  _registerToActions(action) {
+  _registerToActions: function (action) {
     switch(action.actionType) {
       case 'GET_QUESTIONS':
         this._records = action.data;
