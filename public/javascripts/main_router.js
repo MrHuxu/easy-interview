@@ -29,7 +29,7 @@ RouterContainer.set(router);
 var username = localStorage.getItem('_easy_interview_username');
 var token = localStorage.getItem('_easy_interview_token');
 if (username && token) {
-  Auth.login({
+  AuthActions.login({
     username: username,
     token: token
   });

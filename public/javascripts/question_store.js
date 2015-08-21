@@ -4,7 +4,7 @@ var QuestionStore = {
   _registerToActions: function (action) {
     switch(action.actionType) {
       case 'GET_QUESTIONS':
-        this._records = action.data;
+        this._records = action.content;
         this.trigger('load_question');
         break;
       default:

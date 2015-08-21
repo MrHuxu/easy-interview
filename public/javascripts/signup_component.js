@@ -13,7 +13,7 @@ var Signup = React.createClass({
 
   signup: function (e) {
     e.preventDefault();
-    Auth.signup(this.state);
+    AuthActions.signup(this.state);
   },
 
   componentDidMount: function () {
@@ -27,7 +27,6 @@ var Signup = React.createClass({
   },
 
   render: function () {
-    console.log(this.state);
     return (
       <div className='ui three column grid'>
         <div className='column'></div>

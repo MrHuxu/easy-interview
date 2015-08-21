@@ -19,7 +19,7 @@ var Question = React.createClass({
 
 var QuestionList = React.createClass({
   getInitialState: function () {
-    return {questions: []};
+    return {questions: QuestionStore.getQuestions()};
   },
 
   componentDidMount: function () {

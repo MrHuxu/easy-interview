@@ -19,7 +19,7 @@ var QuestionActions = {
     }).done(function (data, textStatus, jqXHR) {
       QuestionDispatcher.dispatch({
         actionType: 'GET_QUESTIONS',
-        data: data
+        content: data
       });
     });
   }

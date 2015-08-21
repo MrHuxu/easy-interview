@@ -3,6 +3,10 @@ var Home = React.createClass({
     willTransitionTo: function (transition) {
       if (!AuthStore.isLoggedIn()) {
         transition.redirect('login');
+        MessageDispatcher.dispatch({
+          actionType: 'REFRESH_MESSAGE',
+          content: ['You must login at first']
+        });
       }
     }
   },

@@ -16,7 +16,7 @@ var Navbar = React.createClass({
   },
 
   logout: function () {
-    Auth.logout();
+    AuthActions.logout();
     this.setState({username: ''});
   },
 
@@ -55,7 +55,8 @@ var Navbar = React.createClass({
               {actionItem}
             </div>
         </div>
-        <RouteHandler/>
+        <Message />
+        <RouteHandler />
       </div>
     );
   }

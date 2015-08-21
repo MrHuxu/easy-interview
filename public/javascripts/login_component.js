@@ -10,7 +10,7 @@ var Login = React.createClass({
 
   login: function (e) {
     e.preventDefault();
-    Auth.login({
+    AuthActions.login({
       username: this.state.username,
       password: this.state.password
     });

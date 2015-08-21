@@ -44,7 +44,7 @@ UserSchema.methods.loginWithPassword = function (password, callback) {
       throw err;
     } else {
       if (hash.toString('hex') === self.crypted_password) {
-        callback.call()
+        callback.call(null, self);
       }
     }
   });
@@ -53,7 +53,7 @@ UserSchema.methods.loginWithPassword = function (password, callback) {
 
 UserSchema.methods.loginWithToken = function (token, callback) {
   if (token === this.crypted_password) {
-    callback.call();
+    callback.call(null, this);
   }
   return;
 }
