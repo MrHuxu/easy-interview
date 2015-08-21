@@ -13,7 +13,14 @@ var Signup = React.createClass({
 
   signup: function (e) {
     e.preventDefault();
-    AuthActions.signup(this.state);
+    if (this.state.password !== this.state.confirmPassword) {
+      MessageDispatcher.dispatch({
+        actionType: 'REFRESH_MESSAGE',
+        content: ['Are you sure you confirmed the password?']
+      });
+    } else {
+      AuthActions.signup(this.state);
+    }
   },
 
   componentDidMount: function () {
