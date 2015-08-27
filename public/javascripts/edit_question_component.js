@@ -1,5 +1,9 @@
-var NewQuestion = React.createClass({
+var EditQuestion = React.createClass({
   mixins: [React.addons.LinkedStateMixin],
+
+  contextTypes: {
+    router: React.PropTypes.func
+  },
 
   statics: {
     willTransitionTo: function (transition) {
@@ -10,10 +14,23 @@ var NewQuestion = React.createClass({
   },
 
   saveQuestion: function () {
-    QuestionActions.new(this.state);
+    var questionId = this.context.router.getCurrentParams().questionId;
+    questionId ? QuestionActions.update({
+      condition: {_id: questionId},
+      content: this.state
+    }) : QuestionActions.new(this.state);
+  },
+
+  loadQuestionContext: function () {
+    QuestionActions.get({
+      _id: this.context.router.getCurrentParams().questionId
+    });
   },
 
   getInitialState: function () {
+    if (this.context.router.getCurrentParams().questionId) {
+      this.loadQuestionContext();
+    }
     return {
       creator_id: AuthStore._id,
       difficulty: 0,
@@ -23,6 +40,11 @@ var NewQuestion = React.createClass({
       question: '',
       anwser: ''
     };
+  },
+
+  loadQuestion: function () {
+    var question = QuestionStore.getQuestions()[0];
+    this.setState(question);
   },
 
   componentDidMount: function () {
@@ -36,6 +58,11 @@ var NewQuestion = React.createClass({
     $('.question-category').dropdown('setting', 'onChange', function (value) {
       self.setState({category: value});
     });
+    QuestionStore.bind('load_question', this.loadQuestion);
+  },
+
+  componentWillUnmount: function () {
+    QuestionStore.unbind('load_question', this.loadQuestion);
   },
 
   render: function () {
@@ -117,8 +144,10 @@ var NewQuestion = React.createClass({
                 <div className='ui piled segment'>
                   <h4 className='ui header'>Title</h4>
                   <p>{this.state.title}</p>
+                  <div className='ui divider'></div>
                   <h4 className='ui header'>Question</h4>
                   <p>{this.state.question}</p>
+                  <div className='ui divider'></div>
                   <h4 className='ui header'>Anwser</h4>
                   <p>{this.state.anwser}</p>
                 </div>

@@ -1,4 +1,8 @@
 var Question = React.createClass({
+  deleteQuestion: function (questionId) {
+    QuestionActions.destroy({_id: questionId});
+  },
+
   render: function () {
     return (
       <tr>
@@ -7,11 +11,12 @@ var Question = React.createClass({
             <input type="checkbox"/> <label></label>
           </div>
         </td>
-        <td>{this.props.attr.title}</td>
+        <td><Link to='edit_question' params={{questionId: this.props.attr.id}}>{this.props.attr.title}</Link></td>
         <td>{this.props.attr.difficulty}</td>
         <td>{this.props.attr.interviewee}</td>
         <td>{this.props.attr.category}</td>
         <td>{this.props.attr.updatedAt}</td>
+        <td><i className="remove circle icon" onClick={this.deleteQuestion.bind(this, this.props.attr.id)}></i></td>
       </tr>
     );
   }
@@ -48,6 +53,7 @@ var QuestionList = React.createClass({
             <th>Interviewee</th>
             <th>Category</th>
             <th>Updated at</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>

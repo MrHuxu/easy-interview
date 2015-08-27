@@ -19,7 +19,8 @@ var routes = (
     <Route name="login" handler={Login}/>
     <Route name="home" handler={Home}/>
     <Route name='signup' handler={Signup}/>
-    <Route name='new_question' path='/quesiton/new' handler={NewQuestion}/>
+    <Route name='new_question' path='/quesiton/new' handler={EditQuestion}/>
+    <Route name='edit_question' path='/question/:questionId/edit' handler={EditQuestion}/>
   </Route>
 );
 

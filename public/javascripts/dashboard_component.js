@@ -1,8 +1,6 @@
 var Dashboard = React.createClass({
   componentDidMount: function () {
-    QuestionActions.get({
-      question_conditions: {}
-    });
+    QuestionActions.get({});
   },
 
   render: function () {
