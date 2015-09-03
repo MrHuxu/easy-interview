@@ -43,9 +43,20 @@ var Signup = React.createClass({
             <div className="ui green segment">
               <form className="ui form">
                 <h4 className="ui dividing header">User Profile</h4>
-                <div className="field">
-                  <label>Name</label>
-                  <input type="text" valueLink={this.linkState('username')}/>
+                <div className="two fields">
+                  <div className="field">
+                    <label>Name</label>
+                    <input type="text" valueLink={this.linkState('username')}/>
+                  </div>
+                  <div className="field">
+                    <label>Username</label>
+                    <div className="ui right labeled input">
+                      <input type="text" placeholder="Enter LDAP ID..."/>
+                      <div className="ui basic label">
+                        @freewheel.tv
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div className='two fields'>
                   <div className='field'>
