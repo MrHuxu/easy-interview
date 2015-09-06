@@ -11,11 +11,13 @@ router.post('/new', function (req, res) {
 
 router.post('/get', function (req, res) {
   Question.find(req.body)
+    .populate('creator')
     .exec(function (err, questions) {
       res.status(201).send(questions.map(function (question) {
         return {
           id: question._id,
           title: question.title,
+          creator: question.creator,
           difficulty: question.difficulty,
           interviewee: question.interviewee,
           category: question.category,

@@ -31,6 +31,10 @@ var AuthStore = {
     return this._username;
   },
 
+  getId: function () {
+    return this._id;
+  },
+
   getToken: function () {
     return this._token;
   },

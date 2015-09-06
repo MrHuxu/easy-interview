@@ -4,6 +4,7 @@ var Question = React.createClass({
   },
 
   render: function () {
+    var hasPermission = this.props.attr.creator._id === AuthStore.getId();
     return (
       <tr>
         <td className="collapsing">
@@ -16,7 +17,9 @@ var Question = React.createClass({
         <td>{this.props.attr.interviewee}</td>
         <td>{this.props.attr.category}</td>
         <td>{this.props.attr.updatedAt}</td>
-        <td><i className="remove circle icon" onClick={this.deleteQuestion.bind(this, this.props.attr.id)}></i></td>
+        <td><i className = {hasPermission ? 'remove circle icon' : 'lock icon'}
+               onClick   = {hasPermission ? this.deleteQuestion.bind(this, this.props.attr.id) : null}>
+            </i></td>
       </tr>
     );
   }
