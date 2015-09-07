@@ -32,7 +32,7 @@ var EditQuestion = React.createClass({
       this.loadQuestionContext();
     }
     return {
-      creator_id: AuthStore._id,
+      creator_id: AuthStore.getId(),
       difficulty: 0,
       interviewee: '',
       category: '',
@@ -45,6 +45,7 @@ var EditQuestion = React.createClass({
   loadQuestion: function () {
     var question = QuestionStore.getQuestions()[0];
     this.setState(question);
+    this.setState({creator_id: question.creator._id});
   },
 
   componentDidMount: function () {
@@ -66,6 +67,7 @@ var EditQuestion = React.createClass({
   },
 
   render: function () {
+    var hasPermission = this.state.creator_id === AuthStore.getId();
     return (
       <div className='ui stackable grid'>
         <div className="ui horizontal divider"></div>
@@ -75,7 +77,8 @@ var EditQuestion = React.createClass({
             <div className='sixteen wide column'>
               <Link to='home' className='ui blue button'>{'<< Back to home'}</Link>
             </div>
-            <div className='eight wide column ui form'>
+            <div className = 'eight wide column ui form'
+                 style     = {{display: hasPermission ? '' : 'none'}}>
               <h3>Input</h3>
               <div className="ui horizontal divider"><i className="write icon"></i></div>
               <div className='field'>
@@ -117,8 +120,9 @@ var EditQuestion = React.createClass({
                 <button type='submit' className='ui button teal' onClick={this.saveQuestion.bind(this)}>Save</button>
               </div>
             </div>
+            <div className='four wide column' style={{display: hasPermission ? 'none' : ''}}></div>
             <div className='eight wide column ui form'>
-              <h3>Preview</h3>
+              <h3>{hasPermission ? 'Preview' : 'Detail'}</h3>
               <div className="ui horizontal divider"><i className="wizard icon"></i></div>
               <div className='six fields'>
                 <div className='field'>

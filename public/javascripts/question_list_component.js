@@ -48,39 +48,7 @@ var QuestionList = React.createClass({
     });
     return (
       <div>
-        <label>Team</label>
-        <select className="ui dropdown signup-team">
-          <option value="">Select Team</option>
-          <option value="UI">UI</option>
-          <option value="Ad Serving">Ad Serving</option>
-          <option value='Forecasting'>Forecasting</option>
-          <option value='Reporting'>Reporting</option>
-        </select>
-        <label>Position</label>
-        <select className="ui dropdown signup-position">
-          <option value="">Select Position</option>
-          <option value='DEV'>DEV</option>
-          <option value='QA'>QA</option>
-        </select>
-        <label>Difficulty</label>
-        <select className="ui dropdown signup-position">
-          <option value="">Select Difficulty</option>
-          <option value='DEV'>1</option>
-          <option value='QA'>2</option>
-        </select>
-        <label>Interviewee</label>
-        <select className="ui dropdown signup-position">
-          <option value="">Select Interviewee</option>
-          <option value='Campus'>Campus</option>
-          <option value='Social'>Social</option>
-        </select>
-        <label>Category</label>
-        <select className="ui dropdown signup-position">
-          <option value="">Select Category</option>
-          <option value='Algorighms'>Algorighms</option>
-          <option value='Database'>Database</option>
-          <option value='Shell'>Shell</option>
-        </select>
+        <QuestionFilter />
         <table className="ui red table">
           <thead>
             <tr>
