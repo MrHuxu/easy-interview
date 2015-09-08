@@ -1,3 +1,4 @@
+var fs = require('fs');
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -15,9 +16,21 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+// log settings
+// output to a file instead of console in production mode
+logger.token('reqBody', function (req) {
+  return ' request: ' + JSON.stringify(req.body);
+});
+if (app.get('env') == 'production') {
+  if (!fs.existsSync('log')) fs.mkdirSync('log');
+  var logFile = fs.createWriteStream('./log/production.log', {flags: 'a'});
+  app.use(logger(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version"  :reqBody :status :res[content-length]', {stream: logFile }));
+} else {
+  app.use(logger(':method :url :reqBody :status :response-time ms - :res[content-length]'));
+}
+
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
