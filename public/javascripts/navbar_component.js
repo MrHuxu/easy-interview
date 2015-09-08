@@ -49,6 +49,8 @@ var Navbar = React.createClass({
             <div className='column'></div>
             <div className='three wide column Logo'>
               <h1>Easy Interview</h1>
+              &nbsp;
+              <img src='/favicon.ico' height='31' width='31'/>
             </div>
             <div className='eight wide column'></div>
             <div className='action-item'>
