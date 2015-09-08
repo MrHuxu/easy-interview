@@ -2,12 +2,19 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel="stylesheet" type="text/css" href="/bower_components/semantic-ui/dist/semantic.min.css">
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <% if (process.env.NODE_ENV === 'production') { %>
+      <link rel="stylesheet" type="text/css" href="/dist/all.min.css">
+    <% } else { %>
+      <link rel="stylesheet" type="text/css" href="/bower_components/semantic-ui/dist/semantic.min.css">
+      <link rel='stylesheet' href='/stylesheets/style.css' />
+    <% } %>
   </head>
   <body>
     <div id="easy-interview"></div>
   </body>
+<% if (process.env.NODE_ENV === 'production') { %>
+  <script type="text/javascript" src="/dist/all.min.js"></script>
+<% } else { %>
   <script type="text/javascript" src="/bower_components/jquery/dist/jquery.js"></script>
   <script type="text/javascript" src="/bower_components/react/react-with-addons.js"></script>
   <script type="text/javascript" src="/bower_components/react/JSXTransformer.js"></script>
@@ -31,4 +38,5 @@
   <script type="text/jsx" src='/javascripts/edit_question_component.js'></script>
   <script type="text/jsx" src="/javascripts/home_component.js"></script>
   <script type="text/jsx" src="/javascripts/main_router.js"></script>
+<% } %>
 </html>

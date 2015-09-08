@@ -8,19 +8,37 @@ var gulp = require('gulp'),
     react = require('gulp-react'),
     shell = require('gulp-shell');
 
+var jsLibs = [
+  './public/bower_components/jquery/dist/jquery.js',
+  './public/bower_components/react/react-with-addons.js',
+  './public/bower_components/react/JSXTransformer.js',
+  './public/bower_components/flux/dist/Flux.js',
+  './public/bower_components/react-router/build/umd/ReactRouter.js',
+  './public/bower_components/semantic-ui/dist/semantic.min.js',
+  './public/bower_components/microevents/microevent.js'
+];
+
+var jsFiles = [
+  './public/javascripts/app_dispatcher.js',
+  './public/javascripts/message_store.js',
+  './public/javascripts/auth_store.js',
+  './public/javascripts/auth_actions.js',
+  './public/javascripts/question_store.js',
+  './public/javascripts/question_actions.js',
+  './public/javascripts/message_component.js',
+  './public/javascripts/navbar_component.js',
+  './public/javascripts/question_filter_component.js',
+  './public/javascripts/question_list_component.js',
+  './public/javascripts/dashboard_component.js',
+  './public/javascripts/signup_component.js',
+  './public/javascripts/login_component.js',
+  './public/javascripts/edit_question_component.js',
+  './public/javascripts/home_component.js',
+  './public/javascripts/main_router.js'
+];
+
 gulp.task('js', function () {
-  gulp.src([
-      './public/bower_components/jquery/dist/jquery.min.js',
-      './public/bower_components/bootstrap/dist/js/bootstrap.min.js',
-      './public/bower_components/react/react.min.js',
-      './public/bower_components/react/JSXTransformer.js',
-      './public/bower_components/react-router/build/umd/ReactRouter.min.js',
-      './public/bower_components/marked/marked.min.js',
-      './public/bower_components/highlightjs/highlight.pack.js',
-      './public/javascripts/common.js',
-      './public/javascripts/*component.js',
-      './public/javascripts/blog_routes.js'
-    ])
+  gulp.src(jsLibs.concat(jsFiles))
     .pipe(react())
     .pipe(concat('all.min.js'))
     .pipe(gulp.dest('./public/dist'))
@@ -30,8 +48,7 @@ gulp.task('js', function () {
 
 gulp.task('css', function () {
   gulp.src([
-      './public/bower_components/highlightjs/styles/tomorrow-night-eighties.css',
-      './public/bower_components/nprogress/nprogress.css',
+      './public/bower_components/semantic-ui/dist/semantic.min.css',
       './public/stylesheets/*.css'
     ])
     .pipe(concatCss('all.min.css'))
@@ -41,7 +58,7 @@ gulp.task('css', function () {
 
 gulp.task('compress', ['js', 'css'], function () {});
 
-gulp.task('prd', shell.task('NODE_ENV=production forever start bin/www'));
+gulp.task('prd', ['compress'], shell.task('NODE_ENV=production forever start bin/www'));
 
 gulp.task('dev', function () {
   nodemon({
