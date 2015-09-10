@@ -98,9 +98,12 @@ var EditQuestion = React.createClass({
                   <label>Category</label>
                   <select className="ui dropdown question-category">
                     <option value=''>Select Category</option>
-                    <option value='Algorithms'>Algorithms</option>
+                    <option value='Algorighms'>Algorighms</option>
+                    <option value='Basic'>Database</option>
                     <option value='Database'>Database</option>
-                    <option value='Shell'>Shell</option>
+                    <option value='Logic'>Database</option>
+                    <option value='Programming'>Database</option>
+                    <option value='Personality'>Database</option>
                   </select>
                 </div>
               </div>
