@@ -27,7 +27,7 @@ var Navbar = React.createClass({
         <div>
           <p>
             Login as &nbsp;
-            <Link to='home'>{this.state.username}</Link> &nbsp;
+            <Link to='update_user'>{this.state.username}</Link> &nbsp;
           </p>
           <button className='ui button red' onClick={this.logout.bind(this)}>Logout</button>
         </div>

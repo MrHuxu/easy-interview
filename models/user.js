@@ -49,14 +49,29 @@ UserSchema.methods.loginWithPassword = function (password, callback) {
     }
   });
   return;
-}
+};
 
 UserSchema.methods.loginWithToken = function (token, callback) {
   if (token === this.crypted_password) {
     callback.call(null, this);
   }
   return;
-}
+};
+
+UserSchema.methods.updatePassword = function (password, callback) {
+  var self = this;
+  crypto.pbkdf2(password, self.salt, 4096, 256, function (err, hash) {
+    if (err) {
+      throw err;
+    } else {
+      var user_crypted_password = hash.toString('hex');
+      self.update({crypted_password: user_crypted_password}, function (err, data) {
+        callback.call(null, err, self);
+      });
+      return;
+    }
+  });
+};
 
 var User = mongoose.model('User', UserSchema);
 

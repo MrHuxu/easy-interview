@@ -1,5 +1,5 @@
-var Signup = React.createClass({
-  signup: function () {
+var UpdateUser = React.createClass({
+  update: function () {
     var userData = arguments[0];
     if (userData.password !== userData.confirmPassword) {
       MessageDispatcher.dispatch({
@@ -7,11 +7,14 @@ var Signup = React.createClass({
         content: ['Are you sure you confirmed the password?']
       });
     } else {
-      AuthActions.signup(userData);
+      AuthActions.update({
+        id   : AuthStore.getId(),
+        data : userData
+      });
     }
   },
 
   render: function () {
-    return <EditUser btnLabel='Signup' action={this.signup.bind(this)}/>;
+    return <EditUser btnLabel='Update' action={this.update.bind(this)}/>;
   }
 });

@@ -17,6 +17,19 @@ var AuthActions = {
     });
   },
 
+  update: function (args) {
+    var self = this;
+    $.ajax({
+      url: '/auth/update',
+      method: 'POST',
+      dataType: 'json',
+      data: JSON.stringify(args)
+    }).done(function (data, textStatus, jqXHR) {
+      self.loginUser(data);
+      return true;
+    });
+  },
+
   login: function (args) {
     var self = this;
     $.ajax({

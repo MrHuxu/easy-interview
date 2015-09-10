@@ -2,11 +2,11 @@ var MessageStore = {
   _messages: [],
 
   addTimeout: function () {
-    clearTimeout();
     var self = this;
     setTimeout(function () {
       self._messages = [];
       self.trigger('refresh');
+      clearTimeout();
     }, 8000);
   },
 

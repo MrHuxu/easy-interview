@@ -14,7 +14,7 @@ var QuestionSchema = Schema({
   },
   category    : {
     type      : String,
-    enum      : ['Algorithms','Basic', 'Database', 'Logic', 'Programming', 'Personality']
+    enum      : ['Algorithms', 'Basic', 'Database', 'Logic', 'Programming', 'Personality']
   },
   title       : String,
   question    : {

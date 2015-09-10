@@ -17,8 +17,9 @@ var routes = (
   <Route handler={Navbar}>
     <Route name='dashboard' path='/' handler={Dashboard}/>
     <Route name="login" handler={Login}/>
-    <Route name="home" handler={Home}/>
     <Route name='signup' handler={Signup}/>
+    <Route name='update_user' handler={UpdateUser}/>
+    <Route name="home" handler={Home}/>
     <Route name='new_question' path='/quesiton/new' handler={EditQuestion}/>
     <Route name='edit_question' path='/question/:questionId/edit' handler={EditQuestion}/>
     <Route name='preview_question' path='/question/:role/view' handler={PreviewQuestion}/>
