@@ -21,7 +21,7 @@ var QuestionSchema = Schema({
     type      : String,
     text      : true
   },
-  anwser      : {
+  answer      : {
     type      : String,
     text      : true
   }
@@ -39,7 +39,7 @@ Question.saveWithCreator = function (args, callback) {
     category: args.category,
     title: args.title,
     question: args.question,
-    anwser: args.anwser
+    answer: args.answer
   });
   question.save(function (err, question) {
     var User = require('./user');

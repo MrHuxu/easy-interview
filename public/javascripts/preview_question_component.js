@@ -3,21 +3,29 @@ var PreviewSingleQuestion = React.createClass({
     var reveal = this.props.role === "interviewer";
     var answer;
     if (reveal) {
-      answer = <div className="ui raised segment"><p>{this.props.attr.anwser}</p></div>;
+      answer = (
+        <div className="ui raised segment">
+          <p><b>Answer:</b></p>
+          <p>{this.props.attr.answer}</p>
+        </div>
+      );
     }
-    return(
+    return (
       <tr>
         <td>
           <div className="ui sizer vertical segment">
-            <div className="ui large header">{this.props.attr.title}</div>
-            <div className="ui raised segment"><p>{this.props.attr.question}</p></div>
+            <div className="ui raised segment">
+              <p><b>Questions:</b></p>
+              <p>{this.props.attr.question}</p>
+            </div>
             {answer}
           </div>
         </td>
       </tr>
-    )
+    );
   }
-})
+});
+
 var PreviewQuestion = React.createClass({
 
 	mixins: [React.addons.LinkedStateMixin],

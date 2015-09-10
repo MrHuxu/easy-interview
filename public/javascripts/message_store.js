@@ -7,7 +7,7 @@ var MessageStore = {
       self._messages = [];
       self.trigger('refresh');
       clearTimeout();
-    }, 8000);
+    }, 10000);
   },
 
   _registerToActions: function (action) {

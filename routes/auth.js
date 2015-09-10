@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var jwt = require('jsonwebtoken');
 var User = require('../models/user');
+var famousSayings = require('../public/resources/famous_saying');
 
 var generateResponse = function (user) {
   return {
@@ -18,7 +19,7 @@ router.post('/login', function (req, res) {
   User.findOne({username: req.body.username}).exec(function (err, user) {
     var callback = function (user) {
       var resContent = generateResponse(user);
-      resContent.messages = ['User ' + user.username + ' successfully login!'];
+      resContent.messages = ['Welcome ' + user.username + ' ! ' + famousSayings[parseInt(Math.random() * 10)]];
       res.status(201).send(resContent);
     };
     if (user) {
