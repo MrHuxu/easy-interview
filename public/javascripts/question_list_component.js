@@ -3,13 +3,17 @@ var Question = React.createClass({
     QuestionActions.destroy({_id: questionId});
   },
 
+  handleChange: function(event) {
+    this.props.handleChange(this.props.attr.id, event.target.checked);
+  },
+
   render: function () {
     var hasPermission = this.props.attr.creator._id === AuthStore.getId();
     return (
       <tr>
         <td className="collapsing">
           <div className="ui fitted toggle checkbox">
-            <input type="checkbox"/> <label></label>
+            <input type="checkbox"  onChange={this.handleChange}/> <label></label>
           </div>
         </td>
         <td><Link to='edit_question' params={{questionId: this.props.attr.id}}>{this.props.attr.title}</Link></td>
@@ -27,11 +31,13 @@ var Question = React.createClass({
 })
 
 var QuestionList = React.createClass({
+
   getInitialState: function () {
     return {questions: QuestionStore.getQuestions()};
   },
 
   componentDidMount: function () {
+    this.previews = [];
     QuestionStore.bind('load_question', this.loadQuestion);
   },
 
@@ -42,10 +48,31 @@ var QuestionList = React.createClass({
   loadQuestion: function () {
     this.setState({questions: QuestionStore.getQuestions()});
   },
+  handleChange: function (id, value) {
+    if (this.previews.indexOf(id) < 0 && value){
+      this.previews.push(id);
+    }else if (this.previews.indexOf(id) >=0){
+      if (!value) {
+        this.previews.splice(this.previews.indexOf(id), 1);
+      }
+    }
+  },
+
+  loadPreview: function () {
+    var query = this.previews.map(function(select){
+                  return {_id: select};
+                });
+    if (query.length > 0) {
+      QuestionActions.get({
+        $or:query 
+      }); 
+    }
+  },
 
   render: function () {
+    var self = this;
     var list = this.state.questions.map(function (question) {
-      return <Question attr={question}/>
+      return <Question attr={question} handleChange={self.handleChange.bind(this)}/>
     });
     return (
       <div>
@@ -67,6 +94,10 @@ var QuestionList = React.createClass({
             {list}
           </tbody>
         </table>
+        <div className='two wide column'>
+            <Link className="ui blue button" to='preview_question' params={{role: "interviewee"}} onClick={this.loadPreview}>View</Link>
+            <Link className="ui blue button" to='preview_question' params={{role: "interviewer"}} onClick={this.loadPreview}>View With Answer</Link>
+        </div>
       </div>
     );
   }
