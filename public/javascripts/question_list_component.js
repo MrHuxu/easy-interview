@@ -1,9 +1,4 @@
 var Question = React.createClass({
-  formatTime: function (input) {
-    var date = new Date(input);
-    return date.toLocaleString();
-  },
-
   deleteQuestion: function (questionId) {
     QuestionActions.destroy({_id: questionId});
   },
@@ -18,10 +13,11 @@ var Question = React.createClass({
           </div>
         </td>
         <td><Link to='edit_question' params={{questionId: this.props.attr.id}}>{this.props.attr.title}</Link></td>
+        <td>{this.props.attr.creator.username}</td>
+        <td>{this.props.attr.creator.position}</td>
         <td>{this.props.attr.difficulty}</td>
         <td>{this.props.attr.interviewee}</td>
         <td>{this.props.attr.category}</td>
-        <td>{this.formatTime.call(null, this.props.attr.updatedAt)}</td>
         <td><i className = {hasPermission ? 'remove circle icon' : 'lock icon'}
                onClick   = {hasPermission ? this.deleteQuestion.bind(this, this.props.attr.id) : null}>
             </i></td>
@@ -59,10 +55,11 @@ var QuestionList = React.createClass({
             <tr>
               <th> </th>
               <th>Title</th>
+              <th>Creator</th>
+              <th>Position</th>
               <th>Difficulty</th>
               <th>Interviewee</th>
               <th>Category</th>
-              <th>Updated at</th>
               <th>Action</th>
             </tr>
           </thead>

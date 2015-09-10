@@ -14,6 +14,11 @@ var MessageStore = {
 
   getMessages: function () {
     return this._messages;
+  },
+
+  deleteMessage: function (message) {
+    var index = this._messages.indexOf(message);
+    this._messages.splice(index, 1);
   }
 };
 

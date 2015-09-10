@@ -9,6 +9,7 @@ var QuestionStore = {
         this.trigger('load_question');
         break;
       case 'UPDATE_QUESTION':
+        RouterContainer.get().transitionTo('/home');
         QuestionActions.get(this.getSearchConditions());
         break;
       case 'DELETE_QUESTION':
