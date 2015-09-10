@@ -22,7 +22,7 @@ router.post('/get', function (req, res) {
           interviewee: question.interviewee,
           category: question.category,
           question: question.question,
-          anwser: question.anwser,
+          answer: question.answer,
           updatedAt: question.updatedAt
         };
       }));

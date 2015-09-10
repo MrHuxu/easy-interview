@@ -38,7 +38,7 @@ var EditQuestion = React.createClass({
       category: '',
       title: '',
       question: '',
-      anwser: ''
+      answer: ''
     };
   },
 
@@ -116,8 +116,8 @@ var EditQuestion = React.createClass({
                 <textarea valueLink={this.linkState('question')}/>
               </div>
               <div className='field'>
-                <label>Anwser</label>
-                <textarea type='text' valueLink={this.linkState('anwser')}/>
+                <label>Answer</label>
+                <textarea type='text' valueLink={this.linkState('answer')}/>
               </div>
               <div className='field'>
                 <button type='submit' className='ui button teal' onClick={this.saveQuestion.bind(this)}>Save</button>
@@ -127,13 +127,10 @@ var EditQuestion = React.createClass({
             <div className='eight wide column ui form'>
               <h3>{hasPermission ? 'Preview' : 'Detail'}</h3>
               <div className="ui horizontal divider"><i className="wizard icon"></i></div>
-              <div className='six fields'>
-                <div className='field'>
-                  <label>Difficulty:</label>
-                </div>
-                <div className='field'>
-                  <p>{this.state.difficulty}</p>
-                </div>
+              <div className='field'>
+                <label>Difficulty: {this.state.difficulty}</label>
+              </div>
+              <div className='four fields'>
                 <div className='field'>
                   <label>Interviewee:</label>
                 </div>
@@ -155,8 +152,8 @@ var EditQuestion = React.createClass({
                   <h4 className='ui header'>Question</h4>
                   <p>{this.state.question}</p>
                   <div className='ui divider'></div>
-                  <h4 className='ui header'>Anwser</h4>
-                  <p>{this.state.anwser}</p>
+                  <h4 className='ui header'>Answer</h4>
+                  <p>{this.state.answer}</p>
                 </div>
               </div>
             </div>

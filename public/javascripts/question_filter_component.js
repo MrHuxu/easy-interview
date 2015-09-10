@@ -45,19 +45,19 @@ var QuestionFilter = React.createClass({
     return (
       <div className="ui menu">
         <a className="item"><i className="filter icon"></i>Filters</a>
-        <select className="ui dropdown compact filter-team item">
+        <select className="ui dropdown filter-team item">
           <option value="">Select Team</option>
           <option value="UI">UI</option>
           <option value="Ad Serving">Ad Serving</option>
           <option value='Forecasting'>Forecasting</option>
           <option value='Reporting'>Reporting</option>
         </select>
-        <select className="ui dropdown compact filter-position item">
+        <select className="ui dropdown filter-position item">
           <option value="">Select Position</option>
           <option value='DEV'>DEV</option>
           <option value='QA'>QA</option>
         </select>
-        <select className="ui pointing dropdown compact filter-difficulty item">
+        <select className="ui pointing dropdown filter-difficulty item">
           <option value="">Select Difficulty</option>
           <option value='1'>1</option>
           <option value='2'>2</option>
@@ -65,14 +65,14 @@ var QuestionFilter = React.createClass({
           <option value='4'>4</option>
           <option value='5'>5</option>
         </select>
-        <select className="ui dropdown compact filter-interviewee">
+        <select className="ui dropdown filter-interviewee">
           <option value="">Select Interviewee</option>
           <option value='Campus'>Campus</option>
           <option value='Social'>Social</option>
         </select>
-        <select className="ui dropdown compact filter-category">
+        <select className="ui dropdown filter-category">
           <option value="">Select Category</option>
-          <option value='Algorighms'>Algorighms</option>
+          <option value='Algorithms'>Algorithms</option>
           <option value='Basic'>Basic</option>
           <option value='Database'>Database</option>
           <option value='Logic'>Logic</option>
