@@ -21,6 +21,7 @@ var routes = (
     <Route name='signup' handler={Signup}/>
     <Route name='new_question' path='/quesiton/new' handler={EditQuestion}/>
     <Route name='edit_question' path='/question/:questionId/edit' handler={EditQuestion}/>
+    <Route name='preview_question' path='/question/:role/view' handler={PreviewQuestion}/>
   </Route>
 );
 

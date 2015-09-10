@@ -30,7 +30,6 @@ var PreviewQuestion = React.createClass({
   	if (this.context.router.getCurrentParams().role) {
       this.role = this.context.router.getCurrentParams().role;
   	}
-    console.log(this.role + ": is this role");
 
     return {
       questions: [],
