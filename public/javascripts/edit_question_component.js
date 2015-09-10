@@ -44,8 +44,8 @@ var EditQuestion = React.createClass({
 
   loadQuestion: function () {
     var question = QuestionStore.getQuestions()[0];
+    this.state.creator_id = question.creator._id;
     this.setState(question);
-    this.setState({creator_id: question.creator._id});
   },
 
   componentDidMount: function () {
