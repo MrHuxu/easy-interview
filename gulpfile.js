@@ -30,9 +30,12 @@ var jsFiles = [
   './public/javascripts/question_filter_component.js',
   './public/javascripts/question_list_component.js',
   './public/javascripts/dashboard_component.js',
+  './public/javascripts/edit_user_component.js',
   './public/javascripts/signup_component.js',
+  './public/javascripts/update_user_component.js',
   './public/javascripts/login_component.js',
   './public/javascripts/edit_question_component.js',
+  './public/javascripts/preview_question_component.js',
   './public/javascripts/home_component.js',
   './public/javascripts/main_router.js'
 ];
