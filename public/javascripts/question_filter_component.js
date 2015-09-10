@@ -73,11 +73,11 @@ var QuestionFilter = React.createClass({
         <select className="ui dropdown compact filter-category">
           <option value="">Select Category</option>
           <option value='Algorighms'>Algorighms</option>
-          <option value='Basic'>Database</option>
+          <option value='Basic'>Basic</option>
           <option value='Database'>Database</option>
-          <option value='Logic'>Database</option>
-          <option value='Programming'>Database</option>
-          <option value='Personality'>Database</option>
+          <option value='Logic'>Logic</option>
+          <option value='Programming'>Programming</option>
+          <option value='Personality'>Personality</option>
         </select>
         <button className = "ui red button item"
                 style     = {{display: this.canCancel() ? '' : 'none'}}
