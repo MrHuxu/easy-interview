@@ -47,12 +47,12 @@ var Navbar = React.createClass({
       <div>
         <div className='ui transparent main menu navbar grid'>
             <div className='column'></div>
-            <div className='three wide column Logo'>
+            <div className='six wide column Logo'>
               <h1>Easy Interview</h1>
               &nbsp;
               <img src='/favicon.ico' height='31' width='31'/>
             </div>
-            <div className='eight wide column'></div>
+            <div className='five wide column'></div>
             <div className='action-item'>
               {actionItem}
             </div>

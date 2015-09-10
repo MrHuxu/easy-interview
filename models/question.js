@@ -32,7 +32,6 @@ QuestionSchema.plugin(timestamp);
 var Question = mongoose.model('Question', QuestionSchema);
 
 Question.saveWithCreator = function (args, callback) {
-  console.log(args.answer);
   var question = new Question({
     creator: args.creator_id,
     difficulty: args.difficulty,

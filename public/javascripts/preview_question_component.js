@@ -51,10 +51,12 @@ var PreviewQuestion = React.createClass({
   },
 
   componentDidMount: function () {
+    $('.action-item').hide();
     QuestionStore.bind('load_question', this.loadQuestion);
   },
 
   componentWillUnmount: function () {
+    $('.action-item').show();
     QuestionStore.unbind('load_question', this.loadQuestion);
   },
 
