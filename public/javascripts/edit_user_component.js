@@ -75,7 +75,7 @@ var EditUser = React.createClass({
                   <input type='password' valueLink={this.linkState('confirmPassword')}/>
                 </div>
                 <div className='field'>
-                  <button className='ui blue button small' type="submit" onClick={this.props.action.bind(null, this.state)}>{this.props.btnLabel}</button>
+                  <button className='ui blue button small' onClick={this.props.action.bind(null, this.state)}>{this.props.btnLabel}</button>
                 </div>
               </form>
             </div>

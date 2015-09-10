@@ -8,7 +8,7 @@ var Question = React.createClass({
   },
 
   render: function () {
-    var hasPermission = this.props.attr.creator._id === AuthStore.getId();
+    var hasPermission = this.props.attr.creator && this.props.attr.creator._id === AuthStore.getId();
     return (
       <tr>
         <td className="collapsing">
@@ -66,12 +66,12 @@ var QuestionList = React.createClass({
       QuestionActions.get({
         $or:query 
       }); 
-    }
+    }user_salt
   },
 
   render: function () {
     var self = this;
-    var list = this.state.questions.map(function (question) {
+    var list = this.state.questions.length === 0 ? [] : this.state.questions.map(function (question) {
       return <Question attr={question} handleChange={self.handleChange.bind(this)}/>
     });
     return (
