@@ -29,7 +29,7 @@ router.post('/get', function (req, res) {
     });
 });
 
-router.post('/update', function (req, res) {
+router.put('/update', function (req, res) {
   Question.update(req.body.condition, req.body.content, function (err) {
     if (err) {
       res.status(500).send(err);
@@ -41,7 +41,7 @@ router.post('/update', function (req, res) {
   })
 });
 
-router.post('/destroy', function (req, res) {
+router.delete('/destroy', function (req, res) {
   Question.remove(req.body, function (err) {
     if (err) {
       res.status(500).send(err);

@@ -28,22 +28,22 @@ var PreviewSingleQuestion = React.createClass({
 
 var PreviewQuestion = React.createClass({
 
-	mixins: [React.addons.LinkedStateMixin],
+  mixins: [React.addons.LinkedStateMixin],
 
-	contextTypes: {
-  	router: React.PropTypes.func
-	},
+  contextTypes: {
+    router: React.PropTypes.func
+  },
 
-	getInitialState: function () {
-  	if (this.context.router.getCurrentParams().role) {
+  getInitialState: function () {
+    if (this.context.router.getCurrentParams().role) {
       this.role = this.context.router.getCurrentParams().role;
-  	}
+    }
 
     return {
       questions: [],
       role: this.role
     };
-	},
+  },
 
   loadQuestion: function () {
     var question_previews = QuestionStore.getQuestions();
@@ -60,23 +60,23 @@ var PreviewQuestion = React.createClass({
     QuestionStore.unbind('load_question', this.loadQuestion);
   },
 
-	render: function () {
+  render: function () {
     var owner = this;
     var list = this.state.questions.map(function (question) {
       return <PreviewSingleQuestion attr={question} role={owner.state.role}/>
     });
-		return(
+    return (
       <div className="ui grid">
         <div className="two wide column"/>
         <div className="twelve wide column">
-        <table className="ui table ">
-          <tbody>
-            {list}
-          </tbody>
-        </table>
+          <table className="ui table ">
+            <tbody>
+              {list}
+            </tbody>
+          </table>
         </div>
-        <div className="two wide column"/>      
+        <div className="two wide column"/>
       </div>
-		);
-	}
+    );
+  }
 })

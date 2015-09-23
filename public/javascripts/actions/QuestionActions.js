@@ -29,7 +29,7 @@ var QuestionActions = {
 
   update: function (args) {
     $.ajax({
-      type: 'POST',
+      type: 'PUT',
       url: '/question/update',
       data: JSON.stringify(args),
       contentType: 'application/json',
@@ -43,7 +43,7 @@ var QuestionActions = {
 
   destroy: function (args) {
     $.ajax({
-      type: 'POST',
+      type: 'DELETE',
       url: '/question/destroy',
       data: JSON.stringify(args),
       contentType: 'application/json',

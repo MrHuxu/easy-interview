@@ -56,7 +56,7 @@ router.post('/signup', function (req, res) {
   })
 });
 
-router.post('/update', function (req, res) {
+router.put('/update', function (req, res) {
   var reqData = JSON.parse(Object.keys(req.body)[0]);
   User.findOneAndUpdate({_id: reqData.id}, reqData.data, function (err, user) {
     user.updatePassword(reqData.data.password, function (error, user) {

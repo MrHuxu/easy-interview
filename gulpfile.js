@@ -19,25 +19,25 @@ var jsLibs = [
 ];
 
 var jsFiles = [
-  './public/javascripts/app_dispatcher.js',
-  './public/javascripts/message_store.js',
-  './public/javascripts/auth_store.js',
-  './public/javascripts/auth_actions.js',
-  './public/javascripts/question_store.js',
-  './public/javascripts/question_actions.js',
-  './public/javascripts/message_component.js',
-  './public/javascripts/navbar_component.js',
-  './public/javascripts/question_filter_component.js',
-  './public/javascripts/question_list_component.js',
-  './public/javascripts/dashboard_component.js',
-  './public/javascripts/edit_user_component.js',
-  './public/javascripts/signup_component.js',
-  './public/javascripts/update_user_component.js',
-  './public/javascripts/login_component.js',
-  './public/javascripts/edit_question_component.js',
-  './public/javascripts/preview_question_component.js',
-  './public/javascripts/home_component.js',
-  './public/javascripts/main_router.js'
+  '/javascripts/dispatcher/AppDispatcher.js',
+  '/javascripts/stores/MessageStore.js',
+  '/javascripts/stores/AuthStore.js',
+  '/javascripts/actions/AuthActions.js',
+  '/javascripts/stores/QuestionStore.js',
+  '/javascripts/actions/QuestionActions.js',
+  '/javascripts/components/Message.react.js',
+  '/javascripts/components/Navbar.react.js',
+  '/javascripts/components/QuestionFilter.react.js',
+  '/javascripts/components/QuestionList.react.js',
+  '/javascripts/components/Dashboard.react.js',
+  '/javascripts/components/EditUser.react.js',
+  '/javascripts/components/Signup.react.js',
+  '/javascripts/components/UpdateUser.react.js',
+  '/javascripts/components/Login.react.js',
+  '/javascripts/components/EditQuestion.react.js',
+  '/javascripts/components/PreviewQuestion.react.js',
+  '/javascripts/components/Home.react.js',
+  '/javascripts/app.js'
 ];
 
 gulp.task('js', function () {

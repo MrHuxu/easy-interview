@@ -21,7 +21,7 @@ var AuthActions = {
     var self = this;
     $.ajax({
       url: '/auth/update',
-      method: 'POST',
+      method: 'PUT',
       dataType: 'json',
       data: JSON.stringify(args)
     }).done(function (data, textStatus, jqXHR) {
