@@ -12,6 +12,7 @@ router.post('/new', function (req, res) {
 router.post('/get', function (req, res) {
   Question.find(req.body)
     .populate('creator', 'username team position')
+    .sort({updatedAt: 'desc'})
     .exec(function (err, questions) {
       res.status(201).send(questions.map(function (question) {
         return {
