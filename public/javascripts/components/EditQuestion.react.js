@@ -150,10 +150,10 @@ var EditQuestion = React.createClass({
                   <p>{this.state.title}</p>
                   <div className='ui divider'></div>
                   <h4 className='ui header'>Question</h4>
-                  <p>{this.state.question}</p>
+                  <span dangerouslySetInnerHTML={{__html: marked(this.state.question)}} />
                   <div className='ui divider'></div>
                   <h4 className='ui header'>Answer</h4>
-                  <p>{this.state.answer}</p>
+                  <span dangerouslySetInnerHTML={{__html: marked(this.state.answer)}} />
                 </div>
               </div>
             </div>

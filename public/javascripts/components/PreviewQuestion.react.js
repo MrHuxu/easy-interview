@@ -6,7 +6,7 @@ var PreviewSingleQuestion = React.createClass({
       answer = (
         <div className="ui raised segment">
           <p><b>Answer:</b></p>
-          <p>{this.props.attr.answer}</p>
+          <span dangerouslySetInnerHTML={{__html: marked(this.props.attr.answer)}} />
         </div>
       );
     }
@@ -16,7 +16,7 @@ var PreviewSingleQuestion = React.createClass({
           <div className="ui sizer vertical segment">
             <div className="ui raised segment">
               <p><b>Questions:</b></p>
-              <p>{this.props.attr.question}</p>
+              <span dangerouslySetInnerHTML={{__html: marked(this.props.attr.question)}} />
             </div>
             {answer}
           </div>

@@ -15,29 +15,30 @@ var jsLibs = [
   './public/bower_components/flux/dist/Flux.js',
   './public/bower_components/react-router/build/umd/ReactRouter.js',
   './public/bower_components/semantic-ui/dist/semantic.min.js',
-  './public/bower_components/microevents/microevent.js'
+  './public/bower_components/microevents/microevent.js',
+  './public/bower_components/marked/marked.min.js'
 ];
 
 var jsFiles = [
-  '/javascripts/dispatcher/AppDispatcher.js',
-  '/javascripts/stores/MessageStore.js',
-  '/javascripts/stores/AuthStore.js',
-  '/javascripts/actions/AuthActions.js',
-  '/javascripts/stores/QuestionStore.js',
-  '/javascripts/actions/QuestionActions.js',
-  '/javascripts/components/Message.react.js',
-  '/javascripts/components/Navbar.react.js',
-  '/javascripts/components/QuestionFilter.react.js',
-  '/javascripts/components/QuestionList.react.js',
-  '/javascripts/components/Dashboard.react.js',
-  '/javascripts/components/EditUser.react.js',
-  '/javascripts/components/Signup.react.js',
-  '/javascripts/components/UpdateUser.react.js',
-  '/javascripts/components/Login.react.js',
-  '/javascripts/components/EditQuestion.react.js',
-  '/javascripts/components/PreviewQuestion.react.js',
-  '/javascripts/components/Home.react.js',
-  '/javascripts/app.js'
+  './public/javascripts/dispatcher/AppDispatcher.js',
+  './public/javascripts/stores/MessageStore.js',
+  './public/javascripts/stores/AuthStore.js',
+  './public/javascripts/actions/AuthActions.js',
+  './public/javascripts/stores/QuestionStore.js',
+  './public/javascripts/actions/QuestionActions.js',
+  './public/javascripts/components/Message.react.js',
+  './public/javascripts/components/Navbar.react.js',
+  './public/javascripts/components/QuestionFilter.react.js',
+  './public/javascripts/components/QuestionList.react.js',
+  './public/javascripts/components/Dashboard.react.js',
+  './public/javascripts/components/EditUser.react.js',
+  './public/javascripts/components/Signup.react.js',
+  './public/javascripts/components/UpdateUser.react.js',
+  './public/javascripts/components/Login.react.js',
+  './public/javascripts/components/EditQuestion.react.js',
+  './public/javascripts/components/PreviewQuestion.react.js',
+  './public/javascripts/components/Home.react.js',
+  './public/javascripts/app.js'
 ];
 
 gulp.task('js', function () {
