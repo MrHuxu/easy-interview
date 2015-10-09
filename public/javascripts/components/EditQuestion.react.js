@@ -68,6 +68,54 @@ var EditQuestion = React.createClass({
 
   render: function () {
     var hasPermission = this.state.creator_id === AuthStore.getId();
+    var editArea = hasPermission ? (
+      <div className = 'eight wide column ui form'>
+        <h3>Input</h3>
+        <div className="ui horizontal divider"><i className="write icon"></i></div>
+        <div className='field'>
+          <label>Difficulty</label>
+          <div className="ui star rating" data-max-rating="5"></div>
+        </div>
+        <div className='two fields'>
+          <div className='field'>
+            <label>Interviewee</label>
+            <select className="ui dropdown question-interviewee">
+              <option value=''>Select Interviewee</option>
+              <option value='Campus'>Campus</option>
+              <option value='Social'>Social</option>
+            </select>
+          </div>
+          <div className='field'>
+            <label>Category</label>
+            <select className="ui dropdown question-category">
+              <option value=''>Select Category</option>
+              <option value='Algorithms'>Algorithms</option>
+              <option value='Basic'>Basic</option>
+              <option value='Database'>Database</option>
+              <option value='Logic'>Logic</option>
+              <option value='Programming'>Programming</option>
+              <option value='Personality'>Personality</option>
+            </select>
+          </div>
+        </div>
+        <div className='field'>
+          <label>Title</label>
+          <input type='text' valueLink={this.linkState('title')}/>
+        </div>
+        <div className='field'>
+          <label>Question</label>
+          <textarea valueLink={this.linkState('question')}/>
+        </div>
+        <div className='field'>
+          <label>Answer</label>
+          <textarea type='text' valueLink={this.linkState('answer')}/>
+        </div>
+        <div className='field'>
+          <button type='submit' className='ui button teal' onClick={this.saveQuestion.bind(this)}>Save</button>
+        </div>
+      </div>
+    ) : (<div className='four wide column' />);
+
     return (
       <div className='ui stackable grid'>
         <div className="ui horizontal divider"></div>
@@ -75,55 +123,9 @@ var EditQuestion = React.createClass({
         <div className='ten wide column'>
           <div className='ui grid'>
             <div className='sixteen wide column'>
-              <Link to='home' className='ui blue button'>{'<< Back to home'}</Link>
+              <button className='ui blue button' onClick={router.goBack}>{'<< Back'}</button>
             </div>
-            <div className = 'eight wide column ui form'
-                 style     = {{display: hasPermission ? '' : 'none'}}>
-              <h3>Input</h3>
-              <div className="ui horizontal divider"><i className="write icon"></i></div>
-              <div className='field'>
-                <label>Difficulty</label>
-                <div className="ui star rating" data-max-rating="5"></div>
-              </div>
-              <div className='two fields'>
-                <div className='field'>
-                  <label>Interviewee</label>
-                  <select className="ui dropdown question-interviewee">
-                    <option value=''>Select Interviewee</option>
-                    <option value='Campus'>Campus</option>
-                    <option value='Social'>Social</option>
-                  </select>
-                </div>
-                <div className='field'>
-                  <label>Category</label>
-                  <select className="ui dropdown question-category">
-                    <option value=''>Select Category</option>
-                    <option value='Algorithms'>Algorithms</option>
-                    <option value='Basic'>Basic</option>
-                    <option value='Database'>Database</option>
-                    <option value='Logic'>Logic</option>
-                    <option value='Programming'>Programming</option>
-                    <option value='Personality'>Personality</option>
-                  </select>
-                </div>
-              </div>
-              <div className='field'>
-                <label>Title</label>
-                <input type='text' valueLink={this.linkState('title')}/>
-              </div>
-              <div className='field'>
-                <label>Question</label>
-                <textarea valueLink={this.linkState('question')}/>
-              </div>
-              <div className='field'>
-                <label>Answer</label>
-                <textarea type='text' valueLink={this.linkState('answer')}/>
-              </div>
-              <div className='field'>
-                <button type='submit' className='ui button teal' onClick={this.saveQuestion.bind(this)}>Save</button>
-              </div>
-            </div>
-            <div className='four wide column' style={{display: hasPermission ? 'none' : ''}}></div>
+            {editArea}
             <div className='eight wide column ui form'>
               <h3>{hasPermission ? 'Preview' : 'Detail'}</h3>
               <div className="ui horizontal divider"><i className="wizard icon"></i></div>
