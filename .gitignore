@@ -4,3 +4,4 @@ log/
 /public/dist/all.min.js
 /public/dist/all.min.css
 /public/built
+public/.DS_Store

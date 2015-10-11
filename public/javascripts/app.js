@@ -5,7 +5,7 @@ var React = require('react');
 var Router = require('react-router');
 var Route = Router.Route;
 var RouteHandler = Router.RouteHandler;
-var routes = require('./routes').routes;
+var routes = require('./router/routes');
 
 var AuthActions = require('./actions/AuthActions');
 

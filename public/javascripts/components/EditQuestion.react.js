@@ -129,7 +129,7 @@ var EditQuestion = React.createClass({
         <div className='ten wide column'>
           <div className='ui grid'>
             <div className='sixteen wide column'>
-              <button className='ui blue button' onClick={router.goBack}>{'<< Back'}</button>
+              <button className='ui blue button' onClick={this.context.router.goBack}>{'<< Back'}</button>
             </div>
             {editArea}
             <div className='eight wide column ui form'>

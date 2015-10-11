@@ -1,8 +1,7 @@
 var $ = require('jquery');
 var QuestionDispatcher = require('../dispatcher/AppDispatcher').QuestionDispatcher;
 var QuestionStore = require('../stores/QuestionStore');
-var test = require('../events');
-var RouterContainer = require('../routes').RouterContainer;
+var RouterContainer = require('../router/RouterContainer');
 
 var QuestionActions = {
   new: function (args) {

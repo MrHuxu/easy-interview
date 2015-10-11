@@ -2,7 +2,7 @@ var $ = require('jquery');
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var AuthDispatcher = AppDispatcher.AuthDispatcher;
 var MessageDispatcher = AppDispatcher.MessageDispatcher;
-var RouterContainer = require('../routes').RouterContainer;
+var RouterContainer = require('../router/RouterContainer');
 
 var AuthActions = {
   signup: function (args) {
