@@ -1,3 +1,7 @@
-var AuthDispatcher = new Flux.Dispatcher();
-var QuestionDispatcher = new Flux.Dispatcher();
-var MessageDispatcher = new Flux.Dispatcher();
+var Flux = require('flux');
+
+module.exports = {
+  AuthDispatcher     : new Flux.Dispatcher(),
+  QuestionDispatcher : new Flux.Dispatcher(),
+  MessageDispatcher  : new Flux.Dispatcher()
+};

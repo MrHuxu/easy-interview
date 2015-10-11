@@ -1,33 +1,13 @@
-var Router = ReactRouter;
+require('../bower_components/semantic-ui/dist/semantic.min.css');
+require('../stylesheets/style.css');
+
+var React = require('react');
+var Router = require('react-router');
 var Route = Router.Route;
 var RouteHandler = Router.RouteHandler;
-var Link = Router.Link;
+var routes = require('./routes').routes;
 
-var RouterContainer = {
-  set: function (router) {
-    this._router = router;
-  },
-
-  get: function () {
-    return this._router;
-  }
-}
-
-var routes = (
-  <Route handler={Navbar}>
-    <Route name='dashboard' path='/' handler={Dashboard}/>
-    <Route name="login" handler={Login}/>
-    <Route name='signup' handler={Signup}/>
-    <Route name='update_user' handler={UpdateUser}/>
-    <Route name="home" handler={Home}/>
-    <Route name='new_question' path='/quesiton/new' handler={EditQuestion}/>
-    <Route name='edit_question' path='/question/:questionId/edit' handler={EditQuestion}/>
-    <Route name='preview_question' path='/question/:role/view' handler={PreviewQuestion}/>
-  </Route>
-);
-
-var router = Router.create(routes);
-RouterContainer.set(router);
+var AuthActions = require('./actions/AuthActions');
 
 var username = localStorage.getItem('_easy_interview_username');
 var token = localStorage.getItem('_easy_interview_token');
@@ -38,7 +18,6 @@ if (username && token) {
   });
 }
 
-Router.run(routes, function (Handler) {
-//Router.run(routes, Router.HistoryLocation, function (Handler) {
+Router.run(routes, function (Handler, state) {
   React.render(<Handler />, document.getElementById('easy-interview'));
 });

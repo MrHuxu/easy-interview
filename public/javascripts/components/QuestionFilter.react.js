@@ -1,3 +1,10 @@
+var React = require('react/addons');
+var $ = require('jquery');
+window.jQuery = $; // Assure it's available globally.
+var semantic = require('../../bower_components/semantic-ui/dist/semantic.min.js');
+var QuestionActions = require('../actions/QuestionActions');
+var QuestionStore = require('../stores/QuestionStore');
+
 var QuestionFilter = React.createClass({
   searchConditionKyes: ['team', 'position', 'difficulty', 'interviewee', 'category'],
   searchConditions: {},
@@ -85,6 +92,8 @@ var QuestionFilter = React.createClass({
           <i className='remove icon'></i>
         </button>
       </div>
-    )
+    );
   }
 });
+
+module.exports = QuestionFilter;

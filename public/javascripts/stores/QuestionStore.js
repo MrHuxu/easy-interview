@@ -1,3 +1,7 @@
+var MicroEvent = require('microevent');
+var QuestionDispatcher = require('../dispatcher/AppDispatcher').QuestionDispatcher;
+var QuestionEvent = require('../events').QuestionEvent;
+
 var QuestionStore = {
   _records: [],
   _searchConditions: {},
@@ -6,7 +10,7 @@ var QuestionStore = {
     switch(action.actionType) {
       case 'GET_QUESTIONS':
         this._records = action.content;
-        this.trigger('load_question');
+        QuestionEvent.emit('load_question');
         break;
       case 'UPDATE_QUESTION':
         RouterContainer.get().transitionTo('/home');
@@ -29,6 +33,6 @@ var QuestionStore = {
   }
 };
 
-MicroEvent.mixin(QuestionStore);
-
 QuestionDispatcher.register(QuestionStore._registerToActions.bind(QuestionStore));
+
+module.exports = QuestionStore;

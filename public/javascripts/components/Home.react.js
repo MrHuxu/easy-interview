@@ -1,3 +1,13 @@
+var React = require('react/addons');
+var $ = require('jquery');
+window.jQuery = $; // Assure it's available globally.
+var semantic = require('../../bower_components/semantic-ui/dist/semantic.min.js');
+var QuestionList = require('./QuestionList.react');
+var MessageDispatcher = require('../dispatcher/AppDispatcher').MessageDispatcher;
+var AuthStore = require('../stores/AuthStore');
+var QuestionActions = require('../actions/QuestionActions');
+var Link = require('react-router').Link;
+
 var Home = React.createClass({
   statics: {
     willTransitionTo: function (transition) {
@@ -63,5 +73,6 @@ var Home = React.createClass({
       </div>
     );
   }
+});
 
-})
+module.exports = Home;

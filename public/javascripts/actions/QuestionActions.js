@@ -1,3 +1,9 @@
+var $ = require('jquery');
+var QuestionDispatcher = require('../dispatcher/AppDispatcher').QuestionDispatcher;
+var QuestionStore = require('../stores/QuestionStore');
+var test = require('../events');
+var RouterContainer = require('../routes').RouterContainer;
+
 var QuestionActions = {
   new: function (args) {
     $.ajax({
@@ -54,4 +60,6 @@ var QuestionActions = {
       });
     })
   }
-}
+};
+
+module.exports = QuestionActions;

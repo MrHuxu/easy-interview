@@ -1,3 +1,7 @@
+var MicroEvent = require('microevent');
+var MessageDispatcher = require('../dispatcher/AppDispatcher').MessageDispatcher;
+var MessageEvent = require('../events').MessageEvent;
+
 var MessageStore = {
   _messages: [],
 
@@ -5,7 +9,7 @@ var MessageStore = {
     var self = this;
     setTimeout(function () {
       self._messages = [];
-      self.trigger('refresh');
+      MessageEvent.emit('refresh');
       clearTimeout();
     }, 10000);
   },
@@ -15,7 +19,7 @@ var MessageStore = {
       case 'REFRESH_MESSAGE' :
         this._messages = action.content;
         if (this._messages.length) this.addTimeout();
-        this.trigger('refresh');
+        MessageEvent.emit('refresh');
         break;
       default:
         break;
@@ -32,6 +36,6 @@ var MessageStore = {
   }
 };
 
-MicroEvent.mixin(MessageStore);
-
 MessageDispatcher.register(MessageStore._registerToActions.bind(MessageStore));
+
+module.exports = MessageStore;

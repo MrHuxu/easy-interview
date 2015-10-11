@@ -3,45 +3,13 @@
   <head>
     <link type="image/x-icon" rel=icon href="/favicon.ico">
     <title><%= title %></title>
-    <% if (process.env.NODE_ENV === 'production') { %>
-      <link rel="stylesheet" type="text/css" href="/dist/all.min.css">
-    <% } else { %>
-      <link rel="stylesheet" type="text/css" href="/bower_components/semantic-ui/dist/semantic.min.css">
-      <link rel="stylesheet" href="/stylesheets/style.css" />
-    <% } %>
   </head>
   <body>
     <div id="easy-interview"></div>
   </body>
 <% if (process.env.NODE_ENV === 'production') { %>
-  <script type="text/javascript" src="/dist/all.min.js"></script>
+  <script type="text/javascript" src="/built/bundle.js"></script>
 <% } else { %>
-  <script type="text/javascript" src="/bower_components/jquery/dist/jquery.js"></script>
-  <script type="text/javascript" src="/bower_components/react/react-with-addons.js"></script>
-  <script type="text/javascript" src="/bower_components/react/JSXTransformer.js"></script>
-  <script type="text/javascript" src="/bower_components/flux/dist/Flux.js"></script>
-  <script type="text/javascript" src="/bower_components/react-router/build/umd/ReactRouter.js"></script>
-  <script type="text/javascript" src="/bower_components/semantic-ui/dist/semantic.min.js"></script>
-  <script type="text/javascript" src="/bower_components/microevents/microevent.js"></script>
-  <script type="text/javascript" src="/bower_components/marked/marked.min.js"></script>
-  <script type="text/javascript" src="/javascripts/dispatcher/AppDispatcher.js"></script>
-  <script type="text/javascript" src="/javascripts/stores/MessageStore.js"></script>
-  <script type="text/javascript" src="/javascripts/stores/AuthStore.js"></script>
-  <script type="text/javascript" src="/javascripts/actions/AuthActions.js"></script>
-  <script type="text/javascript" src="/javascripts/stores/QuestionStore.js"></script>
-  <script type="text/javascript" src="/javascripts/actions/QuestionActions.js"></script>
-  <script type="text/jsx" src="/javascripts/components/Message.react.js"></script>
-  <script type="text/jsx" src="/javascripts/components/Navbar.react.js"></script>
-  <script type="text/jsx" src="/javascripts/components/QuestionFilter.react.js"></script>
-  <script type="text/jsx" src="/javascripts/components/QuestionList.react.js"></script>
-  <script type="text/jsx" src="/javascripts/components/Dashboard.react.js"></script>
-  <script type="text/jsx" src="/javascripts/components/EditUser.react.js"></script>
-  <script type="text/jsx" src="/javascripts/components/Signup.react.js"></script>
-  <script type="text/jsx" src="/javascripts/components/UpdateUser.react.js"></script>
-  <script type="text/jsx" src="/javascripts/components/Login.react.js"></script>
-  <script type="text/jsx" src="/javascripts/components/EditQuestion.react.js"></script>
-  <script type="text/jsx" src="/javascripts/components/PreviewQuestion.react.js"></script>
-  <script type="text/jsx" src="/javascripts/components/Home.react.js"></script>
-  <script type="text/jsx" src="/javascripts/app.js"></script>
+  <script type="text/javascript" src="http://localhost:8080/built/bundle.js"></script>
 <% } %>
 </html>

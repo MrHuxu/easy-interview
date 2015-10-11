@@ -1,3 +1,13 @@
+var React = require('react/addons');
+var $ = require('jquery');
+window.jQuery = $; // Assure it's available globally.
+var semantic = require('../../bower_components/semantic-ui/dist/semantic.min.js');
+var marked = require('marked');
+var AuthStore = require('../stores/AuthStore');
+var QuestionActions = require('../actions/QuestionActions');
+var QuestionStore = require('../stores/QuestionStore');
+var QuestionEvent = require('../events').QuestionEvent;
+
 var EditQuestion = React.createClass({
   mixins: [React.addons.LinkedStateMixin],
 
@@ -59,11 +69,7 @@ var EditQuestion = React.createClass({
     $('.question-category').dropdown('setting', 'onChange', function (value) {
       self.setState({category: value});
     });
-    QuestionStore.bind('load_question', this.loadQuestion);
-  },
-
-  componentWillUnmount: function () {
-    QuestionStore.unbind('load_question', this.loadQuestion);
+    QuestionEvent.on('load_question', this.loadQuestion);
   },
 
   render: function () {
@@ -164,4 +170,6 @@ var EditQuestion = React.createClass({
       </div>
     );
   }
-})
+});
+
+module.exports = EditQuestion;

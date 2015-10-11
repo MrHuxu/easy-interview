@@ -1,3 +1,7 @@
+var MicroEvent = require('microevent');
+var AuthDispatcher = require('../dispatcher/AppDispatcher').AuthDispatcher;
+var AuthEvent = require('../events').AuthEvent;
+
 var AuthStore = {
   _id: null,
   _username: null,
@@ -13,7 +17,7 @@ var AuthStore = {
         this._token = action.content.token;
         this._team = action.content.team;
         this._position = action.content.position;
-        this.trigger('login');
+        AuthEvent.emit('login');
         break;
       case 'LOGOUT_USER':
         this._id = null;
@@ -44,6 +48,6 @@ var AuthStore = {
   }
 };
 
-MicroEvent.mixin(AuthStore);
-
 AuthDispatcher.register(AuthStore._registerToActions.bind(AuthStore));
+
+module.exports = AuthStore;

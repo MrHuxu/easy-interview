@@ -1,14 +1,17 @@
+var React = require('react/addons');
+var $ = require('jquery');
+window.jQuery = $; // Assure it's available globally.
+var semantic = require('../../bower_components/semantic-ui/dist/semantic.min.js');
+var MessageStore = require('../stores/MessageStore');
+var MessageEvent = require('../events').MessageEvent;
+
 var Message = React.createClass({
   getInitialState: function () {
     return {messages: []};
   },
 
   componentDidMount: function () {
-    MessageStore.bind('refresh', this.refreshMessages);
-  },
-
-  componentWillUnmount: function () {
-    MessageStore.unbind('refresh', this.refreshMessages);
+    MessageEvent.on('refresh', this.refreshMessages);
   },
 
   componentDidUpdate: function () {
@@ -31,12 +34,15 @@ var Message = React.createClass({
           </div>
         </div>
       );
-    })
+    });
+
     return (
       <div>
         {messageItems}
         <br />
       </div>
-    )
+    );
   }
 });
+
+module.exports = Message;

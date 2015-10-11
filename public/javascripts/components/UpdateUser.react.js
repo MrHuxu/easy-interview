@@ -1,3 +1,8 @@
+var React = require('react/addons');
+var EditUser = require('./EditUser.react');
+var AuthActions = require('../actions/AuthActions');
+var MessageDispatcher = require('../dispatcher/AppDispatcher').MessageDispatcher;
+
 var UpdateUser = React.createClass({
   update: function () {
     var userData = arguments[0];
@@ -18,3 +23,5 @@ var UpdateUser = React.createClass({
     return <EditUser btnLabel='Update' action={this.update.bind(this)}/>;
   }
 });
+
+module.exports = UpdateUser;

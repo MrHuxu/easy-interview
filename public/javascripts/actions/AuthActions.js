@@ -1,3 +1,9 @@
+var $ = require('jquery');
+var AppDispatcher = require('../dispatcher/AppDispatcher');
+var AuthDispatcher = AppDispatcher.AuthDispatcher;
+var MessageDispatcher = AppDispatcher.MessageDispatcher;
+var RouterContainer = require('../routes').RouterContainer;
+
 var AuthActions = {
   signup: function (args) {
     var self = this;
@@ -73,3 +79,5 @@ var AuthActions = {
     AuthDispatcher.dispatch({actionType: 'LOGOUT_USER'});
   }
 };
+
+module.exports = AuthActions;

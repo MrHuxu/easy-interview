@@ -1,3 +1,11 @@
+var React = require('react/addons');
+var $ = require('jquery');
+window.jQuery = $; // Assure it's available globally.
+var semantic = require('../../bower_components/semantic-ui/dist/semantic.min.js');
+var marked = require('marked');
+var QuestionStore = require('../stores/QuestionStore');
+var QuestionEvent = require('../events').QuestionEvent;
+
 var PreviewSingleQuestion = React.createClass({
   render: function(){
     var reveal = this.props.role === "interviewer";
@@ -52,12 +60,11 @@ var PreviewQuestion = React.createClass({
 
   componentDidMount: function () {
     $('.action-item').hide();
-    QuestionStore.bind('load_question', this.loadQuestion);
+    QuestionEvent.on('load_question', this.loadQuestion);
   },
 
   componentWillUnmount: function () {
     $('.action-item').show();
-    QuestionStore.unbind('load_question', this.loadQuestion);
   },
 
   render: function () {
@@ -79,4 +86,6 @@ var PreviewQuestion = React.createClass({
       </div>
     );
   }
-})
+});
+
+module.exports = PreviewQuestion;

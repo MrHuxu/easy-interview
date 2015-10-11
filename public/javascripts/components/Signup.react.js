@@ -1,3 +1,8 @@
+var React = require('react/addons');
+var EditUser = require('./EditUser.react');
+var AuthActions = require('../actions/AuthActions');
+var MessageDispatcher = require('../dispatcher/AppDispatcher').MessageDispatcher;
+
 var Signup = React.createClass({
   signup: function () {
     var userData = arguments[0];
@@ -15,3 +20,5 @@ var Signup = React.createClass({
     return <EditUser btnLabel='Signup' action={this.signup.bind(this)}/>;
   }
 });
+
+module.exports = Signup;

@@ -1,16 +1,25 @@
+var React = require('react/addons');
+var $ = require('jquery');
+window.jQuery = $; // Assure it's available globally.
+var semantic = require('../../bower_components/semantic-ui/dist/semantic.min.js');
+var Router = require('react-router');
+var Link = Router.Link;
+var RouteHandler = Router.RouteHandler;
+var Message = require('./Message.react');
+var AuthActions = require('../actions/AuthActions');
+var AuthStore = require('../stores/AuthStore');
+var AuthEvent = require('../events').AuthEvent;
+
+
 var Navbar = React.createClass({
-  mixins : [ReactRouter.Navigation],
+  mixins : [Router.Navigation],
 
   getInitialState: function () {
     return {username: ''};
   },
 
   componentDidMount: function () {
-    AuthStore.bind('login', this.login);
-  },
-
-  componentWillUnmount: function () {
-    AuthStore.unbind('login', this.login);
+    AuthEvent.on('login', this.login);
   },
 
   login: function () {
@@ -68,3 +77,5 @@ var Navbar = React.createClass({
     );
   }
 });
+
+module.exports = Navbar;
