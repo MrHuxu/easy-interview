@@ -1,4 +1,3 @@
-var MicroEvent = require('microevent');
 var MessageDispatcher = require('../dispatcher/AppDispatcher').MessageDispatcher;
 var MessageEvent = require('../events').MessageEvent;
 

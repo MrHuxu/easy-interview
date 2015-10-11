@@ -1,7 +1,7 @@
 var React = require('react/addons');
 var $ = require('jquery');
 window.jQuery = $; // Assure it's available globally.
-var semantic = require('../../bower_components/semantic-ui/dist/semantic.min.js');
+require('../../bower_components/semantic-ui/dist/semantic.min.js');
 var marked = require('marked');
 var QuestionStore = require('../stores/QuestionStore');
 var QuestionEvent = require('../events').QuestionEvent;

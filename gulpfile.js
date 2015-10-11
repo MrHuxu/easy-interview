@@ -1,4 +1,5 @@
 var gulp = require('gulp'),
+    path = require('path'),
     nodemon = require('gulp-nodemon'),
     minifyCss = require('gulp-minify-css'),
     concat = require('gulp-concat'),
@@ -7,40 +8,11 @@ var gulp = require('gulp'),
     rename = require('gulp-rename'),
     react = require('gulp-react'),
     shell = require('gulp-shell');
+    gutil = require('gulp-util');
+    webpack = require("webpack");
+    WebpackDevServer = require("webpack-dev-server");
 
-var jsLibs = [
-  './public/bower_components/jquery/dist/jquery.js',
-  './public/bower_components/react/react-with-addons.js',
-  './public/bower_components/react/JSXTransformer.js',
-  './public/bower_components/flux/dist/Flux.js',
-  './public/bower_components/react-router/build/umd/ReactRouter.js',
-  './public/bower_components/semantic-ui/dist/semantic.min.js',
-  './public/bower_components/microevents/microevent.js',
-  './public/bower_components/marked/marked.min.js'
-];
-
-var jsFiles = [
-  './public/javascripts/dispatcher/AppDispatcher.js',
-  './public/javascripts/stores/MessageStore.js',
-  './public/javascripts/stores/AuthStore.js',
-  './public/javascripts/actions/AuthActions.js',
-  './public/javascripts/stores/QuestionStore.js',
-  './public/javascripts/actions/QuestionActions.js',
-  './public/javascripts/components/Message.react.js',
-  './public/javascripts/components/Navbar.react.js',
-  './public/javascripts/components/QuestionFilter.react.js',
-  './public/javascripts/components/QuestionList.react.js',
-  './public/javascripts/components/Dashboard.react.js',
-  './public/javascripts/components/EditUser.react.js',
-  './public/javascripts/components/Signup.react.js',
-  './public/javascripts/components/UpdateUser.react.js',
-  './public/javascripts/components/Login.react.js',
-  './public/javascripts/components/EditQuestion.react.js',
-  './public/javascripts/components/PreviewQuestion.react.js',
-  './public/javascripts/components/Home.react.js',
-  './public/javascripts/app.js'
-];
-
+/*
 gulp.task('js', function () {
   gulp.src(jsLibs.concat(jsFiles))
     .pipe(react())
@@ -71,3 +43,61 @@ gulp.task('dev', function () {
     console.log('server restarted!');
   });
 });
+*/
+
+var webpackEntry = { app: ['webpack/hot/dev-server', './public/javascripts/app.js'] };
+var webpackModule = {
+  loaders: [
+    { test: /\.js$/, loader: 'babel-loader' },
+    { test: /\.css$/, loader: 'style-loader!css-loader' },
+    { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&minetype=application/font-woff" },
+    { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" },
+    { test: /\.(jpe?g|png|gif|svg)$/i, loader: 'url?limit=10000!img?progressive=true' }
+  ]
+};
+var webpackPlugins = [
+  new webpack.optimize.UglifyJsPlugin({minimize: true}),
+  new webpack.HotModuleReplacementPlugin(),
+  new webpack.optimize.OccurenceOrderPlugin(),
+  new webpack.optimize.DedupePlugin()
+];
+
+gulp.task("webpack", function(callback) {
+  webpack({
+    entry   : webpackEntry,
+    module  : webpackModule,
+    plugins : webpackPlugins,
+    output : {
+      path: './public/built',
+      filename: 'bundle.js',
+      publicPath: './public/built'
+    }
+  }, function(err, stats) {
+    if(err) throw new gutil.PluginError("webpack", err);
+      gutil.log("[webpack]", stats.toString());
+      callback();
+  });
+});
+
+gulp.task("webpack-dev-server", function(callback) {
+  var compiler = webpack({
+    entry  : webpackEntry,
+    module : webpackModule,
+    plugins: [new webpack.HotModuleReplacementPlugin()],
+    output : {
+      path: path.join(__dirname, "built"),
+      filename: 'bundle.js'
+    }
+  });
+
+  new WebpackDevServer(compiler, {}).listen(8080, "localhost", function(err) {
+    if(err) throw new gutil.PluginError("webpack-dev-server", err);
+    gutil.log("[webpack-dev-server]", "http://localhost:8080/bundle.js");
+    //keep the server alive or continue?
+    callback();
+  });
+});
+
+gulp.task('prd', ['webpack'], shell.task('NODE_ENV=production forever start bin/www'));
+
+gulp.task('dev', ['webpack-dev-server'], shell.task('node bin/www'));

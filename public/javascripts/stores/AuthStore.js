@@ -1,4 +1,3 @@
-var MicroEvent = require('microevent');
 var AuthDispatcher = require('../dispatcher/AppDispatcher').AuthDispatcher;
 var AuthEvent = require('../events').AuthEvent;
 
