@@ -42,7 +42,7 @@ var Login = React.createClass({
                   <input type='password' valueLink={this.linkState('password')}/>
                 </div>
                 <div className='field'>
-                  <button className='ui green button small' type="submit" onClick={this.login.bind(this)}>Login</button>
+                  <button className='ui green button small' type="submit" onClick={this.login}>Login</button>
                   <Link className="ui blue labeled small icon button" to='signup'>
                     <i className="signup icon"></i>
                     Signup

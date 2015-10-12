@@ -17,7 +17,7 @@ var Signup = React.createClass({
   },
 
   render: function () {
-    return <EditUser btnLabel='Signup' action={this.signup.bind(this)}/>;
+    return <EditUser btnLabel='Signup' action={this.signup}/>;
   }
 });
 

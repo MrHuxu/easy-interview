@@ -31,7 +31,7 @@ var Navbar = React.createClass({
     this.setState({username: ''});
   },
 
-  test: function () {
+  toDashboard: function () {
     this.transitionTo('dashboard');
   },
 
@@ -42,7 +42,7 @@ var Navbar = React.createClass({
           Login as &nbsp;
           <Link to='update_user'>{this.state.username}</Link> &nbsp;
         </p>
-        <button className='ui button red' onClick={this.logout.bind(this)}>Logout</button>
+        <button className='ui button red' onClick={this.logout}>Logout</button>
       </div>
     ) : (
       <div>
@@ -60,7 +60,7 @@ var Navbar = React.createClass({
             <div className='column'></div>
             <div className='six wide column Logo'
                  style    ={{cursor: 'pointer'}}
-                 onClick  ={this.test.bind(this)}
+                 onClick  ={this.toDashboard}
             >
               <h1>Easy Interview</h1>
               &nbsp;

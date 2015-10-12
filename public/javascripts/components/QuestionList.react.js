@@ -10,7 +10,6 @@ var QuestionActions = require('../actions/QuestionActions');
 var QuestionStore = require('../stores/QuestionStore');
 var QuestionEvent = require('../events').QuestionEvent;
 
-
 var Question = React.createClass({
   deleteQuestion: function (questionId) {
     QuestionActions.destroy({_id: questionId});
@@ -36,7 +35,7 @@ var Question = React.createClass({
         <td>{this.props.attr.interviewee}</td>
         <td>{this.props.attr.category}</td>
         <td><i className = {hasPermission ? 'remove circle icon' : 'lock icon'}
-               onClick   = {hasPermission ? this.deleteQuestion.bind(this, this.props.attr.id) : null}>
+               onClick   = {hasPermission ? this.deleteQuestion.bind(null, this.props.attr.id) : null}>
             </i></td>
       </tr>
     );
@@ -81,7 +80,7 @@ var QuestionList = React.createClass({
   render: function () {
     var self = this;
     var list = this.state.questions.length === 0 ? [] : this.state.questions.map(function (question) {
-      return <Question attr={question} handleChange={self.handleChange.bind(this)}/>
+      return <Question key={question.id} attr={question} handleChange={self.handleChange}/>
     });
     return (
       <div>

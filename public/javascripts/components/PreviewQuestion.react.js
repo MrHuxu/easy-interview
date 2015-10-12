@@ -70,7 +70,7 @@ var PreviewQuestion = React.createClass({
   render: function () {
     var owner = this;
     var list = this.state.questions.map(function (question) {
-      return <PreviewSingleQuestion attr={question} role={owner.state.role}/>
+      return <PreviewSingleQuestion key={question.id} attr={question} role={owner.state.role}/>
     });
     return (
       <div className="ui grid">

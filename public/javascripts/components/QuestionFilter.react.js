@@ -88,7 +88,7 @@ var QuestionFilter = React.createClass({
         </select>
         <button className = "ui red button item"
                 style     = {{display: this.canCancel() ? '' : 'none'}}
-                onClick   = {this.cancleFilter.bind(this)}>
+                onClick   = {this.cancleFilter}>
           <i className='remove icon'></i>
         </button>
       </div>

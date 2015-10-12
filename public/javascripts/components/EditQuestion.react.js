@@ -117,7 +117,7 @@ var EditQuestion = React.createClass({
           <textarea type='text' valueLink={this.linkState('answer')}/>
         </div>
         <div className='field'>
-          <button type='submit' className='ui button teal' onClick={this.saveQuestion.bind(this)}>Save</button>
+          <button type='submit' className='ui button teal' onClick={this.saveQuestion}>Save</button>
         </div>
       </div>
     ) : (<div className='four wide column' />);

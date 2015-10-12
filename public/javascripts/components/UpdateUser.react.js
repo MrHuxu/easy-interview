@@ -20,7 +20,7 @@ var UpdateUser = React.createClass({
   },
 
   render: function () {
-    return <EditUser btnLabel='Update' action={this.update.bind(this)}/>;
+    return <EditUser btnLabel='Update' action={this.update}/>;
   }
 });
 
