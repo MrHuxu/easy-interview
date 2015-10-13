@@ -45,7 +45,7 @@ gulp.task('dev', function () {
 });
 */
 
-var webpackEntry = { app: ['webpack/hot/dev-server', './public/javascripts/app.js'] };
+var webpackEntry = { app: ['webpack/hot/dev-server', './public/javascripts/index.js'] };
 var webpackModule = {
   loaders: [
     { test: /\.js$/, loader: 'babel-loader' },
