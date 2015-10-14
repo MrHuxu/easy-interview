@@ -1,10 +1,9 @@
-var React = require('react/addons');
+var React = require('react');
 var $ = require('jquery');
 window.jQuery = $; // Assure it's available globally.
 require('../../bower_components/semantic-ui/dist/semantic.min.js');
 var Router = require('react-router');
 var Link = Router.Link;
-var RouteHandler = Router.RouteHandler;
 var Message = require('./Message.react');
 var AuthActions = require('../actions/AuthActions');
 var AuthStore = require('../stores/AuthStore');
@@ -40,16 +39,16 @@ var Navbar = React.createClass({
       <div>
         <p>
           Login as &nbsp;
-          <Link to='update_user'>{this.state.username}</Link> &nbsp;
+          <Link to='/update_user'>{this.state.username}</Link> &nbsp;
         </p>
         <button className='ui button red' onClick={this.logout}>Logout</button>
       </div>
     ) : (
       <div>
         <div className="ui buttons">
-          <Link className='ui button' to='login'>Login</Link>
+          <Link className='ui button' to='/login'>Login</Link>
           <div className="or"></div>
-          <Link className='ui positive button' to='signup'>Signup</Link>
+          <Link className='ui positive button' to='/signup'>Signup</Link>
         </div>
       </div>
     );
@@ -57,22 +56,22 @@ var Navbar = React.createClass({
     return (
       <div>
         <div className='ui transparent main menu navbar grid'>
-            <div className='column'></div>
-            <div className='six wide column Logo'
-                 style    ={{cursor: 'pointer'}}
-                 onClick  ={this.toDashboard}
-            >
-              <h1>Easy Interview</h1>
-              &nbsp;
-              <img src='/favicon.ico' height='31' width='31'/>
-            </div>
-            <div className='five wide column'></div>
-            <div className='action-item'>
-              {actionItem}
-            </div>
+          <div className='column'/>
+          <div className='six wide column Logo'
+               style    ={{cursor: 'pointer'}}
+               onClick  ={this.toDashboard}
+          >
+            <h1>Easy Interview</h1>
+            &nbsp;
+            <img src='/favicon.ico' height='31' width='31'/>
+          </div>
+          <div className='five wide column'></div>
+          <div className='action-item'>
+            {actionItem}
+          </div>
         </div>
         <Message />
-        <RouteHandler />
+        {this.props.children}
       </div>
     );
   }

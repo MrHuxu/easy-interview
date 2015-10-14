@@ -11,7 +11,7 @@ var RouterContainer = {
   }
 };
 
-var router = Router.create(routes);
+var router = Router.createRoutes(routes);
 RouterContainer.set(router);
 
 module.exports = RouterContainer;

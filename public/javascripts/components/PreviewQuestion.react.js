@@ -1,4 +1,5 @@
-var React = require('react/addons');
+var React = require('react');
+var LinkedStateMixin = require('react-addons-linked-state-mixin');
 var $ = require('jquery');
 window.jQuery = $; // Assure it's available globally.
 require('../../bower_components/semantic-ui/dist/semantic.min.js');
@@ -36,7 +37,7 @@ var PreviewSingleQuestion = React.createClass({
 
 var PreviewQuestion = React.createClass({
 
-  mixins: [React.addons.LinkedStateMixin],
+  mixins: [LinkedStateMixin],
 
   contextTypes: {
     router: React.PropTypes.func

@@ -1,8 +1,10 @@
 require('../stylesheets/style.css');
 
-var React = require('react/addons');
-var Router = require('react-router');
+var React = require('react');
+var ReactDom = require('react-dom');
+import { Router } from 'react-router';
 var routes = require('./router/routes');
+
 
 var AuthActions = require('./actions/AuthActions');
 
@@ -15,6 +17,9 @@ if (username && token) {
   });
 }
 
-Router.run(routes, function (Handler, state) {
-  React.render(<Handler />, document.getElementById('easy-interview'));
-});
+ReactDom.render(
+  <Router>
+    {routes}
+  </Router>,
+  document.getElementById('easy-interview')
+);

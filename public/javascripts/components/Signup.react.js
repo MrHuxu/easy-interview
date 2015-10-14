@@ -1,4 +1,4 @@
-var React = require('react/addons');
+var React = require('react');
 var EditUser = require('./EditUser.react');
 var AuthActions = require('../actions/AuthActions');
 var MessageDispatcher = require('../dispatcher/AppDispatcher').MessageDispatcher;

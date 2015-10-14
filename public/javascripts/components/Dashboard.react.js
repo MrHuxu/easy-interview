@@ -1,4 +1,4 @@
-var React = require('react/addons');
+var React = require('react');
 var $ = require('jquery');
 window.jQuery = $; // Assure it's available globally.
 require('../../bower_components/semantic-ui/dist/semantic.min.js');
@@ -18,7 +18,7 @@ var Dashboard = React.createClass({
         <div className='ten wide column'>
           <h1>Dashboard</h1>
           <p>This page show <strong>ALL</strong> questions, or you can go to your&nbsp;
-            <Link to='home'>homepage</Link> to deal with your own questions.
+            <Link to='/home'>homepage</Link> to deal with your own questions.
           </p>
           <QuestionList />
         </div>
