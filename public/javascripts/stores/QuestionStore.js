@@ -34,4 +34,4 @@ var QuestionStore = {
 
 QuestionDispatcher.register(QuestionStore._registerToActions.bind(QuestionStore));
 
-module.exports = QuestionStore;
+export default QuestionStore;

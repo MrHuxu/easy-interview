@@ -1,11 +1,9 @@
-var $ = require('jquery');
-var AppDispatcher = require('../dispatcher/AppDispatcher');
-var AuthDispatcher = AppDispatcher.AuthDispatcher;
-var MessageDispatcher = AppDispatcher.MessageDispatcher;
-var RouterContainer = require('../router/RouterContainer');
+import $ from 'jquery';
+import { AuthDispatcher, MessageDispatcher } from '../dispatcher/AppDispatcher';
+import RouterContainer from '../router/RouterContainer';
 
-var AuthActions = {
-  signup: function (args) {
+const AuthActions = {
+  signup: (args) => {
     var self = this;
     $.ajax({
       url: '/auth/signup',
@@ -17,26 +15,26 @@ var AuthActions = {
         team: args.team,
         position: args.position
       }
-    }).done(function (data, textStatus, jqXHR) {
+    }).done((data, textStatus, jqXHR) => {
       self.loginUser(data);
       return true;
     });
   },
 
-  update: function (args) {
+  update: (args) => {
     var self = this;
     $.ajax({
       url: '/auth/update',
       method: 'PUT',
       dataType: 'json',
       data: JSON.stringify(args)
-    }).done(function (data, textStatus, jqXHR) {
+    }).done((data, textStatus, jqXHR) => {
       self.loginUser(data);
       return true;
     });
   },
 
-  login: function (args) {
+  login: (args) => {
     var self = this;
     $.ajax({
       url: '/auth/login',
@@ -47,13 +45,13 @@ var AuthActions = {
         password: args.password,
         token: args.token
       }
-    }).done(function (data, textStatus, jqXHR) {
+    }).done((data, textStatus, jqXHR) => {
       self.loginUser(data);
       return true;
     });
   },
 
-  loginUser: function (args) {
+  loginUser: (args) => {
     if (args.operationSuccess) {
       RouterContainer.get().transitionTo('/home');
       localStorage.setItem('_easy_interview_username', args.username);
@@ -69,7 +67,7 @@ var AuthActions = {
     });
   },
 
-  logout: function () {
+  logout: () => {
     RouterContainer.get().transitionTo('/');
     MessageDispatcher.dispatch({
       actionType: 'REFRESH_MESSAGE',
@@ -80,4 +78,4 @@ var AuthActions = {
   }
 };
 
-module.exports = AuthActions;
+export default AuthActions;

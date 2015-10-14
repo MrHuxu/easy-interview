@@ -1,6 +1,7 @@
 var React = require('react');
 var Route = require('react-router').Route;
 
+import App from '../components/App.react';
 var Navbar = require('../components/Navbar.react');
 var Dashboard = require('../components/Dashboard.react');
 var Login = require('../components/Login.react');
@@ -10,17 +11,22 @@ var Home = require('../components/Home.react');
 var EditQuestion = require('../components/EditQuestion.react');
 var PreviewQuestion = require('../components/PreviewQuestion.react');
 
-var routes = (
-  <Route component={Navbar}>
-    <Route name='dashboard' path='/' component={Dashboard}/>
-    <Route name="login" path='login' component={Login}/>
-    <Route name='signup' path='signup' component={Signup}/>
-    <Route name='update_user' path='update_user' component={UpdateUser}/>
-    <Route name="home" path='home' component={Home}/>
-    <Route name='new_question' path='/quesiton/new' component={EditQuestion}/>
-    <Route name='edit_question' path='/question/:questionId/edit' component={EditQuestion}/>
-    <Route name='preview_question' path='/question/:role/view' component={PreviewQuestion}/>
-  </Route>
-);
+const rootRoute = {
+  component: 'div',
+  childRoutes: [
+    { path: '/',
+      component: App,
+      childRoutes: [
+        { path: 'login', component: Login },
+        { path: 'signup', component: Signup },
+        { path: 'update_user', component: UpdateUser },
+        { path: 'home', component: Home },
+        { path: '/quesiton/new', component: EditQuestion },
+        { path: '/question/:questionId/edit', component: EditQuestion },
+        { path: '/question/:role/view', component: PreviewQuestion }
+      ]
+    }
+  ]
+}
 
-module.exports = routes;
+module.exports = rootRoute;

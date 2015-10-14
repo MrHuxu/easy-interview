@@ -1,22 +1,22 @@
-var $ = require('jquery');
-var QuestionDispatcher = require('../dispatcher/AppDispatcher').QuestionDispatcher;
-var QuestionStore = require('../stores/QuestionStore');
-var RouterContainer = require('../router/RouterContainer');
+import $ from 'jquery';
+import { QuestionDispatcher } from '../dispatcher/AppDispatcher';
+import QuestionStore from '../stores/QuestionStore';
+import RouterContainer from '../router/RouterContainer';
 
-var QuestionActions = {
-  new: function (args) {
+const QuestionActions = {
+  new: (args) => {
     $.ajax({
       type: 'POST',
       url: '/question/new',
       data: JSON.stringify(args),
       contentType: 'application/json',
       dataType: 'JSON'
-    }).done(function (data, textStatus, jqXHR) {
+    }).done((data, textStatus, jqXHR) => {
       RouterContainer.get().transitionTo('/home');
     });
   },
 
-  get: function (args) {
+  get: (args) => {
     QuestionStore._searchConditions = args;
     $.ajax({
       type: 'POST',
@@ -24,7 +24,7 @@ var QuestionActions = {
       data: JSON.stringify(args),
       contentType: 'application/json',
       dataType: 'JSON'
-    }).done(function (data, textStatus, jqXHR) {
+    }).done((data, textStatus, jqXHR) => {
       QuestionDispatcher.dispatch({
         actionType: 'GET_QUESTIONS',
         content: data
@@ -32,28 +32,28 @@ var QuestionActions = {
     });
   },
 
-  update: function (args) {
+  update: (args) => {
     $.ajax({
       type: 'PUT',
       url: '/question/update',
       data: JSON.stringify(args),
       contentType: 'application/json',
       dataType: 'JSON'
-    }).done(function (data, textStatus,jqXHR) {
+    }).done((data, textStatus,jqXHR) => {
       QuestionDispatcher.dispatch({
         actionType: 'UPDATE_QUESTION'
       });
     })
   },
 
-  destroy: function (args) {
+  destroy: (args) => {
     $.ajax({
       type: 'DELETE',
       url: '/question/destroy',
       data: JSON.stringify(args),
       contentType: 'application/json',
       dataType: 'JSON'
-    }).done(function (data, textStatus,jqXHR) {
+    }).done((data, textStatus,jqXHR) => {
       QuestionDispatcher.dispatch({
         actionType: 'DELETE_QUESTION'
       });
@@ -61,4 +61,4 @@ var QuestionActions = {
   }
 };
 
-module.exports = QuestionActions;
+export default QuestionActions;

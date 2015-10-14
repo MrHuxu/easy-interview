@@ -1,17 +1,17 @@
-var React = require('react');
-var $ = require('jquery');
+import React, { Component } from 'react';
+import $ from 'jquery';
 window.jQuery = $; // Assure it's available globally.
 require('../../bower_components/semantic-ui/dist/semantic.min.js');
-var QuestionActions = require('../actions/QuestionActions');
-var QuestionList = require('./QuestionList.react');
-var Link = require('react-router').Link;
+import QuestionActions from '../actions/QuestionActions';
+import QuestionList from './QuestionList.react';
+import { Link } from 'react-router';
 
-var Dashboard = React.createClass({
-  componentDidMount: function () {
+class Dashboard extends Component {
+  componentDidMount () {
     QuestionActions.get({});
-  },
+  }
 
-  render: function () {
+  render () {
     return (
       <div className='ui stackable grid'>
         <div className='three wide column'></div>
@@ -25,6 +25,6 @@ var Dashboard = React.createClass({
       </div>
     );
   }
-});
+};
 
-module.exports = Dashboard;
+export default Dashboard;

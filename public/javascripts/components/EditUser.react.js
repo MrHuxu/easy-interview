@@ -92,4 +92,4 @@ var EditUser = React.createClass({
   }
 });
 
-module.exports = EditUser;
+export default EditUser;

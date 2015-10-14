@@ -45,4 +45,4 @@ var Message = React.createClass({
   }
 });
 
-module.exports = Message;
+export default Message;

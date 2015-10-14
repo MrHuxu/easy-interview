@@ -9,18 +9,6 @@ var QuestionActions = require('../actions/QuestionActions');
 var Link = require('react-router').Link;
 
 var Home = React.createClass({
-  statics: {
-    willTransitionTo: function (transition) {
-      if (!AuthStore.isLoggedIn()) {
-        transition.redirect('login');
-        MessageDispatcher.dispatch({
-          actionType: 'REFRESH_MESSAGE',
-          content: ['You must login at first']
-        });
-      }
-    }
-  },
-
   getInitialState: function () {
     return this._getLoginState();
   },
@@ -75,4 +63,4 @@ var Home = React.createClass({
   }
 });
 
-module.exports = Home;
+export default Home;

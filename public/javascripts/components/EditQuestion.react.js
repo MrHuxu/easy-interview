@@ -173,4 +173,4 @@ var EditQuestion = React.createClass({
   }
 });
 
-module.exports = EditQuestion;
+export default EditQuestion;

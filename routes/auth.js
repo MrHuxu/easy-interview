@@ -3,7 +3,7 @@ var router = express.Router();
 var User = require('../models/user');
 var famousSayings = require('../public/resources/famous_saying');
 
-var generateResponse = function (user) {
+var generateResponse = (user) => {
   return {
     operationSuccess: true,
     id: user._id,
@@ -14,8 +14,8 @@ var generateResponse = function (user) {
   };
 };
 
-router.post('/login', function (req, res) {
-  User.findOne({username: req.body.username}).exec(function (err, user) {
+router.post('/login', (req, res) => {
+  User.findOne({username: req.body.username}).exec((err, user) => {
     var callback = function (user) {
       var resContent = generateResponse(user);
       resContent.messages = ['Welcome ' + user.username + ' ! ' + famousSayings[parseInt(Math.random() * 10)]];
@@ -36,10 +36,10 @@ router.post('/login', function (req, res) {
   });
 });
 
-router.post('/signup', function (req, res) {
-  User.saveWithSalt(req, function (err, user) {
+router.post('/signup', (req, res) => {
+  User.saveWithSalt(req, (err, user) => {
     if (err) {
-      var errorMessages = Object.keys(err.errors).map(function (key) {
+      var errorMessages = Object.keys(err.errors).map((key) => {
         error = err.errors[key];
         return error.value + ' is not valid for ' + error.path.toUpperCase();
       });
@@ -55,10 +55,10 @@ router.post('/signup', function (req, res) {
   })
 });
 
-router.put('/update', function (req, res) {
+router.put('/update', (req, res) => {
   var reqData = JSON.parse(Object.keys(req.body)[0]);
-  User.findOneAndUpdate({_id: reqData.id}, reqData.data, function (err, user) {
-    user.updatePassword(reqData.data.password, function (error, user) {
+  User.findOneAndUpdate({_id: reqData.id}, reqData.data, (err, user) => {
+    user.updatePassword(reqData.data.password, (error, user) => {
       if (!error) {
         var resContent = generateResponse(user);
         resContent.messages = ['User ' + user.username + ' successfully updated!'];

@@ -1,10 +1,10 @@
-var React = require('react');
-var EditUser = require('./EditUser.react');
-var AuthActions = require('../actions/AuthActions');
-var MessageDispatcher = require('../dispatcher/AppDispatcher').MessageDispatcher;
+import React, { Component } from 'react';
+import EditUser from './EditUser.react';
+import AuthActions from '../actions/AuthActions';
+import { MessageDispatcher } from '../dispatcher/AppDispatcher';
 
-var UpdateUser = React.createClass({
-  update: function () {
+class UpdateUser extends Component {
+  update () {
     var userData = arguments[0];
     if (userData.password !== userData.confirmPassword) {
       MessageDispatcher.dispatch({
@@ -17,11 +17,11 @@ var UpdateUser = React.createClass({
         data : userData
       });
     }
-  },
+  }
 
-  render: function () {
+  render () {
     return <EditUser btnLabel='Update' action={this.update}/>;
   }
-});
+};
 
-module.exports = UpdateUser;
+export default UpdateUser;
