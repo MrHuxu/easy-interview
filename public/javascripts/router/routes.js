@@ -11,6 +11,9 @@ var Home = require('../components/Home.react');
 var EditQuestion = require('../components/EditQuestion.react');
 var PreviewQuestion = require('../components/PreviewQuestion.react');
 
+import AuthStore from '../stores/AuthStore';
+import history from './history';
+
 const rootRoute = {
   component: 'div',
   childRoutes: [
@@ -20,7 +23,10 @@ const rootRoute = {
         { path: 'login', component: Login },
         { path: 'signup', component: Signup },
         { path: 'update_user', component: UpdateUser },
-        { path: 'home', component: Home },
+        { path: 'home', component: Home, onEnter: (nextState, replaceState) => {
+          if (!AuthStore.isLoggedIn())
+            replaceState({ nextPathname: nextState.location.pathname }, '/login')
+        }},
         { path: '/quesiton/new', component: EditQuestion },
         { path: '/question/:questionId/edit', component: EditQuestion },
         { path: '/question/:role/view', component: PreviewQuestion }

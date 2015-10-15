@@ -55,7 +55,7 @@ var Home = React.createClass({
             </div>
           </div>
           <div className="ui horizontal divider"><i className="tag icon"></i></div>
-          <h5>Go to <strong><Link to='dashboard'>Dashboard</Link></strong> to see all questions!</h5>
+          <h5>Go to <strong><Link to='/'>Dashboard</Link></strong> to see all questions!</h5>
           <QuestionList />
         </div>
       </div>

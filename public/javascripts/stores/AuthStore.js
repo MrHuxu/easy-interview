@@ -1,5 +1,5 @@
-var AuthDispatcher = require('../dispatcher/AppDispatcher').AuthDispatcher;
-var AuthEvent = require('../events').AuthEvent;
+import { AuthDispatcher } from '../dispatcher/AppDispatcher';
+import { AuthEvent } from '../events';
 
 var AuthStore = {
   _id: null,
@@ -49,4 +49,4 @@ var AuthStore = {
 
 AuthDispatcher.register(AuthStore._registerToActions.bind(AuthStore));
 
-module.exports = AuthStore;
+export default AuthStore;

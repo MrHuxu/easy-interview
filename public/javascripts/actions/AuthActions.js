@@ -1,10 +1,9 @@
 import $ from 'jquery';
 import { AuthDispatcher, MessageDispatcher } from '../dispatcher/AppDispatcher';
-import RouterContainer from '../router/RouterContainer';
+import history from '../router/history'
 
-const AuthActions = {
-  signup: (args) => {
-    var self = this;
+var AuthActions = {
+  signup: function (args) {
     $.ajax({
       url: '/auth/signup',
       method: 'POST',
@@ -16,26 +15,24 @@ const AuthActions = {
         position: args.position
       }
     }).done((data, textStatus, jqXHR) => {
-      self.loginUser(data);
+      this.loginUser(data);
       return true;
     });
   },
 
-  update: (args) => {
-    var self = this;
+  update: function (args) {
     $.ajax({
       url: '/auth/update',
       method: 'PUT',
       dataType: 'json',
       data: JSON.stringify(args)
     }).done((data, textStatus, jqXHR) => {
-      self.loginUser(data);
+      this.loginUser(data);
       return true;
     });
   },
 
-  login: (args) => {
-    var self = this;
+  login: function (args) {
     $.ajax({
       url: '/auth/login',
       method: 'POST',
@@ -46,14 +43,14 @@ const AuthActions = {
         token: args.token
       }
     }).done((data, textStatus, jqXHR) => {
-      self.loginUser(data);
-      return true;
+      this.loginUser(data);
+      true;
     });
   },
 
   loginUser: (args) => {
     if (args.operationSuccess) {
-      RouterContainer.get().transitionTo('/home');
+      history.replaceState(null, '/home')
       localStorage.setItem('_easy_interview_username', args.username);
       localStorage.setItem('_easy_interview_token', args.token);
       AuthDispatcher.dispatch({
@@ -68,7 +65,7 @@ const AuthActions = {
   },
 
   logout: () => {
-    RouterContainer.get().transitionTo('/');
+    history.replaceState(null, '/');
     MessageDispatcher.dispatch({
       actionType: 'REFRESH_MESSAGE',
       content: ['Logout successfully']

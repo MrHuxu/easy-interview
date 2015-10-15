@@ -1,13 +1,13 @@
-var React = require('react');
-var LinkedStateMixin = require('react-addons-linked-state-mixin');
-var $ = require('jquery');
+import React, { Component } from 'react';
+import LinkedStateMixin from 'react-addons-linked-state-mixin';
+import $ from 'jquery';
 window.jQuery = $; // Assure it's available globally.
 require('../../bower_components/semantic-ui/dist/semantic.min.js');
-var marked = require('marked');
-var AuthStore = require('../stores/AuthStore');
-var QuestionActions = require('../actions/QuestionActions');
-var QuestionStore = require('../stores/QuestionStore');
-var QuestionEvent = require('../events').QuestionEvent;
+import marked from 'marked';
+import AuthStore from '../stores/AuthStore';
+import QuestionActions from '../actions/QuestionActions';
+import QuestionStore from '../stores/QuestionStore';
+import { QuestionEvent } from '../events';
 
 var EditQuestion = React.createClass({
   mixins: [LinkedStateMixin],

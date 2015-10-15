@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import { QuestionDispatcher } from '../dispatcher/AppDispatcher';
 import QuestionStore from '../stores/QuestionStore';
-import RouterContainer from '../router/RouterContainer';
+// import RouterContainer from '../router/RouterContainer';
 
 const QuestionActions = {
   new: (args) => {
@@ -12,7 +12,7 @@ const QuestionActions = {
       contentType: 'application/json',
       dataType: 'JSON'
     }).done((data, textStatus, jqXHR) => {
-      RouterContainer.get().transitionTo('/home');
+      // RouterContainer.get().transitionTo('/home');
     });
   },
 
