@@ -1,7 +1,7 @@
-var AuthDispatcher = require('../dispatcher/AppDispatcher').AuthDispatcher;
-var AuthEvent = require('../events').AuthEvent;
+import { AuthDispatcher } from '../../Common/dispatcher/AppDispatcher';
+import { AuthEvent } from '../../Common/events';
 
-var AuthStore = {
+var UserStore = {
   _id: null,
   _username: null,
   _token: null,
@@ -16,6 +16,7 @@ var AuthStore = {
         this._token = action.content.token;
         this._team = action.content.team;
         this._position = action.content.position;
+        action.callback();
         AuthEvent.emit('login');
         break;
       case 'LOGOUT_USER':
@@ -47,6 +48,6 @@ var AuthStore = {
   }
 };
 
-AuthDispatcher.register(AuthStore._registerToActions.bind(AuthStore));
+AuthDispatcher.register(UserStore._registerToActions.bind(UserStore));
 
-module.exports = AuthStore;
+export default UserStore;

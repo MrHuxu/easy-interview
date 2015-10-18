@@ -1,12 +1,9 @@
-var $ = require('jquery');
-var AppDispatcher = require('../dispatcher/AppDispatcher');
-var AuthDispatcher = AppDispatcher.AuthDispatcher;
-var MessageDispatcher = AppDispatcher.MessageDispatcher;
-var RouterContainer = require('../router/RouterContainer');
+import $ from 'jquery';
+import { AuthDispatcher, MessageDispatcher } from '../../Common/dispatcher/AppDispatcher';
+import history from '../../../router/history'
 
-var AuthActions = {
+var UserActions = {
   signup: function (args) {
-    var self = this;
     $.ajax({
       url: '/auth/signup',
       method: 'POST',
@@ -17,27 +14,25 @@ var AuthActions = {
         team: args.team,
         position: args.position
       }
-    }).done(function (data, textStatus, jqXHR) {
-      self.loginUser(data);
+    }).done((data, textStatus, jqXHR) => {
+      this.loginUser(data);
       return true;
     });
   },
 
   update: function (args) {
-    var self = this;
     $.ajax({
       url: '/auth/update',
       method: 'PUT',
       dataType: 'json',
       data: JSON.stringify(args)
-    }).done(function (data, textStatus, jqXHR) {
-      self.loginUser(data);
+    }).done((data, textStatus, jqXHR) => {
+      this.loginUser(data);
       return true;
     });
   },
 
   login: function (args) {
-    var self = this;
     $.ajax({
       url: '/auth/login',
       method: 'POST',
@@ -47,20 +42,22 @@ var AuthActions = {
         password: args.password,
         token: args.token
       }
-    }).done(function (data, textStatus, jqXHR) {
-      self.loginUser(data);
-      return true;
+    }).done((data, textStatus, jqXHR) => {
+      this.loginUser(data);
+      true;
     });
   },
 
-  loginUser: function (args) {
+  loginUser: (args) => {
     if (args.operationSuccess) {
-      RouterContainer.get().transitionTo('/home');
       localStorage.setItem('_easy_interview_username', args.username);
       localStorage.setItem('_easy_interview_token', args.token);
       AuthDispatcher.dispatch({
         actionType: 'LOGIN_USER',
-        content: args
+        content: args,
+        callback: () => {
+          history.replaceState(null, '/home')
+        }
       });
     }
     MessageDispatcher.dispatch({
@@ -69,8 +66,8 @@ var AuthActions = {
     });
   },
 
-  logout: function () {
-    RouterContainer.get().transitionTo('/');
+  logout: () => {
+    history.replaceState(null, '/');
     MessageDispatcher.dispatch({
       actionType: 'REFRESH_MESSAGE',
       content: ['Logout successfully']
@@ -80,4 +77,4 @@ var AuthActions = {
   }
 };
 
-module.exports = AuthActions;
+export default UserActions;

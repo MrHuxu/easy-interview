@@ -1,10 +1,9 @@
-var React = require('react/addons');
-var $ = require('jquery');
-window.jQuery = $; // Assure it's available globally.
-require('../../bower_components/semantic-ui/dist/semantic.min.js');
-var marked = require('marked');
-var QuestionStore = require('../stores/QuestionStore');
-var QuestionEvent = require('../events').QuestionEvent;
+import $ from 'jquery';
+import React from 'react';
+import LinkedStateMixin from 'react-addons-linked-state-mixin';
+import marked from 'marked';
+import QuestionStore from '../stores/QuestionStore';
+import { QuestionEvent } from '../../Common/events';
 
 var PreviewSingleQuestion = React.createClass({
   render: function(){
@@ -14,7 +13,7 @@ var PreviewSingleQuestion = React.createClass({
       answer = (
         <div className="ui raised segment">
           <p><b>Answer:</b></p>
-          <span dangerouslySetInnerHTML={{__html: marked(this.props.attr.answer)}} />
+          <span dangerouslySetInnerHTML={{__html: marked(this.props.attr.answer || '')}} />
         </div>
       );
     }
@@ -24,7 +23,7 @@ var PreviewSingleQuestion = React.createClass({
           <div className="ui sizer vertical segment">
             <div className="ui raised segment">
               <p><b>Questions:</b></p>
-              <span dangerouslySetInnerHTML={{__html: marked(this.props.attr.question)}} />
+              <span dangerouslySetInnerHTML={{__html: marked(this.props.attr.question || '')}} />
             </div>
             {answer}
           </div>
@@ -34,17 +33,17 @@ var PreviewSingleQuestion = React.createClass({
   }
 });
 
-var PreviewQuestion = React.createClass({
+var Preview = React.createClass({
 
-  mixins: [React.addons.LinkedStateMixin],
+  mixins: [LinkedStateMixin],
 
   contextTypes: {
     router: React.PropTypes.func
   },
 
   getInitialState: function () {
-    if (this.context.router.getCurrentParams().role) {
-      this.role = this.context.router.getCurrentParams().role;
+    if (this.props.params.role) {
+      this.role = this.props.params.role;
     }
 
     return {
@@ -88,4 +87,4 @@ var PreviewQuestion = React.createClass({
   }
 });
 
-module.exports = PreviewQuestion;
+module.exports = Preview;

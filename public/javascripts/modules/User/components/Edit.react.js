@@ -1,10 +1,9 @@
-var React = require('react/addons');
-var $ = require('jquery');
-window.jQuery = $; // Assure it's available globally.
-require('../../bower_components/semantic-ui/dist/semantic.min.js');
+import $ from 'jquery';
+import React from 'react';
+import LinkedStateMixin from 'react-addons-linked-state-mixin';
 
 var EditUser = React.createClass({
-  mixins: [React.addons.LinkedStateMixin],
+  mixins: [LinkedStateMixin],
 
   getInitialState: function () {
     return {
@@ -91,4 +90,4 @@ var EditUser = React.createClass({
   }
 });
 
-module.exports = EditUser;
+export default EditUser;

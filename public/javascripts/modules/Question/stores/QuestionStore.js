@@ -1,5 +1,6 @@
-var QuestionDispatcher = require('../dispatcher/AppDispatcher').QuestionDispatcher;
-var QuestionEvent = require('../events').QuestionEvent;
+import QuestionActions from '../actions/QuestionActions';
+import { QuestionDispatcher } from '../../Common/dispatcher/AppDispatcher';
+import { QuestionEvent } from '../../Common/events';
 
 var QuestionStore = {
   _records: [],
@@ -12,7 +13,6 @@ var QuestionStore = {
         QuestionEvent.emit('load_question');
         break;
       case 'UPDATE_QUESTION':
-        RouterContainer.get().transitionTo('/home');
         QuestionActions.get(this.getSearchConditions());
         break;
       case 'DELETE_QUESTION':
@@ -34,4 +34,4 @@ var QuestionStore = {
 
 QuestionDispatcher.register(QuestionStore._registerToActions.bind(QuestionStore));
 
-module.exports = QuestionStore;
+export default QuestionStore;

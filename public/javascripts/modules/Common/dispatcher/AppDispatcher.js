@@ -1,6 +1,6 @@
-var Flux = require('flux');
+import Flux from 'flux';
 
-module.exports = {
+export default {
   AuthDispatcher     : new Flux.Dispatcher(),
   QuestionDispatcher : new Flux.Dispatcher(),
   MessageDispatcher  : new Flux.Dispatcher()

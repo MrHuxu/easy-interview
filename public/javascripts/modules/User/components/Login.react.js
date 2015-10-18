@@ -1,12 +1,10 @@
-var React = require('react/addons');
-var $ = require('jquery');
-window.jQuery = $; // Assure it's available globally.
-require('../../bower_components/semantic-ui/dist/semantic.min.js');
-var AuthActions = require('../actions/AuthActions');
-var Link = require('react-router').Link;
+import React from 'react';
+import LinkedStateMixin from 'react-addons-linked-state-mixin';
+import UserActions from '../actions/UserActions';
+import { Link } from 'react-router';
 
 var Login = React.createClass({
-  mixins: [React.addons.LinkedStateMixin],
+  mixins: [LinkedStateMixin],
 
   getInitialState: function () {
     return {
@@ -17,7 +15,7 @@ var Login = React.createClass({
 
   login: function (e) {
     e.preventDefault();
-    AuthActions.login({
+    UserActions.login({
       username: this.state.username,
       password: this.state.password
     });
@@ -57,4 +55,4 @@ var Login = React.createClass({
   }
 });
 
-module.exports = Login;
+export default Login;

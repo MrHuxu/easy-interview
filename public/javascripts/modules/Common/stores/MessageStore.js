@@ -1,5 +1,5 @@
-var MessageDispatcher = require('../dispatcher/AppDispatcher').MessageDispatcher;
-var MessageEvent = require('../events').MessageEvent;
+import { MessageDispatcher } from '../dispatcher/AppDispatcher';
+import { MessageEvent } from '../events';
 
 var MessageStore = {
   _messages: [],
@@ -37,4 +37,4 @@ var MessageStore = {
 
 MessageDispatcher.register(MessageStore._registerToActions.bind(MessageStore));
 
-module.exports = MessageStore;
+export default MessageStore;

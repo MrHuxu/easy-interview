@@ -1,14 +1,10 @@
-var React = require('react/addons');
-var $ = require('jquery');
-window.jQuery = $; // Assure it's available globally.
-require('../../bower_components/semantic-ui/dist/semantic.min.js');
-var Router = require('react-router');
-var Link = Router.Link;
-var QuestionFilter = require('./QuestionFilter.react');
-var AuthStore = require('../stores/AuthStore');
-var QuestionActions = require('../actions/QuestionActions');
-var QuestionStore = require('../stores/QuestionStore');
-var QuestionEvent = require('../events').QuestionEvent;
+import React from 'react';
+import Router, { Link } from 'react-router';
+import QuestionFilter from './QuestionFilter.react';
+import UserStore from '../../User/stores/UserStore';
+import QuestionActions from '../../Question/actions/QuestionActions';
+import QuestionStore from '../../Question/stores/QuestionStore';
+import { QuestionEvent } from '../events';
 
 var Question = React.createClass({
   deleteQuestion: function (questionId) {
@@ -20,7 +16,7 @@ var Question = React.createClass({
   },
 
   render: function () {
-    var hasPermission = this.props.attr.creator && this.props.attr.creator._id === AuthStore.getId();
+    var hasPermission = this.props.attr.creator && this.props.attr.creator._id === UserStore.getId();
     return (
       <tr>
         <td className="collapsing">
@@ -28,7 +24,7 @@ var Question = React.createClass({
             <input type="checkbox"  onChange={this.handleChange}/> <label></label>
           </div>
         </td>
-        <td><Link to='edit_question' params={{questionId: this.props.attr.id}}>{this.props.attr.title}</Link></td>
+        <td><Link to={`/question/${this.props.attr.id}/edit`}>{this.props.attr.title}</Link></td>
         <td>{this.props.attr.creator.username}</td>
         <td>{this.props.attr.creator.position}</td>
         <td>{this.props.attr.difficulty}</td>
@@ -56,6 +52,7 @@ var QuestionList = React.createClass({
   loadQuestion: function () {
     this.setState({questions: QuestionStore.getQuestions()});
   },
+
   handleChange: function (id, value) {
     if (this.previews.indexOf(id) < 0 && value){
       this.previews.push(id);
@@ -103,8 +100,8 @@ var QuestionList = React.createClass({
           </tbody>
         </table>
         <div className='two wide column'>
-            <Link className="ui blue button" to='preview_question' params={{role: "interviewee"}} onClick={this.loadPreview}>View</Link>
-            <Link className="ui blue button" to='preview_question' params={{role: "interviewer"}} onClick={this.loadPreview}>View With Answer</Link>
+            <Link className="ui blue button" to='/question/interviewee/view' onClick={this.loadPreview}>View</Link>
+            <Link className="ui blue button" to='/question/interviewer/view' onClick={this.loadPreview}>View With Answer</Link>
         </div>
       </div>
     );

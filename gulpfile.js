@@ -98,6 +98,6 @@ gulp.task("webpack-dev-server", function(callback) {
   });
 });
 
-gulp.task('prd', ['webpack'], shell.task('NODE_ENV=production forever start bin/www'));
+gulp.task('prd', ['webpack'], shell.task('NODE_ENV=production forever start bin/www --harmony'));
 
-gulp.task('dev', ['webpack-dev-server'], shell.task('node bin/www'));
+gulp.task('dev', ['webpack-dev-server'], shell.task('node bin/www --harmony'));
