@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Edit from './Edit.react';
-import AuthActions from '../../../actions/AuthActions';
-import { MessageDispatcher } from '../../../dispatcher/AppDispatcher';
+import UserActions from '../actions/UserActions';
+import { MessageDispatcher } from '../../Common/dispatcher/AppDispatcher';
 
 class Signup extends Component {
   signup () {
@@ -12,7 +12,7 @@ class Signup extends Component {
         content: ['Are you sure you confirmed the password?']
       });
     } else {
-      AuthActions.signup(userData);
+      UserActions.signup(userData);
     }
   }
 

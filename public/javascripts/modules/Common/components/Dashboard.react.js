@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import QuestionActions from '../../actions/QuestionActions';
-import QuestionList from '../Question/components/QuestionList.react';
+import QuestionActions from '../../Question/actions/QuestionActions';
+import QuestionList from './QuestionList.react';
 import { Link } from 'react-router';
 
 class Dashboard extends Component {

@@ -1,6 +1,6 @@
-var $ = require('jquery');
-var React = require('react');
-var LinkedStateMixin = require('react-addons-linked-state-mixin');
+import $ from 'jquery';
+import React from 'react';
+import LinkedStateMixin from 'react-addons-linked-state-mixin';
 
 var EditUser = React.createClass({
   mixins: [LinkedStateMixin],

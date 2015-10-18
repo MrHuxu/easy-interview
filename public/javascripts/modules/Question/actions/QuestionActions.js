@@ -1,7 +1,7 @@
 import $ from 'jquery';
-import { QuestionDispatcher } from '../dispatcher/AppDispatcher';
+import { QuestionDispatcher } from '../../Common/dispatcher/AppDispatcher';
 import QuestionStore from '../stores/QuestionStore';
-// import RouterContainer from '../router/RouterContainer';
+import history from '../../../router/history';
 
 const QuestionActions = {
   new: (args) => {
@@ -12,7 +12,7 @@ const QuestionActions = {
       contentType: 'application/json',
       dataType: 'JSON'
     }).done((data, textStatus, jqXHR) => {
-      // RouterContainer.get().transitionTo('/home');
+      history.replaceState(null, '/home');
     });
   },
 
@@ -40,6 +40,7 @@ const QuestionActions = {
       contentType: 'application/json',
       dataType: 'JSON'
     }).done((data, textStatus,jqXHR) => {
+      history.goBack();
       QuestionDispatcher.dispatch({
         actionType: 'UPDATE_QUESTION'
       });

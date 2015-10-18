@@ -1,7 +1,7 @@
-import { AuthDispatcher } from '../dispatcher/AppDispatcher';
-import { AuthEvent } from '../events';
+import { AuthDispatcher } from '../../Common/dispatcher/AppDispatcher';
+import { AuthEvent } from '../../Common/events';
 
-var AuthStore = {
+var UserStore = {
   _id: null,
   _username: null,
   _token: null,
@@ -48,6 +48,6 @@ var AuthStore = {
   }
 };
 
-AuthDispatcher.register(AuthStore._registerToActions.bind(AuthStore));
+AuthDispatcher.register(UserStore._registerToActions.bind(UserStore));
 
-export default AuthStore;
+export default UserStore;

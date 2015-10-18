@@ -1,9 +1,9 @@
 import $ from 'jquery';
-var React = require('react');
-var LinkedStateMixin = require('react-addons-linked-state-mixin');
-var marked = require('marked');
-var QuestionStore = require('../stores/QuestionStore');
-var QuestionEvent = require('../events').QuestionEvent;
+import React from 'react';
+import LinkedStateMixin from 'react-addons-linked-state-mixin';
+import marked from 'marked';
+import QuestionStore from '../stores/QuestionStore';
+import { QuestionEvent } from '../../Common/events';
 
 var PreviewSingleQuestion = React.createClass({
   render: function(){
@@ -13,7 +13,7 @@ var PreviewSingleQuestion = React.createClass({
       answer = (
         <div className="ui raised segment">
           <p><b>Answer:</b></p>
-          <span dangerouslySetInnerHTML={{__html: marked(this.props.attr.answer)}} />
+          <span dangerouslySetInnerHTML={{__html: marked(this.props.attr.answer || '')}} />
         </div>
       );
     }
@@ -23,7 +23,7 @@ var PreviewSingleQuestion = React.createClass({
           <div className="ui sizer vertical segment">
             <div className="ui raised segment">
               <p><b>Questions:</b></p>
-              <span dangerouslySetInnerHTML={{__html: marked(this.props.attr.question)}} />
+              <span dangerouslySetInnerHTML={{__html: marked(this.props.attr.question || '')}} />
             </div>
             {answer}
           </div>
@@ -33,7 +33,7 @@ var PreviewSingleQuestion = React.createClass({
   }
 });
 
-var PreviewQuestion = React.createClass({
+var Preview = React.createClass({
 
   mixins: [LinkedStateMixin],
 
@@ -42,8 +42,8 @@ var PreviewQuestion = React.createClass({
   },
 
   getInitialState: function () {
-    if (this.context.router.getCurrentParams().role) {
-      this.role = this.context.router.getCurrentParams().role;
+    if (this.props.params.role) {
+      this.role = this.props.params.role;
     }
 
     return {
@@ -87,4 +87,4 @@ var PreviewQuestion = React.createClass({
   }
 });
 
-module.exports = PreviewQuestion;
+module.exports = Preview;

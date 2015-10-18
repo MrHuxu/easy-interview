@@ -1,7 +1,7 @@
-var $ = require('jquery');
-var React = require('react');
-var QuestionActions = require('../../../actions/QuestionActions');
-var QuestionStore = require('../../../stores/QuestionStore');
+import $ from 'jquery';
+import React from 'react';
+import QuestionActions from '../../Question/actions/QuestionActions';
+import QuestionStore from '../../Question/stores/QuestionStore';
 
 var QuestionFilter = React.createClass({
   searchConditionKyes: ['team', 'position', 'difficulty', 'interviewee', 'category'],

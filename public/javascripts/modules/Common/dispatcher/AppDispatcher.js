@@ -1,4 +1,4 @@
-var Flux = require('flux');
+import Flux from 'flux';
 
 export default {
   AuthDispatcher     : new Flux.Dispatcher(),

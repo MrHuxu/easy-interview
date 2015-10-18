@@ -1,4 +1,4 @@
-var EventEmitter = require("events").EventEmitter;
+import { EventEmitter } from 'events';
 
 export default {
   AuthEvent: new EventEmitter(),

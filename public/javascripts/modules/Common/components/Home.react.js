@@ -1,9 +1,9 @@
-var React = require('react');
-var QuestionList = require('../Question/components/QuestionList.react');
-var MessageDispatcher = require('../../dispatcher/AppDispatcher').MessageDispatcher;
-var AuthStore = require('../../stores/AuthStore');
-var QuestionActions = require('../../actions/QuestionActions');
-var Link = require('react-router').Link;
+import React from 'react';
+import QuestionList from './QuestionList.react';
+import { MessageDispatcher } from '../dispatcher/AppDispatcher';
+import UserStore from '../../User/stores/UserStore';
+import QuestionActions from '../../Question/actions/QuestionActions';
+import { Link } from 'react-router';
 
 var Home = React.createClass({
   getInitialState: function () {
@@ -12,9 +12,9 @@ var Home = React.createClass({
 
   _getLoginState: function () {
     return {
-      userLoggedIn: AuthStore.isLoggedIn(),
-      username: AuthStore.getUser(),
-      token: AuthStore.getToken()
+      userLoggedIn: UserStore.isLoggedIn(),
+      username: UserStore.getUser(),
+      token: UserStore.getToken()
     };
   },
 
@@ -24,7 +24,7 @@ var Home = React.createClass({
 
   componentDidMount: function () {
     QuestionActions.get({
-      creator: AuthStore._id
+      creator: UserStore._id
     });
   },
 
@@ -40,15 +40,15 @@ var Home = React.createClass({
             <div className='fourteen wide column'>
               <div className='ui grid'>
                 <div className='three wide column'>
-                  <p>Team: {AuthStore._team}</p>
+                  <p>Team: {UserStore._team}</p>
                 </div>
                 <div className='three wide column'>
-                  <p>Position: {AuthStore._position}</p>
+                  <p>Position: {UserStore._position}</p>
                 </div>
               </div>
             </div>
             <div className='two wide column'>
-              <Link className='ui green small button' to='new_question'>Create</Link>
+              <Link className='ui green small button' to='/question/new'>Create</Link>
             </div>
           </div>
           <div className="ui horizontal divider"><i className="tag icon"></i></div>

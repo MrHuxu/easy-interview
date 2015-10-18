@@ -1,14 +1,13 @@
-var React = require('react');
-var Router = require('react-router');
-var Link = Router.Link;
-var Message = require('./Message.react');
-var AuthActions = require('../../actions/AuthActions');
-var AuthStore = require('../../stores/AuthStore');
-var AuthEvent = require('../../events').AuthEvent;
+import React from 'react';
+import Router, { Link, History } from 'react-router';
+import Message from './Message.react';
+import UserActions from '../../User/actions/UserActions';
+import UserStore from '../../User/stores/UserStore';
+import { AuthEvent } from '../events';
 
 
 var Navbar = React.createClass({
-  mixins : [Router.Navigation],
+  mixins : [History],
 
   getInitialState: function () {
     return {username: ''};
@@ -19,20 +18,20 @@ var Navbar = React.createClass({
   },
 
   login: function () {
-    this.setState({username: AuthStore._username});
+    this.setState({username: UserStore._username});
   },
 
   logout: function () {
-    AuthActions.logout();
+    UserActions.logout();
     this.setState({username: ''});
   },
 
   toDashboard: function () {
-    this.transitionTo('dashboard');
+    this.history.replaceState(null, '/');
   },
 
   render: function () {
-    var actionItem = AuthStore.isLoggedIn() ? (
+    var actionItem = UserStore.isLoggedIn() ? (
       <div>
         <p>
           Login as &nbsp;
@@ -67,8 +66,6 @@ var Navbar = React.createClass({
             {actionItem}
           </div>
         </div>
-        <Message />
-        {this.props.children}
       </div>
     );
   }

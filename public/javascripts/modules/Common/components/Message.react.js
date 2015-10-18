@@ -1,7 +1,7 @@
 import $ from 'jquery';
-var React = require('react');
-var MessageStore = require('../../stores/MessageStore');
-var MessageEvent = require('../../events').MessageEvent;
+import React from 'react';
+import MessageStore from '../stores/MessageStore';
+import { MessageEvent } from '../events';
 
 var Message = React.createClass({
   getInitialState: function () {

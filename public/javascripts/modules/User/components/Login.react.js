@@ -1,7 +1,7 @@
-var React = require('react')
-var LinkedStateMixin = require('react-addons-linked-state-mixin');
-var AuthActions = require('../../../actions/AuthActions');
-var Link = require('react-router').Link;
+import React from 'react';
+import LinkedStateMixin from 'react-addons-linked-state-mixin';
+import UserActions from '../actions/UserActions';
+import { Link } from 'react-router';
 
 var Login = React.createClass({
   mixins: [LinkedStateMixin],
@@ -15,7 +15,7 @@ var Login = React.createClass({
 
   login: function (e) {
     e.preventDefault();
-    AuthActions.login({
+    UserActions.login({
       username: this.state.username,
       password: this.state.password
     });

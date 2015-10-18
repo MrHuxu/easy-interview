@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Edit from './Edit.react';
-import AuthActions from '../../../actions/AuthActions';
-import { MessageDispatcher } from '../../../dispatcher/AppDispatcher';
+import UserActions from '../actions/UserActions';
+import { MessageDispatcher } from '../../Common/dispatcher/AppDispatcher';
 
 class Update extends Component {
   update () {
@@ -12,8 +12,8 @@ class Update extends Component {
         content: ['Are you sure you confirmed the password?']
       });
     } else {
-      AuthActions.update({
-        id   : AuthStore.getId(),
+      UserActions.update({
+        id   : UserStore.getId(),
         data : userData
       });
     }

@@ -1,8 +1,8 @@
 import $ from 'jquery';
-import { AuthDispatcher, MessageDispatcher } from '../dispatcher/AppDispatcher';
-import history from '../router/history'
+import { AuthDispatcher, MessageDispatcher } from '../../Common/dispatcher/AppDispatcher';
+import history from '../../../router/history'
 
-var AuthActions = {
+var UserActions = {
   signup: function (args) {
     $.ajax({
       url: '/auth/signup',
@@ -77,4 +77,4 @@ var AuthActions = {
   }
 };
 
-export default AuthActions;
+export default UserActions;
