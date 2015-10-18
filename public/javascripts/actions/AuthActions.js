@@ -50,12 +50,14 @@ var AuthActions = {
 
   loginUser: (args) => {
     if (args.operationSuccess) {
-      history.replaceState(null, '/home')
       localStorage.setItem('_easy_interview_username', args.username);
       localStorage.setItem('_easy_interview_token', args.token);
       AuthDispatcher.dispatch({
         actionType: 'LOGIN_USER',
-        content: args
+        content: args,
+        callback: () => {
+          history.replaceState(null, '/home')
+        }
       });
     }
     MessageDispatcher.dispatch({

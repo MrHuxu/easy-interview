@@ -1,6 +1,6 @@
 var EventEmitter = require("events").EventEmitter;
 
-module.exports = {
+export default {
   AuthEvent: new EventEmitter(),
   MessageEvent: new EventEmitter(),
   QuestionEvent: new EventEmitter()

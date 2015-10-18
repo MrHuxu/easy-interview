@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import EditUser from './EditUser.react';
-import AuthActions from '../actions/AuthActions';
-import { MessageDispatcher } from '../dispatcher/AppDispatcher';
+import Edit from './Edit.react';
+import AuthActions from '../../../actions/AuthActions';
+import { MessageDispatcher } from '../../../dispatcher/AppDispatcher';
 
 class Signup extends Component {
   signup () {
@@ -17,7 +17,7 @@ class Signup extends Component {
   }
 
   render () {
-    return <EditUser btnLabel='Signup' action={this.signup}/>;
+    return <Edit btnLabel='Signup' action={this.signup}/>;
   }
 };
 

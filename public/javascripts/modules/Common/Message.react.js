@@ -1,9 +1,7 @@
+import $ from 'jquery';
 var React = require('react');
-var $ = require('jquery');
-window.jQuery = $; // Assure it's available globally.
-require('../../bower_components/semantic-ui/dist/semantic.min.js');
-var MessageStore = require('../stores/MessageStore');
-var MessageEvent = require('../events').MessageEvent;
+var MessageStore = require('../../stores/MessageStore');
+var MessageEvent = require('../../events').MessageEvent;
 
 var Message = React.createClass({
   getInitialState: function () {

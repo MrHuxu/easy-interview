@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import EditUser from './EditUser.react';
-import AuthActions from '../actions/AuthActions';
-import { MessageDispatcher } from '../dispatcher/AppDispatcher';
+import Edit from './Edit.react';
+import AuthActions from '../../../actions/AuthActions';
+import { MessageDispatcher } from '../../../dispatcher/AppDispatcher';
 
-class UpdateUser extends Component {
+class Update extends Component {
   update () {
     var userData = arguments[0];
     if (userData.password !== userData.confirmPassword) {
@@ -20,8 +20,8 @@ class UpdateUser extends Component {
   }
 
   render () {
-    return <EditUser btnLabel='Update' action={this.update}/>;
+    return <Edit btnLabel='Update' action={this.update}/>;
   }
 };
 
-export default UpdateUser;
+export default Update;

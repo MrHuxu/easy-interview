@@ -1,14 +1,11 @@
 var React = require('react');
-var $ = require('jquery');
-window.jQuery = $; // Assure it's available globally.
-require('../../bower_components/semantic-ui/dist/semantic.min.js');
 var Router = require('react-router');
 var Link = Router.Link;
 var QuestionFilter = require('./QuestionFilter.react');
-var AuthStore = require('../stores/AuthStore');
-var QuestionActions = require('../actions/QuestionActions');
-var QuestionStore = require('../stores/QuestionStore');
-var QuestionEvent = require('../events').QuestionEvent;
+var AuthStore = require('../../../stores/AuthStore');
+var QuestionActions = require('../../../actions/QuestionActions');
+var QuestionStore = require('../../../stores/QuestionStore');
+var QuestionEvent = require('../../../events').QuestionEvent;
 
 var Question = React.createClass({
   deleteQuestion: function (questionId) {

@@ -1,8 +1,6 @@
+import $ from 'jquery';
 var React = require('react');
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
-var $ = require('jquery');
-window.jQuery = $; // Assure it's available globally.
-require('../../bower_components/semantic-ui/dist/semantic.min.js');
 var marked = require('marked');
 var QuestionStore = require('../stores/QuestionStore');
 var QuestionEvent = require('../events').QuestionEvent;

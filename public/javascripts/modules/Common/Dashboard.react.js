@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import $ from 'jquery';
-window.jQuery = $; // Assure it's available globally.
-require('../../bower_components/semantic-ui/dist/semantic.min.js');
-import QuestionActions from '../actions/QuestionActions';
-import QuestionList from './QuestionList.react';
+import QuestionActions from '../../actions/QuestionActions';
+import QuestionList from '../Question/components/QuestionList.react';
 import { Link } from 'react-router';
 
 class Dashboard extends Component {

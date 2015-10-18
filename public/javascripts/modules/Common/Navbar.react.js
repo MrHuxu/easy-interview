@@ -1,13 +1,10 @@
 var React = require('react');
-var $ = require('jquery');
-window.jQuery = $; // Assure it's available globally.
-require('../../bower_components/semantic-ui/dist/semantic.min.js');
 var Router = require('react-router');
 var Link = Router.Link;
 var Message = require('./Message.react');
-var AuthActions = require('../actions/AuthActions');
-var AuthStore = require('../stores/AuthStore');
-var AuthEvent = require('../events').AuthEvent;
+var AuthActions = require('../../actions/AuthActions');
+var AuthStore = require('../../stores/AuthStore');
+var AuthEvent = require('../../events').AuthEvent;
 
 
 var Navbar = React.createClass({
@@ -39,16 +36,16 @@ var Navbar = React.createClass({
       <div>
         <p>
           Login as &nbsp;
-          <Link to='/update_user'>{this.state.username}</Link> &nbsp;
+          <Link to='/user/update'>{this.state.username}</Link> &nbsp;
         </p>
         <button className='ui button red' onClick={this.logout}>Logout</button>
       </div>
     ) : (
       <div>
         <div className="ui buttons">
-          <Link className='ui button' to='/login'>Login</Link>
+          <Link className='ui button' to='/user/login'>Login</Link>
           <div className="or"></div>
-          <Link className='ui positive button' to='/signup'>Signup</Link>
+          <Link className='ui positive button' to='/user/signup'>Signup</Link>
         </div>
       </div>
     );

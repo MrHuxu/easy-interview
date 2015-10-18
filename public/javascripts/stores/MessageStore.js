@@ -37,4 +37,4 @@ var MessageStore = {
 
 MessageDispatcher.register(MessageStore._registerToActions.bind(MessageStore));
 
-module.exports = MessageStore;
+export default MessageStore;

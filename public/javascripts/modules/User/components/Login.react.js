@@ -1,9 +1,6 @@
 var React = require('react')
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
-var $ = require('jquery');
-window.jQuery = $; // Assure it's available globally.
-require('../../bower_components/semantic-ui/dist/semantic.min.js');
-var AuthActions = require('../actions/AuthActions');
+var AuthActions = require('../../../actions/AuthActions');
 var Link = require('react-router').Link;
 
 var Login = React.createClass({

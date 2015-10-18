@@ -16,6 +16,7 @@ var AuthStore = {
         this._token = action.content.token;
         this._team = action.content.team;
         this._position = action.content.position;
+        action.callback();
         AuthEvent.emit('login');
         break;
       case 'LOGOUT_USER':

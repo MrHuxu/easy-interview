@@ -1,4 +1,7 @@
+import $ from 'jquery';
+window.jQuery = $; // Assure it's available globally.
 require('../stylesheets/style.css');
+require('../bower_components/semantic-ui/dist/semantic.min.js');
 
 import React from 'react';
 import ReactDom from 'react-dom';

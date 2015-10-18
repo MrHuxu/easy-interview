@@ -1,9 +1,7 @@
-var React = require('react');
 var $ = require('jquery');
-window.jQuery = $; // Assure it's available globally.
-require('../../bower_components/semantic-ui/dist/semantic.min.js');
-var QuestionActions = require('../actions/QuestionActions');
-var QuestionStore = require('../stores/QuestionStore');
+var React = require('react');
+var QuestionActions = require('../../../actions/QuestionActions');
+var QuestionStore = require('../../../stores/QuestionStore');
 
 var QuestionFilter = React.createClass({
   searchConditionKyes: ['team', 'position', 'difficulty', 'interviewee', 'category'],

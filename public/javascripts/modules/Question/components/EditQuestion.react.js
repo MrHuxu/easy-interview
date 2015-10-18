@@ -1,8 +1,6 @@
+import $ from 'jquery';
 import React, { Component } from 'react';
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
-import $ from 'jquery';
-window.jQuery = $; // Assure it's available globally.
-require('../../bower_components/semantic-ui/dist/semantic.min.js');
 import marked from 'marked';
 import AuthStore from '../stores/AuthStore';
 import QuestionActions from '../actions/QuestionActions';
