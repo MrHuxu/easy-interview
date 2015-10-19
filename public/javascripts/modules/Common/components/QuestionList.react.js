@@ -24,7 +24,7 @@ var Question = React.createClass({
             <input type="checkbox"  onChange={this.handleChange}/> <label></label>
           </div>
         </td>
-        <td><Link to={`/question/${this.props.attr.id}/edit`} creator_id={this.props.attr.creator}>{this.props.attr.title}</Link></td>
+        <td><Link to={`/question/${this.props.attr.id}/edit`}>{this.props.attr.title}</Link></td>
         <td>{this.props.attr.creator.username}</td>
         <td>{this.props.attr.creator.position}</td>
         <td>{this.props.attr.difficulty}</td>
