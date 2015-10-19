@@ -11,10 +11,6 @@ import { QuestionEvent } from '../../Common/events';
 var Edit = React.createClass({
   mixins: [LinkedStateMixin, History],
 
-  contextTypes: {
-    router: React.PropTypes.func
-  },
-
   saveQuestion: function () {
     var questionId = this.props.params.questionId;
     questionId ? QuestionActions.update({
@@ -47,8 +43,7 @@ var Edit = React.createClass({
   loadQuestion: function () {
     var self = this;
     var question = QuestionStore.getQuestions()[0];
-    $('.ui.rating')
-    .rating('set rating', question.difficulty)
+    $('.ui.rating').rating('set rating', question.difficulty)
     $('.question-interviewee').dropdown('set selected', question.interviewee);
     $('.question-category').dropdown('set selected', question.category);
     this.state.creator_id = question.creator._id;
@@ -73,9 +68,8 @@ var Edit = React.createClass({
     QuestionEvent.on('load_question', this.loadQuestion);
   },
 
-  render: function () {
-    var hasPermission = this.state.creator_id === UserStore.getId();
-    var editArea = hasPermission ? (
+  renderEditArea: function () {
+    return (
       <div className = 'eight wide column ui form'>
         <h3>Input</h3>
         <div className="ui horizontal divider"><i className="write icon"></i></div>
@@ -121,7 +115,12 @@ var Edit = React.createClass({
           <button type='submit' className='ui button teal' onClick={this.saveQuestion}>Save</button>
         </div>
       </div>
-    ) : (<div className='four wide column' />);
+    );
+  },
+
+  render: function () {
+    var hasPermission = !this.props.params.questionId || UserStore.getQuestions().indexOf(this.props.params.questionId) !== -1
+    var editArea = hasPermission ? this.renderEditArea() : <div className='four wide column' />;
 
     return (
       <div className='ui stackable grid'>
@@ -130,7 +129,7 @@ var Edit = React.createClass({
         <div className='ten wide column'>
           <div className='ui grid'>
             <div className='sixteen wide column'>
-              <button className='ui blue button' onClick={this.history.goBack.bind(null)}>{'<< Back'}</button>
+              <button className='ui blue button' onClick={this.history.goBack}>{'<< Back'}</button>
             </div>
             {editArea}
             <div className='eight wide column ui form'>
