@@ -1,4 +1,5 @@
-import React from 'react';
+import $ from 'jquery';
+import React, { Component } from 'react';
 import Router, { Link } from 'react-router';
 import QuestionFilter from './QuestionFilter.react';
 import UserStore from '../../User/stores/UserStore';
@@ -36,12 +37,40 @@ var Question = React.createClass({
       </tr>
     );
   }
-})
+});
+
+class Pagination extends Component {
+  constructor(props) {
+    super(props);
+    this.changePage = this.changePage.bind(this);
+  }
+
+  changePage (page) {
+    $('.item').removeClass('active');
+    $(`.item.page${page}`).addClass('active');
+    this.props.changePage(page);
+  }
+
+  render () {
+    var pageBtns = [];
+    for (var i = 0; i < this.props.pageCount; ++i) {
+      pageBtns.push(<a className={i ? `item page${i + 1}` : `item page${i + 1} active`} onClick={this.changePage.bind(null, i + 1)}>{i + 1}</a>);
+    }
+    return (
+      <div className="ui borderless menu">
+        {pageBtns}
+      </div>
+    )
+  }
+};
 
 var QuestionList = React.createClass({
-
   getInitialState: function () {
-    return {questions: QuestionStore.getQuestions()};
+    return {questions: this.paginateQuestions(1)};
+  },
+
+  paginateQuestions: function (page) {
+    return QuestionStore.getQuestions().slice(3 * (page - 1), 3 * page);
   },
 
   componentDidMount: function () {
@@ -49,8 +78,12 @@ var QuestionList = React.createClass({
     QuestionEvent.on('load_question', this.loadQuestion);
   },
 
+  handlePageChange: function (page) {
+    this.setState({questions: this.paginateQuestions(page)});
+  },
+
   loadQuestion: function () {
-    this.setState({questions: QuestionStore.getQuestions()});
+    this.setState({questions: this.paginateQuestions(1)});
   },
 
   handleChange: function (id, value) {
@@ -79,6 +112,7 @@ var QuestionList = React.createClass({
     var list = this.state.questions.length === 0 ? [] : this.state.questions.map(function (question) {
       return <Question key={question.id} attr={question} handleChange={self.handleChange}/>
     });
+
     return (
       <div>
         <QuestionFilter />
@@ -99,6 +133,7 @@ var QuestionList = React.createClass({
             {list}
           </tbody>
         </table>
+        <Pagination pageCount={QuestionStore.getQuestions().length / 3} changePage={this.handlePageChange.bind(this)}/>
         <div className='two wide column'>
             <Link className="ui blue button" to='/question/interviewee/view' onClick={this.loadPreview}>View</Link>
             <Link className="ui blue button" to='/question/interviewer/view' onClick={this.loadPreview}>View With Answer</Link>

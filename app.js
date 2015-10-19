@@ -43,7 +43,7 @@ app.use('/question', question);
 // handle every other route with index.html, which will contain
 // a script tag to your application's JavaScript file(s).
 app.get('*', function (req, res){
-  res.sendFile(path.resolve(__dirname, 'views', 'index.ejs'));
+  res.render(path.resolve(__dirname, 'views', 'index.ejs'), {title: 'Easy Interview'});
 });
 
 // catch 404 and forward to error handler
