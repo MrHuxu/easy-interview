@@ -10,7 +10,8 @@ var generateResponse = (user) => {
     username: user.username,
     token: user.crypted_password,
     team: user.team,
-    position: user.position
+    position: user.position,
+    questions: user.questions
   };
 };
 
