@@ -12,17 +12,26 @@ var Question = React.createClass({
     QuestionActions.destroy({_id: questionId});
   },
 
-  handleChange: function(event) {
-    this.props.handleChange(this.props.attr.id, event.target.checked);
+  handleChange: function(isChecked) {
+    isChecked ? QuestionActions.selectQuestion(this.props.attr.id) : QuestionActions.unselectQuestion(this.props.attr.id);
+  },
+
+  componentDidMount: function () {
+    $(`.${this.props.attr.id}`)
+    .checkbox(QuestionStore.isSelected(this.props.attr.id) ? 'set checked' : 'set unchecked')
+    .checkbox({
+      onChecked: () => this.handleChange(true),
+      onUnchecked: () => this.handleChange(false)
+    });
   },
 
   render: function () {
     var hasPermission = this.props.attr.creator && this.props.attr.creator._id === UserStore.getId();
     return (
       <tr>
-        <td className="collapsing">
-          <div className="ui fitted toggle checkbox">
-            <input type="checkbox"  onChange={this.handleChange}/> <label></label>
+        <td className='collapsing'>
+          <div className={`ui fitted toggle checkbox ${this.props.attr.id}`}>
+            <input type="checkbox"/>
           </div>
         </td>
         <td><Link to={`/question/${this.props.attr.id}/edit`}>{this.props.attr.title}</Link></td>
@@ -39,8 +48,39 @@ var Question = React.createClass({
   }
 });
 
+class Selected extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {questions: QuestionStore.getSelectedQuestions()};
+  }
+
+  componentDidMount () {
+    QuestionEvent.on('SELECTION_CHANGE', () => {
+      this.setState({questions: QuestionStore.getSelectedQuestions()});
+    });
+  }
+
+  chooseSelected (id) {
+    QuestionActions.get({
+      _id: id
+    });
+  }
+
+  render () {
+    var questionBtns = this.state.questions.map(
+      (question) => <button className='ui sm yellow button' onClick={this.chooseSelected.bind(null, question.id)}>{question.title}</button>
+    );
+    return (
+      <span>
+        <button className='ui sm olive button'>Selected >></button>
+        {questionBtns}
+      </span>
+    );
+  }
+};
+
 class Pagination extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.changePage = this.changePage.bind(this);
   }
@@ -74,7 +114,6 @@ var QuestionList = React.createClass({
   },
 
   componentDidMount: function () {
-    this.previews = [];
     QuestionEvent.on('load_question', this.loadQuestion);
   },
 
@@ -86,31 +125,22 @@ var QuestionList = React.createClass({
     this.setState({questions: this.paginateQuestions(1)});
   },
 
-  handleChange: function (id, value) {
-    if (this.previews.indexOf(id) < 0 && value){
-      this.previews.push(id);
-    }else if (this.previews.indexOf(id) >=0){
-      if (!value) {
-        this.previews.splice(this.previews.indexOf(id), 1);
-      }
-    }
-  },
-
   loadPreview: function () {
     QuestionActions.get({
-      _id: { $in: this.previews }
+      _id: { $in: QuestionStore.getSelectedQuestionIds() }
     });
   },
 
   render: function () {
     var self = this;
     var list = this.state.questions.length === 0 ? [] : this.state.questions.map(function (question) {
-      return <Question key={question.id} attr={question} handleChange={self.handleChange}/>
+      return <Question key={question.id} attr={question}/>
     });
 
     return (
       <div>
         <QuestionFilter />
+        <Selected />
         <table className="ui red table">
           <thead>
             <tr>

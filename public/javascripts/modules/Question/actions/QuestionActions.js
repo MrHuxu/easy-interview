@@ -59,6 +59,20 @@ const QuestionActions = {
         actionType: 'DELETE_QUESTION'
       });
     })
+  },
+
+  selectQuestion: (id) => {
+    QuestionDispatcher.dispatch({
+      actionType: 'SELECT_QUESTION',
+      data: id
+    });
+  },
+
+  unselectQuestion: (id) => {
+    QuestionDispatcher.dispatch({
+      actionType: 'UNSELECT_QUESTION',
+      data: id
+    });
   }
 };
 
