@@ -64,14 +64,9 @@ var QuestionList = React.createClass({
   },
 
   loadPreview: function () {
-    var query = this.previews.map(function(select){
-                  return {_id: select};
-                });
-    if (query.length > 0) {
       QuestionActions.get({
-        $or:query 
-      }); 
-    }
+        _id: { $in: this.previews }
+      });
   },
 
   render: function () {
