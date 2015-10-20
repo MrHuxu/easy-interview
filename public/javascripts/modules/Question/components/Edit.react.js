@@ -69,6 +69,7 @@ var Edit = React.createClass({
   },
 
   renderEditArea: function () {
+    var hasPermission = this.state.creator_id === UserStore.getId();
     return (
       <div className = 'eight wide column ui form'>
         <h3>Input</h3>
@@ -112,16 +113,13 @@ var Edit = React.createClass({
           <textarea type='text' valueLink={this.linkState('answer')}/>
         </div>
         <div className='field'>
-          <button type='submit' className='ui button teal' onClick={this.saveQuestion}>Save</button>
+          <button type='submit' className={`ui button teal ${hasPermission ? '' : 'disabled'}`} onClick={this.saveQuestion}>Save</button>
         </div>
       </div>
     );
   },
 
   render: function () {
-    var hasPermission = !this.props.params.questionId || UserStore.getQuestions().indexOf(this.props.params.questionId) !== -1
-    var editArea = hasPermission ? this.renderEditArea() : <div className='four wide column' />;
-
     return (
       <div className='ui stackable grid'>
         <div className="ui horizontal divider"></div>
@@ -131,9 +129,9 @@ var Edit = React.createClass({
             <div className='sixteen wide column'>
               <button className='ui blue button' onClick={this.history.goBack}>{'<< Back'}</button>
             </div>
-            {editArea}
+            {this.renderEditArea()}
             <div className='eight wide column ui form'>
-              <h3>{hasPermission ? 'Preview' : 'Detail'}</h3>
+              <h3>Preview</h3>
               <div className="ui horizontal divider"><i className="wizard icon"></i></div>
               <div className='field'>
                 <label>Difficulty: {this.state.difficulty}</label>
