@@ -53,7 +53,7 @@ var Home = React.createClass({
           </div>
           <div className="ui horizontal divider"><i className="tag icon"></i></div>
           <h5>Go to <strong><Link to='/'>Dashboard</Link></strong> to see all questions!</h5>
-          <QuestionList />
+          <QuestionList page={1}/>
         </div>
       </div>
     );
