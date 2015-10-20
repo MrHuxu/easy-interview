@@ -64,9 +64,9 @@ var QuestionList = React.createClass({
   },
 
   loadPreview: function () {
-      QuestionActions.get({
-        _id: { $in: this.previews }
-      });
+    QuestionActions.get({
+      _id: { $in: this.previews }
+    });
   },
 
   render: function () {

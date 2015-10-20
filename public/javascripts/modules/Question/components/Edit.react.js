@@ -10,6 +10,7 @@ import { QuestionEvent } from '../../Common/events';
 
 var Edit = React.createClass({
   mixins: [LinkedStateMixin, History],
+  hasPermission: true,
 
   saveQuestion: function () {
     var questionId = this.props.params.questionId;
@@ -43,9 +44,12 @@ var Edit = React.createClass({
   loadQuestion: function () {
     var self = this;
     var question = QuestionStore.getQuestions()[0];
-    $('.ui.rating').rating('set rating', question.difficulty)
-    $('.question-interviewee').dropdown('set selected', question.interviewee);
-    $('.question-category').dropdown('set selected', question.category);
+    this.hasPermission = question.creator._id === UserStore.getId();
+
+    $('.ui.rating').rating(this.hasPermission ? 'enable' : 'disable').rating('set rating', question.difficulty)
+    $('.question-interviewee').addClass(this.hasPermission ? '' : 'disabled').dropdown('set selected', question.interviewee);
+    $('.question-category').addClass(this.hasPermission ? '' : 'disabled').dropdown('set selected', question.category);
+
     this.state.creator_id = question.creator._id;
     this.setState(question);
   },
@@ -80,7 +84,7 @@ var Edit = React.createClass({
         <div className='two fields'>
           <div className='field'>
             <label>Interviewee</label>
-            <select className="ui dropdown question-interviewee">
+            <select className={`ui dropdown question-interviewee`}>
               <option value=''>Select Interviewee</option>
               <option value='Campus'>Campus</option>
               <option value='Social'>Social</option>
@@ -88,7 +92,7 @@ var Edit = React.createClass({
           </div>
           <div className='field'>
             <label>Category</label>
-            <select className="ui dropdown question-category">
+            <select className={`ui dropdown question-category`}>
               <option value=''>Select Category</option>
               <option value='Algorithms'>Algorithms</option>
               <option value='Basic'>Basic</option>
@@ -101,27 +105,24 @@ var Edit = React.createClass({
         </div>
         <div className='field'>
           <label>Title</label>
-          <input type='text' valueLink={this.linkState('title')}/>
+          <input type='text' valueLink={this.linkState('title')} disabled={this.hasPermission ? '' : 'disabled'}/>
         </div>
         <div className='field'>
           <label>Question</label>
-          <textarea valueLink={this.linkState('question')}/>
+          <textarea valueLink={this.linkState('question')} disabled={this.hasPermission ? '' : 'disabled'}/>
         </div>
         <div className='field'>
           <label>Answer</label>
-          <textarea type='text' valueLink={this.linkState('answer')}/>
+          <textarea type='text' valueLink={this.linkState('answer')} disabled={this.hasPermission ? '' : 'disabled'}/>
         </div>
         <div className='field'>
-          <button type='submit' className='ui button teal' onClick={this.saveQuestion}>Save</button>
+          <button type='submit' className={`ui button teal ${this.hasPermission ? '' : 'disabled'}`} onClick={this.saveQuestion}>Save</button>
         </div>
       </div>
     );
   },
 
   render: function () {
-    var hasPermission = !this.props.params.questionId || UserStore.getQuestions().indexOf(this.props.params.questionId) !== -1
-    var editArea = hasPermission ? this.renderEditArea() : <div className='four wide column' />;
-
     return (
       <div className='ui stackable grid'>
         <div className="ui horizontal divider"></div>
@@ -131,9 +132,9 @@ var Edit = React.createClass({
             <div className='sixteen wide column'>
               <button className='ui blue button' onClick={this.history.goBack}>{'<< Back'}</button>
             </div>
-            {editArea}
+            {this.renderEditArea()}
             <div className='eight wide column ui form'>
-              <h3>{hasPermission ? 'Preview' : 'Detail'}</h3>
+              <h3>Preview</h3>
               <div className="ui horizontal divider"><i className="wizard icon"></i></div>
               <div className='field'>
                 <label>Difficulty: {this.state.difficulty}</label>

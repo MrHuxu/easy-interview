@@ -7,7 +7,6 @@ var UserStore = {
   _token: null,
   _team: null,
   _position: null,
-  _questions: [],
 
   _registerToActions: function (action) {
     switch(action.actionType) {
@@ -17,7 +16,6 @@ var UserStore = {
         this._token = action.content.token;
         this._team = action.content.team;
         this._position = action.content.position;
-        this._questions = action.content.questions.slice(0);
         action.callback();
         AuthEvent.emit('login');
         break;
@@ -44,10 +42,6 @@ var UserStore = {
 
   getToken: function () {
     return this._token;
-  },
-
-  getQuestions: function () {
-    return this._questions;
   },
 
   isLoggedIn: function () {
