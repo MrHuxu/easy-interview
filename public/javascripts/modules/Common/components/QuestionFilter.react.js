@@ -1,13 +1,21 @@
 import $ from 'jquery';
-import React from 'react';
+import React, { Component } from 'react';
 import QuestionActions from '../../Question/actions/QuestionActions';
 import QuestionStore from '../../Question/stores/QuestionStore';
 
-var QuestionFilter = React.createClass({
-  searchConditionKyes: ['team', 'position', 'difficulty', 'interviewee', 'category'],
-  searchConditions: {},
+class QuestionFilter extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {username: ''};
 
-  reloadQuestions: function () {
+    this.searchConditionKyes = ['team', 'position', 'difficulty', 'interviewee', 'category'];
+    this.searchConditions = {};
+
+    this.reloadQuestions = this.reloadQuestions.bind(this);
+    this.cancleFilter = this.cancleFilter.bind(this);
+  }
+
+  reloadQuestions () {
     var self = this;
     QuestionActions.get({
       $and: [
@@ -15,33 +23,32 @@ var QuestionFilter = React.createClass({
         QuestionStore.getSearchConditions()
       ]
     });
-  },
+  }
 
-  cancleFilter: function () {
+  cancleFilter () {
     $('.ui.dropdown').dropdown('clear');
     this.searchConditions = {};
     this.reloadQuestions();
-  },
+  }
 
-  componentDidMount: function () {
-    var self = this;
+  componentDidMount () {
     $('.filter-team').dropdown();
     $('.filter-position').dropdown();
-    $('.filter-difficulty').dropdown('setting', 'onChange', function (value) {
-      self.searchConditions['difficulty'] = value;
-      self.reloadQuestions();
+    $('.filter-difficulty').dropdown('setting', 'onChange', (value) => {
+      this.searchConditions['difficulty'] = value;
+      this.reloadQuestions();
     });
-    $('.filter-interviewee').dropdown('setting', 'onChange', function (value) {
-      self.searchConditions['interviewee'] = value;
-      self.reloadQuestions();
+    $('.filter-interviewee').dropdown('setting', 'onChange', (value) => {
+      this.searchConditions['interviewee'] = value;
+      this.reloadQuestions();
     });
-    $('.filter-category').dropdown('setting', 'onChange', function (value) {
-      self.searchConditions['category'] = value;
-      self.reloadQuestions();
+    $('.filter-category').dropdown('setting', 'onChange', (value) => {
+      this.searchConditions['category'] = value;
+      this.reloadQuestions();
     });
-  },
+  }
 
-  render: function () {
+  render () {
     return (
       <div className="ui menu">
         <a className="item"><i className="filter icon"></i>Filters</a>
@@ -87,6 +94,6 @@ var QuestionFilter = React.createClass({
       </div>
     );
   }
-});
+}
 
-module.exports = QuestionFilter;
+export default QuestionFilter;

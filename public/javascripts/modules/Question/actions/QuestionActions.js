@@ -1,10 +1,12 @@
 import $ from 'jquery';
+import NProgress from 'nprogress';
 import { QuestionDispatcher } from '../../Common/dispatcher/AppDispatcher';
 import QuestionStore from '../stores/QuestionStore';
 import history from '../../../router/history';
 
 const QuestionActions = {
   new: (args) => {
+    NProgress.start();
     $.ajax({
       type: 'POST',
       url: '/question/new',
@@ -17,6 +19,7 @@ const QuestionActions = {
   },
 
   get: (args) => {
+    NProgress.start();
     $.ajax({
       type: 'POST',
       url: '/question/get',
@@ -32,6 +35,7 @@ const QuestionActions = {
   },
 
   update: (args) => {
+    NProgress.start();
     $.ajax({
       type: 'PUT',
       url: '/question/update',
@@ -47,6 +51,7 @@ const QuestionActions = {
   },
 
   destroy: (args) => {
+    NProgress.start();
     $.ajax({
       type: 'DELETE',
       url: '/question/destroy',

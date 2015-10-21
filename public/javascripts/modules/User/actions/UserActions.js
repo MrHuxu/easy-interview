@@ -56,7 +56,7 @@ var UserActions = {
         actionType: 'LOGIN_USER',
         content: args,
         callback: () => {
-          history.replaceState(null, '/home')
+          history.replaceState(null, '/')
         }
       });
     }

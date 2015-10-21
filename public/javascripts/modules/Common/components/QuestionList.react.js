@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import NProgress from 'nprogress';
 import React, { Component } from 'react';
 import Router, { Link } from 'react-router';
 import QuestionFilter from './QuestionFilter.react';
@@ -7,25 +8,32 @@ import QuestionActions from '../../Question/actions/QuestionActions';
 import QuestionStore from '../../Question/stores/QuestionStore';
 import { QuestionEvent } from '../events';
 
-var Question = React.createClass({
-  deleteQuestion: function (questionId) {
+class Question extends Component {
+  constructor (props) {
+    super(props);
+
+    this.deleteQuestion = this.deleteQuestion.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  deleteQuestion (questionId) {
     QuestionActions.destroy({_id: questionId});
-  },
+  }
 
-  handleChange: function(isChecked) {
+  handleChange (isChecked) {
     isChecked ? QuestionActions.selectQuestion(this.props.attr.id) : QuestionActions.unselectQuestion(this.props.attr.id);
-  },
+  }
 
-  componentDidMount: function () {
+  componentDidMount () {
     $(`.${this.props.attr.id}`)
     .checkbox(QuestionStore.isSelected(this.props.attr.id) ? 'set checked' : 'set unchecked')
     .checkbox({
       onChecked: () => this.handleChange(true),
       onUnchecked: () => this.handleChange(false)
     });
-  },
+  }
 
-  render: function () {
+  render () {
     var hasPermission = this.props.attr.creator && this.props.attr.creator._id === UserStore.getId();
     return (
       <tr>
@@ -46,7 +54,7 @@ var Question = React.createClass({
       </tr>
     );
   }
-});
+}
 
 class Selected extends Component {
   constructor (props) {
@@ -123,38 +131,47 @@ class Pagination extends Component {
   }
 };
 
-var QuestionList = React.createClass({
-  getInitialState: function () {
-    return {questions: this.paginateQuestions(1)};
-  },
+class QuestionList extends Component {
+  constructor (props) {
+    super(props);
+    this.state = { questions: this.paginateQuestions(1) };
 
-  paginateQuestions: function (page) {
+    this.paginateQuestions = this.paginateQuestions.bind(this);
+    this.handlePageChange = this.handlePageChange.bind(this);
+    this.loadPreview = this.loadPreview.bind(this);
+    this.loadQuestion = this.loadQuestion.bind(this);
+  }
+
+  paginateQuestions (page) {
     return QuestionStore.getQuestions().slice(10 * (page - 1), 10 * page);
-  },
+  }
 
-  componentDidMount: function () {
-    QuestionEvent.addListener('LOAD_QUESTION', this.loadQuestion);
-  },
+  componentDidMount () {
+    let callback = this.loadQuestion;
+    QuestionEvent.addListener('LOAD_QUESTION', callback);
+  }
 
-  componentWillUnmount: function () {
-    QuestionEvent.removeListener('LOAD_QUESTION', this.loadQuestion);
-  },
+  componentWillUnmount () {
+    let callback = this.loadQuestion;
+    QuestionEvent.removeListener('LOAD_QUESTION', callback);
+  }
 
-  handlePageChange: function (page) {
+  handlePageChange (page) {
     this.setState({questions: this.paginateQuestions(page)});
-  },
+  }
 
-  loadQuestion: function () {
+  loadQuestion () {
+    NProgress.done();
     this.setState({questions: this.paginateQuestions(1)});
-  },
+  }
 
-  loadPreview: function () {
+  loadPreview () {
     QuestionActions.get({
       _id: { $in: QuestionStore.getSelectedQuestionIds() }
     });
-  },
+  }
 
-  render: function () {
+  render () {
     var self = this;
     var list = this.state.questions.length === 0 ? [] : this.state.questions.map(function (question) {
       return <Question key={question.id} attr={question}/>
@@ -189,6 +206,6 @@ var QuestionList = React.createClass({
       </div>
     );
   }
-});
+}
 
-module.exports = QuestionList;
+export default QuestionList;

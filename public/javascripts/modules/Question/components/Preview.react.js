@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import NProgress from 'nprogress';
 import React from 'react';
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
 import marked from 'marked';
@@ -54,6 +55,7 @@ var Preview = React.createClass({
 
   loadQuestion: function () {
     var question_previews = QuestionStore.getQuestions();
+    NProgress.done();
     this.setState({questions: question_previews});
   },
 

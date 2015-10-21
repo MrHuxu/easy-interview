@@ -1,3 +1,4 @@
+import NProgress from 'nprogress';
 import QuestionActions from '../actions/QuestionActions';
 import { QuestionDispatcher } from '../../Common/dispatcher/AppDispatcher';
 import { QuestionEvent } from '../../Common/events';
@@ -11,14 +12,17 @@ var QuestionStore = {
     switch (action.actionType) {
       case 'GET_QUESTIONS':
         this._records = action.content;
+        NProgress.set(0.5);
         QuestionEvent.emit('LOAD_QUESTION');
         break;
 
       case 'UPDATE_QUESTION':
+        NProgress.set(0.5);
         QuestionActions.get(this.getSearchConditions());
         break;
 
       case 'DELETE_QUESTION':
+        NProgress.set(0.5);
         QuestionActions.get(this.getSearchConditions());
         break;
 
