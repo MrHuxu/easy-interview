@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import QuestionActions from '../../Question/actions/QuestionActions';
+import QuestionStore from '../../Question/stores/QuestionStore';
 import QuestionList from './QuestionList.react';
 import { Link } from 'react-router';
 
 class Dashboard extends Component {
+  constructor (props) {
+    super(props);
+    QuestionStore.initSearchConditions({});
+  }
+
   componentDidMount () {
-    QuestionActions.get({});
+    QuestionActions.get(QuestionStore.getSearchConditions());
   }
 
   render () {

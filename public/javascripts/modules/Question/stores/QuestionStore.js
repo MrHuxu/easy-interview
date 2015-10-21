@@ -3,9 +3,9 @@ import { QuestionDispatcher } from '../../Common/dispatcher/AppDispatcher';
 import { QuestionEvent } from '../../Common/events';
 
 var QuestionStore = {
-  _records             : [],
-  _searchConditions    : {},
-  _selectedQuestionIds : [],
+  _records                  : [],
+  _selectedQuestions        : [],
+  _searchConditions  : {},
 
   _registerToActions: function (action) {
     switch (action.actionType) {
@@ -13,20 +13,31 @@ var QuestionStore = {
         this._records = action.content;
         QuestionEvent.emit('load_question');
         break;
+
       case 'UPDATE_QUESTION':
         QuestionActions.get(this.getSearchConditions());
         break;
+
       case 'DELETE_QUESTION':
         QuestionActions.get(this.getSearchConditions());
         break;
+
       case 'SELECT_QUESTION':
-        this._selectedQuestionIds.push(action.data);
+        this._selectedQuestions = this._selectedQuestions.concat(this._records.filter(
+          (record) => record.id === action.data
+        ));
         QuestionEvent.emit('SELECTION_CHANGE');
         break;
+
       case 'UNSELECT_QUESTION':
-        this._selectedQuestionIds.splice(this._selectedQuestionIds.indexOf(action.data), 1);
+        for (var i = 0, l = this._selectedQuestions.length; i < l; ++i) {
+          if (this._selectedQuestions[i].id === action.data)
+            break;
+        }
+        this._selectedQuestions.splice(i, 1);
         QuestionEvent.emit('SELECTION_CHANGE');
         break;
+
       default:
         break;
     };
@@ -37,15 +48,19 @@ var QuestionStore = {
   },
 
   getSelectedQuestions: function () {
-    return this._records.filter((record) => this._selectedQuestionIds.indexOf(record.id) !== -1);
+    return this._selectedQuestions;
   },
 
   getSelectedQuestionIds: function () {
-    return this._selectedQuestionIds;
+    return this._selectedQuestions.map((question) => question.id);
   },
 
   isSelected: function (id) {
-    return this._selectedQuestionIds.indexOf(id) === -1 ? false : true;
+    return this.getSelectedQuestionIds().indexOf(id) === -1 ? false : true;
+  },
+
+  initSearchConditions: function (condition) {
+    this._searchConditions = condition;
   },
 
   getSearchConditions: function () {

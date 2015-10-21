@@ -1,34 +1,27 @@
-import React from 'react';
+import React, { Component } from 'react';
 import QuestionList from './QuestionList.react';
 import { MessageDispatcher } from '../dispatcher/AppDispatcher';
 import UserStore from '../../User/stores/UserStore';
 import QuestionActions from '../../Question/actions/QuestionActions';
+import QuestionStore from '../../Question/stores/QuestionStore';
 import { Link } from 'react-router';
 
-var Home = React.createClass({
-  getInitialState: function () {
-    return this._getLoginState();
-  },
-
-  _getLoginState: function () {
-    return {
+class Home extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {
       userLoggedIn: UserStore.isLoggedIn(),
       username: UserStore.getUser(),
       token: UserStore.getToken()
     };
-  },
+    QuestionStore.initSearchConditions({creator: UserStore.getId()});
+  }
 
-  login: function () {
-    this.setState(this._getLoginState());
-  },
+  componentDidMount () {
+    QuestionActions.get(QuestionStore.getSearchConditions());
+  }
 
-  componentDidMount: function () {
-    QuestionActions.get({
-      creator: UserStore._id
-    });
-  },
-
-  render: function () {
+  render () {
     return (
       <div className='ui stackable grid'>
         <div className='three wide column'></div>
@@ -58,6 +51,6 @@ var Home = React.createClass({
       </div>
     );
   }
-});
+};
 
 export default Home;

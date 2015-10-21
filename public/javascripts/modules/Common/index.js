@@ -3,8 +3,8 @@ import Home from './components/Home.react';
 import UserStore from '../User/stores/UserStore';
 
 export default {
-  path: '/',
-  component: App,
+  path       : '/',
+  component  : App,
   childRoutes: [
     { path: 'home', component: Home, onEnter: (nextState, replaceState) => {
       if (!UserStore.isLoggedIn())

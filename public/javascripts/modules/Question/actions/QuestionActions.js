@@ -17,7 +17,6 @@ const QuestionActions = {
   },
 
   get: (args) => {
-    QuestionStore._searchConditions = args;
     $.ajax({
       type: 'POST',
       url: '/question/get',

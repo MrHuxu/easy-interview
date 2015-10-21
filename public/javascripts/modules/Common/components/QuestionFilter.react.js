@@ -8,14 +8,7 @@ var QuestionFilter = React.createClass({
   searchConditions: {},
 
   reloadQuestions: function () {
-    var self = this;
-    var conditions = {};
-    var preConditions = QuestionStore.getSearchConditions();
-    Object.keys(preConditions).forEach(function (key) {
-      if (self.searchConditionKyes.indexOf(key) === -1) conditions[key] = preConditions[key];
-    });
-    conditions = $.extend(conditions, self.searchConditions);
-    QuestionActions.get(conditions);
+    QuestionActions.get(QuestionStore.getSearchConditions());
   },
 
   cancleFilter: function () {
@@ -40,10 +33,6 @@ var QuestionFilter = React.createClass({
       self.searchConditions['category'] = value;
       self.reloadQuestions();
     });
-  },
-
-  canCancel: function () {
-    return Object.keys(this.searchConditions).length;
   },
 
   render: function () {
@@ -85,7 +74,6 @@ var QuestionFilter = React.createClass({
           <option value='Personality'>Personality</option>
         </select>
         <button className = "ui red button item"
-                style     = {{display: this.canCancel() ? '' : 'none'}}
                 onClick   = {this.cancleFilter}>
           <i className='remove icon'></i>
         </button>
