@@ -139,6 +139,7 @@ class QuestionList extends Component {
     this.paginateQuestions = this.paginateQuestions.bind(this);
     this.handlePageChange = this.handlePageChange.bind(this);
     this.loadPreview = this.loadPreview.bind(this);
+    this.loadQuestion = this.loadQuestion.bind(this);
   }
 
   paginateQuestions (page) {
@@ -146,11 +147,13 @@ class QuestionList extends Component {
   }
 
   componentDidMount () {
-    QuestionEvent.addListener('LOAD_QUESTION', this.loadQuestion.bind(this));
+    let callback = this.loadQuestion;
+    QuestionEvent.addListener('LOAD_QUESTION', callback);
   }
 
   componentWillUnmount () {
-    QuestionEvent.removeListener('LOAD_QUESTION', this.loadQuestion.bind(this));
+    let callback = this.loadQuestion;
+    QuestionEvent.removeListener('LOAD_QUESTION', callback);
   }
 
   handlePageChange (page) {

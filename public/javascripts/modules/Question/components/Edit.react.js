@@ -28,6 +28,7 @@ class Edit extends Component {
     this.saveQuestion = this.saveQuestion.bind(this);
     this.loadQuestionContext = this.loadQuestionContext.bind(this);
     this.renderEditArea = this.renderEditArea.bind(this);
+    this.loadQuestion = this.loadQuestion.bind(this);
     this.goBack = this.goBack.bind(this);
 
     if (this.props.params.questionId) this.loadQuestionContext();
@@ -83,11 +84,13 @@ class Edit extends Component {
       self.setState({category: value});
     });
 
-    QuestionEvent.addListener('LOAD_QUESTION', this.loadQuestion.bind(this));
+    let callback = this.loadQuestion;
+    QuestionEvent.addListener('LOAD_QUESTION', callback);
   }
 
   componentWillUnmount () {
-    QuestionEvent.removeListener('LOAD_QUESTION', this.loadQuestion.bind(this));
+    let callback = this.loadQuestion;
+    QuestionEvent.removeListener('LOAD_QUESTION', callback);
   }
 
   renderEditArea () {
