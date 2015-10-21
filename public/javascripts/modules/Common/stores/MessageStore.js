@@ -8,7 +8,7 @@ var MessageStore = {
     var self = this;
     setTimeout(function () {
       self._messages = [];
-      MessageEvent.emit('refresh');
+      MessageEvent.emit('REFRESH_MESSAGE');
       clearTimeout();
     }, 10000);
   },
@@ -18,7 +18,7 @@ var MessageStore = {
       case 'REFRESH_MESSAGE' :
         this._messages = action.content;
         if (this._messages.length) this.addTimeout();
-        MessageEvent.emit('refresh');
+        MessageEvent.emit('REFRESH_MESSAGE');
         break;
       default:
         break;

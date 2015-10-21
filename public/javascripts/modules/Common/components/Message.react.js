@@ -9,7 +9,11 @@ var Message = React.createClass({
   },
 
   componentDidMount: function () {
-    MessageEvent.on('refresh', this.refreshMessages);
+    MessageEvent.addListener('REFRESH_MESSAGE', this.refreshMessages);
+  },
+
+  componentWillUnmound: function () {
+    MessageEvent.removeListener('REFRESH_MESSAGE', this.refreshMessages);
   },
 
   componentDidUpdate: function () {

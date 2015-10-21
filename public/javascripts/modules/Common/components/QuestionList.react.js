@@ -52,12 +52,19 @@ class Selected extends Component {
   constructor (props) {
     super(props);
     this.state = {questions: QuestionStore.getSelectedQuestions()};
+    this.refreshSelectedBtns = this.refreshSelectedBtns.bind(this);
   }
 
   componentDidMount () {
-    QuestionEvent.on('SELECTION_CHANGE', () => {
-      this.setState({questions: QuestionStore.getSelectedQuestions()});
-    });
+    QuestionEvent.addListener('SELECTION_CHANGE', this.refreshSelectedBtns);
+  }
+
+  componentWillUnmount () {
+    QuestionEvent.removeListener('SELECTION_CHANGE', this.refreshSelectedBtns);
+  }
+
+  refreshSelectedBtns () {
+    this.setState({questions: QuestionStore.getSelectedQuestions()});
   }
 
   chooseSelected (id) {
@@ -122,11 +129,15 @@ var QuestionList = React.createClass({
   },
 
   paginateQuestions: function (page) {
-    return QuestionStore.getQuestions().slice(3 * (page - 1), 3 * page);
+    return QuestionStore.getQuestions().slice(10 * (page - 1), 10 * page);
   },
 
   componentDidMount: function () {
-    QuestionEvent.on('LOAD_QUESTION', this.loadQuestion);
+    QuestionEvent.addListener('LOAD_QUESTION', this.loadQuestion);
+  },
+
+  componentWillUnmount: function () {
+    QuestionEvent.removeListener('LOAD_QUESTION', this.loadQuestion);
   },
 
   handlePageChange: function (page) {
@@ -170,7 +181,7 @@ var QuestionList = React.createClass({
             {list}
           </tbody>
         </table>
-        <Pagination pageCount={QuestionStore.getQuestions().length / 3} changePage={this.handlePageChange.bind(this)}/>
+        <Pagination pageCount={QuestionStore.getQuestions().length / 10} changePage={this.handlePageChange.bind(this)}/>
         <div className='two wide column'>
             <Link className="ui blue button" to='/question/interviewee/view' onClick={this.loadPreview}>View</Link>
             <Link className="ui blue button" to='/question/interviewer/view' onClick={this.loadPreview}>View With Answer</Link>

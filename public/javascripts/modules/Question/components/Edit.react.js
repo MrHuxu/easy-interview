@@ -73,7 +73,11 @@ var Edit = React.createClass({
       self.setState({category: value});
     });
 
-    QuestionEvent.on('LOAD_QUESTION', this.loadQuestion);
+    QuestionEvent.addListener('LOAD_QUESTION', this.loadQuestion);
+  },
+
+  componentWillUnmount: function () {
+    QuestionEvent.removeListener('LOAD_QUESTION', this.loadQuestion);
   },
 
   renderEditArea: function () {

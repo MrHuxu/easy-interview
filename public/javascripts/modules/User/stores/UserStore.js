@@ -17,7 +17,7 @@ var UserStore = {
         this._team = action.content.team;
         this._position = action.content.position;
         action.callback();
-        AuthEvent.emit('login');
+        AuthEvent.emit('USER_LOGIN');
         break;
       case 'LOGOUT_USER':
         this._id = null;
