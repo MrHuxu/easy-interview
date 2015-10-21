@@ -1,6 +1,7 @@
 import $ from 'jquery';
 window.jQuery = $; // Assure it's available globally.
 require('../stylesheets/style.css');
+require('../../node_modules/nprogress/nprogress.css');
 require('../bower_components/semantic-ui/dist/semantic.min.js');
 
 import React from 'react';

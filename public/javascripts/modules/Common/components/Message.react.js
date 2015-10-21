@@ -1,32 +1,35 @@
 import $ from 'jquery';
-import React from 'react';
+import React, { Component } from 'react';
 import MessageStore from '../stores/MessageStore';
 import { MessageEvent } from '../events';
 
-var Message = React.createClass({
-  getInitialState: function () {
-    return {messages: []};
-  },
+class Message extends Component {
+  constructor (props) {
+    super(props);
+    this.state = { messages: [] };
 
-  componentDidMount: function () {
+    this.refreshMessages = this.refreshMessages.bind(this);
+  }
+
+  componentDidMount () {
     MessageEvent.addListener('REFRESH_MESSAGE', this.refreshMessages);
-  },
+  }
 
-  componentWillUnmound: function () {
+  componentWillUnmound () {
     MessageEvent.removeListener('REFRESH_MESSAGE', this.refreshMessages);
-  },
+  }
 
-  componentDidUpdate: function () {
+  componentDidUpdate () {
     $('.message .close').on('click', function() {
       $(this).closest('.message').fadeOut();
     });
-  },
+  }
 
-  refreshMessages: function () {
+  refreshMessages () {
     this.setState({messages: MessageStore.getMessages()});
-  },
+  }
 
-  render: function () {
+  render () {
     var messageItems = this.state.messages.map(function (message) {
       return (
         <div className='ui small floating teal message'>
@@ -45,6 +48,6 @@ var Message = React.createClass({
       </div>
     );
   }
-});
+}
 
 export default Message;

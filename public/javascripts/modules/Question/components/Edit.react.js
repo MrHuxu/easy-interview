@@ -1,6 +1,9 @@
 import $ from 'jquery';
+import NProgress from 'nprogress';
 import React, { Component } from 'react';
+import reactMixin from 'react-mixin';
 import { History } from 'react-router';
+import history from '../../../router/history';
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
 import marked from 'marked';
 import UserStore from '../../User/stores/UserStore';
@@ -8,41 +11,47 @@ import QuestionActions from '../actions/QuestionActions';
 import QuestionStore from '../stores/QuestionStore';
 import { QuestionEvent } from '../../Common/events';
 
-var Edit = React.createClass({
-  mixins: [LinkedStateMixin, History],
-  hasPermission: true,
+class Edit extends Component {
+  constructor (props) {
+    super(props);
+    this.hasPermission = true;
+    this.state = {
+      creator_id  : UserStore.getId(),
+      difficulty  : 0,
+      interviewee : '',
+      category    : '',
+      title       : '',
+      question    : '',
+      answer      : ''
+    };
 
-  saveQuestion: function () {
+    this.saveQuestion = this.saveQuestion.bind(this);
+    this.loadQuestionContext = this.loadQuestionContext.bind(this);
+    this.renderEditArea = this.renderEditArea.bind(this);
+    this.goBack = this.goBack.bind(this);
+
+    if (this.props.params.questionId) this.loadQuestionContext();
+  }
+
+  goBack () {
+    history.goBack();
+  }
+
+  saveQuestion () {
     var questionId = this.props.params.questionId;
     questionId ? QuestionActions.update({
       condition: {_id: questionId},
       content: this.state
     }) : QuestionActions.new(this.state);
-  },
+  }
 
-  loadQuestionContext: function () {
+  loadQuestionContext () {
     QuestionActions.get({
       _id: this.props.params.questionId
     });
-  },
+  }
 
-  getInitialState: function () {
-    if (this.props.params.questionId) {
-      this.loadQuestionContext();
-    }
-    return {
-      creator_id: UserStore.getId(),
-      difficulty: 0,
-      interviewee: '',
-      category: '',
-      title: '',
-      question: '',
-      answer: ''
-    };
-  },
-
-  loadQuestion: function () {
-    var self = this;
+  loadQuestion () {
     var question = QuestionStore.getQuestions()[0];
     this.hasPermission = question.creator._id === UserStore.getId();
 
@@ -55,10 +64,11 @@ var Edit = React.createClass({
     }
 
     this.state.creator_id = question.creator._id;
+    NProgress.done();
     this.setState(question);
-  },
+  }
 
-  componentDidMount: function () {
+  componentDidMount () {
     var self = this;
 
     $('.ui.rating').rating('setting', 'onRate', function (value) {
@@ -73,14 +83,14 @@ var Edit = React.createClass({
       self.setState({category: value});
     });
 
-    QuestionEvent.addListener('LOAD_QUESTION', this.loadQuestion);
-  },
+    QuestionEvent.addListener('LOAD_QUESTION', this.loadQuestion.bind(this));
+  }
 
-  componentWillUnmount: function () {
-    QuestionEvent.removeListener('LOAD_QUESTION', this.loadQuestion);
-  },
+  componentWillUnmount () {
+    QuestionEvent.removeListener('LOAD_QUESTION', this.loadQuestion.bind(this));
+  }
 
-  renderEditArea: function () {
+  renderEditArea () {
     return (
       <div className = 'eight wide column ui form edit-area'>
         <h3>Input</h3>
@@ -128,9 +138,9 @@ var Edit = React.createClass({
         </div>
       </div>
     );
-  },
+  }
 
-  render: function () {
+  render () {
     return (
       <div className='ui stackable grid'>
         <div className="ui horizontal divider"></div>
@@ -138,7 +148,7 @@ var Edit = React.createClass({
         <div className='ten wide column'>
           <div className='ui grid'>
             <div className='sixteen wide column'>
-              <button className='ui blue button' onClick={this.history.goBack}>{'<< Back'}</button>
+              <button className='ui blue button' onClick={this.goBack}>{'<< Back'}</button>
             </div>
             {this.renderEditArea()}
             <div className='eight wide column ui form'>
@@ -179,6 +189,9 @@ var Edit = React.createClass({
       </div>
     );
   }
-});
+};
+
+reactMixin(Edit.prototype, LinkedStateMixin);
+reactMixin(Edit.prototype, History);
 
 export default Edit;

@@ -5,9 +5,8 @@ var MessageStore = {
   _messages: [],
 
   addTimeout: function () {
-    var self = this;
-    setTimeout(function () {
-      self._messages = [];
+    setTimeout(() => {
+      this._messages = [];
       MessageEvent.emit('REFRESH_MESSAGE');
       clearTimeout();
     }, 10000);

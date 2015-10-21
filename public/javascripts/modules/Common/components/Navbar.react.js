@@ -1,40 +1,42 @@
-import React from 'react';
-import Router, { Link, History } from 'react-router';
+import React, { Component } from 'react';
+import Router, { Link } from 'react-router';
+import history from '../../../router/history';
 import Message from './Message.react';
 import UserActions from '../../User/actions/UserActions';
 import UserStore from '../../User/stores/UserStore';
 import { AuthEvent } from '../events';
 
+class Navbar extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {username: ''};
 
-var Navbar = React.createClass({
-  mixins : [History],
+    this.logout = this.logout.bind(this);
+    this.toDashboard = this.toDashboard.bind(this);
+  }
 
-  getInitialState: function () {
-    return {username: ''};
-  },
+  componentDidMount () {
+    AuthEvent.addListener('USER_LOGIN', this.login.bind(this));
+  }
 
-  componentDidMount: function () {
-    AuthEvent.addListener('USER_LOGIN', this.login);
-  },
+  componentWillUnmound () {
+    AuthEvent.removeListener('USER_LOGIN', this.login.bind(this));
+  }
 
-  componentWillUnmound: function () {
-    AuthEvent.removeListener('USER_LOGIN', this.login);
-  },
-
-  login: function () {
+  login () {
     this.setState({username: UserStore._username});
-  },
+  }
 
-  logout: function () {
+  logout () {
     UserActions.logout();
     this.setState({username: ''});
-  },
+  }
 
-  toDashboard: function () {
-    this.history.replaceState(null, '/');
-  },
+  toDashboard () {
+    history.replaceState(null, '/');
+  }
 
-  render: function () {
+  render () {
     var actionItem = UserStore.isLoggedIn() ? (
       <div>
         <p>
@@ -73,6 +75,6 @@ var Navbar = React.createClass({
       </div>
     );
   }
-});
+}
 
 export default Navbar;
