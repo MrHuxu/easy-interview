@@ -8,7 +8,13 @@ var QuestionFilter = React.createClass({
   searchConditions: {},
 
   reloadQuestions: function () {
-    QuestionActions.get(QuestionStore.getSearchConditions());
+    var self = this;
+    QuestionActions.get({
+      $and: [
+        self.searchConditions,
+        QuestionStore.getSearchConditions()
+      ]
+    });
   },
 
   cancleFilter: function () {
