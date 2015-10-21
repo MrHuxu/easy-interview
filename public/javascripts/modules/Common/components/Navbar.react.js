@@ -14,7 +14,11 @@ var Navbar = React.createClass({
   },
 
   componentDidMount: function () {
-    AuthEvent.on('login', this.login);
+    AuthEvent.addListener('USER_LOGIN', this.login);
+  },
+
+  componentWillUnmound: function () {
+    AuthEvent.removeListener('USER_LOGIN', this.login);
   },
 
   login: function () {

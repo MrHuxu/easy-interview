@@ -9,13 +9,12 @@ var QuestionFilter = React.createClass({
 
   reloadQuestions: function () {
     var self = this;
-    var conditions = {};
-    var preConditions = QuestionStore.getSearchConditions();
-    Object.keys(preConditions).forEach(function (key) {
-      if (self.searchConditionKyes.indexOf(key) === -1) conditions[key] = preConditions[key];
+    QuestionActions.get({
+      $and: [
+        self.searchConditions,
+        QuestionStore.getSearchConditions()
+      ]
     });
-    conditions = $.extend(conditions, self.searchConditions);
-    QuestionActions.get(conditions);
   },
 
   cancleFilter: function () {
@@ -42,10 +41,6 @@ var QuestionFilter = React.createClass({
     });
   },
 
-  canCancel: function () {
-    return Object.keys(this.searchConditions).length;
-  },
-
   render: function () {
     return (
       <div className="ui menu">
@@ -64,6 +59,7 @@ var QuestionFilter = React.createClass({
         </select>
         <select className="ui pointing dropdown compact filter-difficulty item">
           <option value="">Select Difficulty</option>
+          <option value='0'>0</option>
           <option value='1'>1</option>
           <option value='2'>2</option>
           <option value='3'>3</option>
@@ -85,7 +81,6 @@ var QuestionFilter = React.createClass({
           <option value='Personality'>Personality</option>
         </select>
         <button className = "ui red button item"
-                style     = {{display: this.canCancel() ? '' : 'none'}}
                 onClick   = {this.cancleFilter}>
           <i className='remove icon'></i>
         </button>

@@ -40,6 +40,12 @@ app.use('/', routes);
 app.use('/auth', auth);
 app.use('/question', question);
 
+// handle every other route with index.html, which will contain
+// a script tag to your application's JavaScript file(s).
+app.get('*', function (req, res){
+  res.render(path.resolve(__dirname, 'views', 'index.ejs'), {title: 'Easy Interview'});
+});
+
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   var err = new Error('Not Found');

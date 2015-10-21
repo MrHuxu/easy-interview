@@ -50,6 +50,10 @@ var Edit = React.createClass({
     $('.question-interviewee').addClass(this.hasPermission ? '' : 'disabled').dropdown('set selected', question.interviewee);
     $('.question-category').addClass(this.hasPermission ? '' : 'disabled').dropdown('set selected', question.category);
 
+    if (!this.hasPermission) {
+      $('.edit-area label').css({opacity: 0.5});
+    }
+
     this.state.creator_id = question.creator._id;
     this.setState(question);
   },
@@ -69,12 +73,16 @@ var Edit = React.createClass({
       self.setState({category: value});
     });
 
-    QuestionEvent.on('load_question', this.loadQuestion);
+    QuestionEvent.addListener('LOAD_QUESTION', this.loadQuestion);
+  },
+
+  componentWillUnmount: function () {
+    QuestionEvent.removeListener('LOAD_QUESTION', this.loadQuestion);
   },
 
   renderEditArea: function () {
     return (
-      <div className = 'eight wide column ui form'>
+      <div className = 'eight wide column ui form edit-area'>
         <h3>Input</h3>
         <div className="ui horizontal divider"><i className="write icon"></i></div>
         <div className='field'>
