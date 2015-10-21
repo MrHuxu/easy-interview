@@ -62,17 +62,29 @@ class Selected extends Component {
 
   chooseSelected (id) {
     QuestionActions.get({
-      _id: id
+      $and: [
+        { _id: id },
+        QuestionStore.getSearchConditions()
+      ]
+    });
+  }
+
+  showAllSelected () {
+    QuestionActions.get({
+      $and: [
+        QuestionStore.getSearchConditions(),
+        { _id: {$in: QuestionStore.getSelectedQuestionIds()} }
+      ]
     });
   }
 
   render () {
     var questionBtns = this.state.questions.map(
-      (question) => <button className='ui sm yellow button' onClick={this.chooseSelected.bind(null, question.id)}>{question.title}</button>
+      (question) => <button className='ui sm yellow button selected' onClick={this.chooseSelected.bind(null, question.id)} data-id={question.id}>{question.title}</button>
     );
     return (
       <span>
-        <button className='ui sm olive button'>Selected >></button>
+        <button className='ui sm olive button' onClick={this.showAllSelected}>Selected >></button>
         {questionBtns}
       </span>
     );
@@ -114,7 +126,7 @@ var QuestionList = React.createClass({
   },
 
   componentDidMount: function () {
-    QuestionEvent.on('load_question', this.loadQuestion);
+    QuestionEvent.on('LOAD_QUESTION', this.loadQuestion);
   },
 
   handlePageChange: function (page) {

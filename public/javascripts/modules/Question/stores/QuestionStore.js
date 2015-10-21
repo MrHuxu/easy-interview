@@ -11,7 +11,7 @@ var QuestionStore = {
     switch (action.actionType) {
       case 'GET_QUESTIONS':
         this._records = action.content;
-        QuestionEvent.emit('load_question');
+        QuestionEvent.emit('LOAD_QUESTION');
         break;
 
       case 'UPDATE_QUESTION':
@@ -45,6 +45,10 @@ var QuestionStore = {
 
   getQuestions: function () {
     return this._records;
+  },
+
+  getQuestionIds: function () {
+    return this._records.map((question) => question.id);
   },
 
   getSelectedQuestions: function () {

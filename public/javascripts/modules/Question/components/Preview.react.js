@@ -59,7 +59,7 @@ var Preview = React.createClass({
 
   componentDidMount: function () {
     $('.action-item').hide();
-    QuestionEvent.on('load_question', this.loadQuestion);
+    QuestionEvent.on('LOAD_QUESTION', this.loadQuestion);
   },
 
   componentWillUnmount: function () {
