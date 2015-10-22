@@ -95,7 +95,7 @@ class Selected extends Component {
 
   render () {
     var questionBtns = this.state.questions.map(
-      (question) => <button className='ui sm yellow button selected' onClick={this.chooseSelected.bind(null, question.id)} data-id={question.id}>{question.title}</button>
+      (question) => <button className='ui sm yellow button selected' onClick={this.chooseSelected.bind(null, question.id)} key={question.id}>{question.title}</button>
     );
     return (
       <span>
@@ -121,7 +121,7 @@ class Pagination extends Component {
   render () {
     var pageBtns = [];
     for (var i = 0; i < this.props.pageCount; ++i) {
-      pageBtns.push(<a className={i ? `item page${i + 1}` : `item page${i + 1} active`} onClick={this.changePage.bind(null, i + 1)}>{i + 1}</a>);
+      pageBtns.push(<a className={i ? `item page${i + 1}` : `item page${i + 1} active`} onClick={this.changePage.bind(null, i + 1)} key={i + 1}>{i + 1}</a>);
     }
     return (
       <div className="ui borderless menu">

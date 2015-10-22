@@ -2,7 +2,6 @@ import $ from 'jquery';
 import NProgress from 'nprogress';
 import React, { Component } from 'react';
 import reactMixin from 'react-mixin';
-import { History } from 'react-router';
 import history from '../../../router/history';
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
 import marked from 'marked';
@@ -70,18 +69,16 @@ class Edit extends Component {
   }
 
   componentDidMount () {
-    var self = this;
-
-    $('.ui.rating').rating('setting', 'onRate', function (value) {
-      self.setState({difficulty: value});
+    $('.ui.rating').rating('setting', 'onRate', (value) => {
+      this.setState({difficulty: value});
     });
 
-    $('.question-interviewee').dropdown('setting', 'onChange', function (value) {
-      self.setState({interviewee: value});
+    $('.question-interviewee').dropdown('setting', 'onChange', (value) => {
+      this.setState({interviewee: value});
     });
 
-    $('.question-category').dropdown('setting', 'onChange', function (value) {
-      self.setState({category: value});
+    $('.question-category').dropdown('setting', 'onChange', (value) => {
+      this.setState({category: value});
     });
 
     let callback = this.loadQuestion;
@@ -195,6 +192,5 @@ class Edit extends Component {
 };
 
 reactMixin(Edit.prototype, LinkedStateMixin);
-reactMixin(Edit.prototype, History);
 
 export default Edit;
