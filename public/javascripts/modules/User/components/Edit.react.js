@@ -1,31 +1,30 @@
 import $ from 'jquery';
-import React from 'react';
+import React, { Component } from 'react';
+import reactMixin from 'react-mixin';
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
 
-var EditUser = React.createClass({
-  mixins: [LinkedStateMixin],
-
-  getInitialState: function () {
-    return {
-      username: '',
-      team: '',
-      position: '',
-      password: '',
-      confirmPassword: ''
+class Edit extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      username        : '',
+      team            : '',
+      position        : '',
+      password        : '',
+      confirmPassword : ''
     };
-  },
+  }
 
-  componentDidMount: function () {
-    var self = this;
-    $('.signup-team').dropdown('setting', 'onChange', function (value) {
-      self.setState({team: value});
+  componentDidMount () {
+    $('.signup-team').dropdown('setting', 'onChange', (value) => {
+      this.setState({team: value});
     });
-    $('.signup-position').dropdown('setting', 'onChange', function (value) {
-      self.setState({position: value});
+    $('.signup-position').dropdown('setting', 'onChange', (value) => {
+      this.setState({position: value});
     });
-  },
+  }
 
-  render: function () {
+  render () {
     return (
       <div className='ui three column grid'>
         <div className='column'></div>
@@ -88,6 +87,8 @@ var EditUser = React.createClass({
       </div>
     );
   }
-});
+};
 
-export default EditUser;
+reactMixin(Edit.prototype, LinkedStateMixin);
+
+export default Edit;

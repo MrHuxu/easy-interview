@@ -30,9 +30,9 @@ class Message extends Component {
   }
 
   render () {
-    var messageItems = this.state.messages.map(function (message) {
+    var messageItems = this.state.messages.map((message) => {
       return (
-        <div className='ui small floating teal message'>
+        <div className='ui small floating teal message' key={this.state.messages.indexOf(message)}>
           <i className='close icon'></i>
           <div className='header'>
             {message}

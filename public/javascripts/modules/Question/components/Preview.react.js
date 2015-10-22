@@ -1,13 +1,12 @@
 import $ from 'jquery';
 import NProgress from 'nprogress';
-import React from 'react';
-import LinkedStateMixin from 'react-addons-linked-state-mixin';
+import React, { Component } from 'react';
 import marked from 'marked';
 import QuestionStore from '../stores/QuestionStore';
 import { QuestionEvent } from '../../Common/events';
 
-var PreviewSingleQuestion = React.createClass({
-  render: function(){
+class PreviewSingleQuestion extends Component {
+  render () {
     var reveal = this.props.role === "interviewer";
     var answer;
     if (reveal) {
@@ -32,47 +31,44 @@ var PreviewSingleQuestion = React.createClass({
       </tr>
     );
   }
-});
+};
 
-var Preview = React.createClass({
+class Preview extends Component {
+  constructor (props) {
+    super(props);
 
-  mixins: [LinkedStateMixin],
-
-  contextTypes: {
-    router: React.PropTypes.func
-  },
-
-  getInitialState: function () {
     if (this.props.params.role) {
       this.role = this.props.params.role;
     }
-
-    return {
-      questions: [],
-      role: this.role
+    this.state = {
+      role      : this.role,
+      questions : []
     };
-  },
 
-  loadQuestion: function () {
+    this.loadQuestion = this.loadQuestion.bind(this);
+  }
+
+  loadQuestion () {
     var question_previews = QuestionStore.getQuestions();
     NProgress.done();
     this.setState({questions: question_previews});
-  },
+  }
 
-  componentDidMount: function () {
+  componentDidMount () {
     $('.action-item').hide();
-    QuestionEvent.addListener('LOAD_QUESTION', this.loadQuestion);
-  },
+    let callback = this.loadQuestion;
+    QuestionEvent.addListener('LOAD_QUESTION', callback);
+  }
 
-  componentWillUnmount: function () {
+  componentWillUnmount () {
     $('.action-item').show();
-    QuestionEvent.removeListener('LOAD_QUESTION', this.loadQuestion);
-  },
+    let callback = this.loadQuestion;
+    QuestionEvent.removeListener('LOAD_QUESTION', callback);
+  }
 
-  render: function () {
-    var owner = this;
-    var list = this.state.questions.map(function (question) {
-      return <PreviewSingleQuestion key={question.id} attr={question} role={owner.state.role}/>
+  render () {
+    var list = this.state.questions.map((question) => {
+      return <PreviewSingleQuestion key={question.id} attr={question} role={this.state.role}/>
     });
     return (
       <div className="ui grid">
@@ -88,6 +84,6 @@ var Preview = React.createClass({
       </div>
     );
   }
-});
+};
 
-module.exports = Preview;
+export default Preview;

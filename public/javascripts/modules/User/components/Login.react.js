@@ -1,27 +1,29 @@
-import React from 'react';
+import React, { Component } from 'react';
+import reactMixin from 'react-mixin';
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
 import UserActions from '../actions/UserActions';
 import { Link } from 'react-router';
 
-var Login = React.createClass({
-  mixins: [LinkedStateMixin],
-
-  getInitialState: function () {
-    return {
+class Login extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {
       username: '',
       password: ''
     };
-  },
 
-  login: function (e) {
+    this.login = this.login.bind(this);
+  }
+
+  login (e) {
     e.preventDefault();
     UserActions.login({
       username: this.state.username,
       password: this.state.password
     });
-  },
+  }
 
-  render: function () {
+  render () {
     return (
       <div className='ui stackable grid'>
         <div className='six wide column'></div>
@@ -53,6 +55,8 @@ var Login = React.createClass({
       </div>
     );
   }
-});
+};
+
+reactMixin(Login.prototype, LinkedStateMixin);
 
 export default Login;
