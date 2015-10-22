@@ -4,6 +4,42 @@ import { QuestionDispatcher } from '../../Common/dispatcher/AppDispatcher';
 import QuestionStore from '../stores/QuestionStore';
 import history from '../../../router/history';
 
+export const NEW_QUESTION = 'NEW_QUESTION';
+export const GET_QUESTIONS = 'GET_QUESTIONS';
+export const UPDATE_QUESTION = 'UPDATE_QUESTION';
+export const DELETE_QUESTION = 'DELETE_QUESTION';
+export const SELECT_QUESTION = 'SELECT_QUESTION';
+export const UNSELECT_QUESTION = 'UNSELECT_QUESTION';
+
+export function newQuestion (args) {
+  NProgress.start();
+  $.ajax({
+    type: 'POST',
+    url: '/question/new',
+    data: JSON.stringify(args),
+    contentType: 'application/json',
+    dataType: 'JSON'
+  }).done((data, textStatus, jqXHR) => {
+    history.replaceState(null, '/home');
+  });
+};
+
+export function getQuestions (args) {
+  NProgress.start();
+  $.ajax({
+    type: 'POST',
+    url: '/question/get',
+    data: JSON.stringify(args),
+    contentType: 'application/json',
+    dataType: 'JSON'
+  }).done((data, textStatus, jqXHR) => {
+    QuestionDispatcher.dispatch({
+      actionType: 'GET_QUESTIONS',
+      content: data
+    });
+  });
+}
+
 const QuestionActions = {
   new: (args) => {
     NProgress.start();
