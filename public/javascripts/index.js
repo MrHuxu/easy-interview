@@ -22,7 +22,21 @@ if (username && token) {
   });
 }
 
+import { Provider } from 'react-redux';
+import { store } from './modules/Question/stores/QuestionStore';
+
 ReactDom.render(
-  <Router history={history} routes={rootRoute}></Router>,
+  <Provider store={store}>
+    <Router history={history} routes={rootRoute}></Router>
+  </Provider>,
   document.getElementById('easy-interview')
 );
+
+// import TestList from './modules/Common/components/TestList';
+// import { store } from './modules/Question/stores/QuestionStore';
+// import { Provider } from 'react-redux';
+
+// ReactDom.render(
+//   <TestList store={store}/>, 
+//   document.getElementById('testlist')
+// );
