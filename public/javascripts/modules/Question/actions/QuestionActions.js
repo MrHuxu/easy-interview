@@ -4,35 +4,8 @@ import { QuestionDispatcher } from '../../Common/dispatcher/AppDispatcher';
 import QuestionStore from '../stores/QuestionStore';
 import history from '../../../router/history';
 
-export const NEW_QUESTION = 'NEW_QUESTION';
-export const UPDATE_QUESTION = 'UPDATE_QUESTION';
-export const DELETE_QUESTION = 'DELETE_QUESTION';
-export const SELECT_QUESTION = 'SELECT_QUESTION';
-export const UNSELECT_QUESTION = 'UNSELECT_QUESTION';
-
-export function newQuestion (args) {
-  NProgress.start();
-  $.ajax({
-    type: 'POST',
-    url: '/question/new',
-    data: JSON.stringify(args),
-    contentType: 'application/json',
-    dataType: 'JSON'
-  }).done((data, textStatus, jqXHR) => {
-    history.replaceState(null, '/home');
-  });
-};
-
-export const GET_QUESTIONS = 'GET_QUESTIONS';
-export function getQuestions (data) {
-  console.log('fetchResult: ', data);
-  return {
-    type    : GET_QUESTIONS,
-    content : data
-  }
-}
-
-export function fetchQuestions (args) {
+export const REQUEST_QUESTIONS = 'REQUEST_QUESTIONS';
+export function requestQuestions (args) {
   console.log('fetchOptions: ', args);
   return function (dispatch) {
     return $.ajax({
@@ -42,14 +15,23 @@ export function fetchQuestions (args) {
       contentType: 'application/json',
       dataType: 'JSON'
     }).done((data, textStatus, jqXHR) => {
-      dispatch(getQuestions(data));
+      dispatch(receiveQuestions(data));
     });
-  }
-}
+  };
+};
 
-const QuestionActions = {
-  new: (args) => {
-    NProgress.start();
+export const RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS';
+export function receiveQuestions (data) {
+  console.log('fetchResult: ', data);
+  return {
+    type    : RECEIVE_QUESTIONS,
+    content : data
+  };
+};
+
+export const NEW_QUESTION = 'NEW_QUESTION';
+export function newQuestion (args) {
+  return function (dispatch) {
     $.ajax({
       type: 'POST',
       url: '/question/new',
@@ -57,28 +39,14 @@ const QuestionActions = {
       contentType: 'application/json',
       dataType: 'JSON'
     }).done((data, textStatus, jqXHR) => {
-      history.replaceState(null, '/home');
+      dispatch({ type: NEW_QUESTION });
     });
-  },
+  };
+};
 
-  get: (args) => {
-    NProgress.start();
-    $.ajax({
-      type: 'POST',
-      url: '/question/get',
-      data: JSON.stringify(args),
-      contentType: 'application/json',
-      dataType: 'JSON'
-    }).done((data, textStatus, jqXHR) => {
-      QuestionDispatcher.dispatch({
-        actionType: 'GET_QUESTIONS',
-        content: data
-      });
-    });
-  },
-
-  update: (args) => {
-    NProgress.start();
+export const UPDATE_QUESTION = 'UPDATE_QUESTION';
+export function updateQuestion (args) {
+  return function (dispatch) {
     $.ajax({
       type: 'PUT',
       url: '/question/update',
@@ -86,15 +54,14 @@ const QuestionActions = {
       contentType: 'application/json',
       dataType: 'JSON'
     }).done((data, textStatus,jqXHR) => {
-      history.goBack();
-      QuestionDispatcher.dispatch({
-        actionType: 'UPDATE_QUESTION'
-      });
-    })
-  },
+      dispatch({ type: UPDATE_QUESTION });
+    });
+  };
+};
 
-  destroy: (args) => {
-    NProgress.start();
+export const DELETE_QUESTION = 'DELETE_QUESTION';
+export function deleteQuestion (args) {
+  return function (dispatch) {
     $.ajax({
       type: 'DELETE',
       url: '/question/destroy',
@@ -102,25 +69,7 @@ const QuestionActions = {
       contentType: 'application/json',
       dataType: 'JSON'
     }).done((data, textStatus,jqXHR) => {
-      QuestionDispatcher.dispatch({
-        actionType: 'DELETE_QUESTION'
-      });
-    })
-  },
-
-  selectQuestion: (id) => {
-    QuestionDispatcher.dispatch({
-      actionType: 'SELECT_QUESTION',
-      data: id
+      dispatch({ type: 'DELETE_QUESTION' });
     });
-  },
-
-  unselectQuestion: (id) => {
-    QuestionDispatcher.dispatch({
-      actionType: 'UNSELECT_QUESTION',
-      data: id
-    });
-  }
+  };
 };
-
-export default QuestionActions;

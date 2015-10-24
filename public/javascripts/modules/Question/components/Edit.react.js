@@ -9,6 +9,8 @@ import UserStore from '../../User/stores/UserStore';
 import QuestionActions from '../actions/QuestionActions';
 import QuestionStore from '../stores/QuestionStore';
 import { QuestionEvent } from '../../Common/events';
+import { requestQuestions, updateQuestion, newQuestion } from '../actions/QuestionActions';
+import { connect } from 'react-redux';
 
 class Edit extends Component {
   constructor (props) {
@@ -25,12 +27,8 @@ class Edit extends Component {
     };
 
     this.saveQuestion = this.saveQuestion.bind(this);
-    this.loadQuestionContext = this.loadQuestionContext.bind(this);
-    this.renderEditArea = this.renderEditArea.bind(this);
-    this.loadQuestion = this.loadQuestion.bind(this);
-    this.goBack = this.goBack.bind(this);
 
-    if (this.props.params.questionId) this.loadQuestionContext();
+    if (this.props.params.questionId) this.loadQuestion();
   }
 
   goBack () {
@@ -39,21 +37,20 @@ class Edit extends Component {
 
   saveQuestion () {
     var questionId = this.props.params.questionId;
-    questionId ? QuestionActions.update({
+    questionId ? this.props.dispatch(updateQuestion({
       condition: {_id: questionId},
       content: this.state
-    }) : QuestionActions.new(this.state);
-  }
-
-  loadQuestionContext () {
-    QuestionActions.get({
-      _id: this.props.params.questionId
-    });
+    })) : this.props.dispatch(newQuestion(this.state));
   }
 
   loadQuestion () {
-    var question = QuestionStore.getQuestions()[0];
-    this.hasPermission = question.creator._id === UserStore.getId();
+    this.props.dispatch(requestQuestions({ _id: this.props.params.questionId }));
+  }
+
+  componentWillReceiveProps () {
+    var question = this.props.questions[0];
+    // this.hasPermission = question.creator._id === UserStore.getId();
+    this.hasPermission = true;
 
     $('.ui.rating').rating(this.hasPermission ? 'enable' : 'disable').rating('set rating', question.difficulty)
     $('.question-interviewee').addClass(this.hasPermission ? '' : 'disabled').dropdown('set selected', question.interviewee);
@@ -193,4 +190,8 @@ class Edit extends Component {
 
 reactMixin(Edit.prototype, LinkedStateMixin);
 
-export default Edit;
+function mapStateToProps (state) {
+  return state;
+}
+
+export default connect(mapStateToProps)(Edit);

@@ -31,12 +31,3 @@ ReactDom.render(
   </Provider>,
   document.getElementById('easy-interview')
 );
-
-// import TestList from './modules/Common/components/TestList';
-// import { store } from './modules/Question/stores/QuestionStore';
-// import { Provider } from 'react-redux';
-
-// ReactDom.render(
-//   <TestList store={store}/>, 
-//   document.getElementById('testlist')
-// );

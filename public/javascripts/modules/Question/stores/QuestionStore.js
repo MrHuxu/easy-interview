@@ -4,18 +4,24 @@ import { QuestionDispatcher } from '../../Common/dispatcher/AppDispatcher';
 import { QuestionEvent } from '../../Common/events';
 
 import thunkMiddleware from 'redux-thunk';
-import { createStore, applyMiddleware, compose } from 'redux';
-import QuestionReducer from '../reducers/QuestionReducer';
-import { fetchQuestions, getQuestions } from '../actions/QuestionActions';
+import { combineReducers, createStore, applyMiddleware, compose } from 'redux';
+import questions from '../reducers/QuestionReducer';
+import selection from '../reducers/SelectionReducer';
+import { requestQuestions, getQuestions } from '../actions/QuestionActions';
+import { selectQuestion, unselectQuestion } from '../actions/SelectionActions';
 import createHistory from 'history/lib/createBrowserHistory';
-import { reduxReactRouter } from 'redux-router';
+import { reduxReactRouter, routerStateReducer } from 'redux-router';
+
+const rootReducer = combineReducers({
+  questions,
+  selection,
+  router: routerStateReducer
+});
 
 export const store = compose(
   applyMiddleware(thunkMiddleware),
   reduxReactRouter({ createHistory })
-)(createStore)(QuestionReducer);
-
-store.dispatch(fetchQuestions({}));
+)(createStore)(rootReducer);
 
 var QuestionStore = {
   _records                  : [],

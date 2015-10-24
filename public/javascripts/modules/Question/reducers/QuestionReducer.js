@@ -1,21 +1,29 @@
 import { combineReducers } from 'redux';
-import { routerStateReducer } from 'redux-router';
-import { GET_QUESTIONS } from '../actions/QuestionActions';
+import {
+  REQUEST_QUESTIONS,
+  RECEIVE_QUESTIONS,
+  NEW_QUESTION,
+  UPDATE_QUESTION,
+  DELETE_QUESTION
+} from '../actions/QuestionActions';
+import history from '../../../router/history';
 
-function questions (state = [{
-  title: 'hehe'
-}], action) {
+function questions (state = [], action) {
   switch (action.type) {
-  case GET_QUESTIONS:
+  case RECEIVE_QUESTIONS:
     return action.content;
+
+  case NEW_QUESTION:
+    history.goBack();
+    return state;
+
+  case UPDATE_QUESTION:
+    history.goBack();
+    return state;
+
   default:
     return state;
   }
 }
 
-const QuestionReducer = combineReducers({
-  questions,
-  router: routerStateReducer
-});
-
-export default QuestionReducer;
+export default questions;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import QuestionList from './QuestionList.react';
+import QuestionList from '../../Question/components/QuestionList.react';
 import { MessageDispatcher } from '../dispatcher/AppDispatcher';
 import UserStore from '../../User/stores/UserStore';
 import QuestionActions from '../../Question/actions/QuestionActions';
