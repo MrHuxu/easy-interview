@@ -21,6 +21,9 @@ function questions (state = [], action) {
     history.goBack();
     return state;
 
+  case DELETE_QUESTION:
+    return state.filter(question => question.id !== action.content);
+
   default:
     return state;
   }

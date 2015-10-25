@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { selectQuestion, unselectQuestion } from '../actions/SelectionActions';
+import { deleteQuestion } from '../actions/QuestionActions';
 
 class Question extends Component {
   constructor (props) {
@@ -13,7 +14,7 @@ class Question extends Component {
   }
 
   deleteQuestion (questionId) {
-    QuestionActions.destroy({_id: questionId});
+    this.props.dispatch(deleteQuestion({_id: questionId}));
   }
 
   handleChange (isChecked) {
@@ -33,7 +34,7 @@ class Question extends Component {
   }
 
   render () {
-    var hasPermission = false //= this.props.attr.creator && this.props.attr.creator._id === UserStore.getId();
+    var hasPermission = true //= this.props.attr.creator && this.props.attr.creator._id === UserStore.getId();
     return (
       <tr>
         <td className='collapsing'>

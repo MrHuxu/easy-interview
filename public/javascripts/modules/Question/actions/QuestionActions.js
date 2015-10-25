@@ -69,7 +69,10 @@ export function deleteQuestion (args) {
       contentType: 'application/json',
       dataType: 'JSON'
     }).done((data, textStatus,jqXHR) => {
-      dispatch({ type: 'DELETE_QUESTION' });
+      dispatch({
+        type: 'DELETE_QUESTION',
+        content: args._id,
+      });
     });
   };
 };

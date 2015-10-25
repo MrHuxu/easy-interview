@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import reactMixin from 'react-mixin';
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
-import UserActions from '../actions/UserActions';
+import { userLogin } from '../actions/UserActions';
 import { Link } from 'react-router';
+import { connect } from 'react-redux';
 
 class Login extends Component {
   constructor (props) {
@@ -17,10 +18,10 @@ class Login extends Component {
 
   login (e) {
     e.preventDefault();
-    UserActions.login({
+    this.props.dispatch(userLogin({
       username: this.state.username,
       password: this.state.password
-    });
+    }));
   }
 
   render () {
@@ -59,4 +60,4 @@ class Login extends Component {
 
 reactMixin(Login.prototype, LinkedStateMixin);
 
-export default Login;
+export default connect()(Login);

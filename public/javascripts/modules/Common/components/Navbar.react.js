@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import Router, { Link } from 'react-router';
 import history from '../../../router/history';
 import Message from './Message.react';
-import UserActions from '../../User/actions/UserActions';
-import UserStore from '../../User/stores/UserStore';
+import { userLogout } from '../../User/actions/UserActions';
 import { AuthEvent } from '../events';
+import { connect } from 'react-redux';
 
 class Navbar extends Component {
   constructor (props) {
@@ -28,8 +28,7 @@ class Navbar extends Component {
   }
 
   logout () {
-    UserActions.logout();
-    this.setState({username: ''});
+    this.props.dispatch(userLogout());
   }
 
   toDashboard () {
@@ -37,11 +36,11 @@ class Navbar extends Component {
   }
 
   render () {
-    var actionItem = UserStore.isLoggedIn() ? (
+    var actionItem = this.props.isLoggedIn ? (
       <div>
         <p>
           Login as &nbsp;
-          <Link to='/user/update'>{this.state.username}</Link> &nbsp;
+          <Link to='/user/update'>{this.props.username}</Link> &nbsp;
         </p>
         <button className='ui button red' onClick={this.logout}>Logout</button>
       </div>
@@ -77,4 +76,11 @@ class Navbar extends Component {
   }
 }
 
-export default Navbar;
+function mapStateToProps (state) {
+  return {
+    isLoggedIn : state.user.id,
+    username   : state.user.username
+  }
+}
+
+export default connect(mapStateToProps)(Navbar);

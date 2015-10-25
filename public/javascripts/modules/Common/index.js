@@ -11,8 +11,8 @@ export default {
       path: 'home', 
       component: Home, 
       onEnter: (nextState, replaceState) => {
-      if (!UserStore.isLoggedIn())
-        replaceState({ nextPathname: nextState.location.pathname }, '/user/login')
+        if (!UserStore.isLoggedIn())
+          replaceState({ nextPathname: nextState.location.pathname }, '/user/login')
       }
     },
     {

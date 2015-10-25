@@ -2,8 +2,9 @@ import $ from 'jquery';
 import { AuthDispatcher, MessageDispatcher } from '../../Common/dispatcher/AppDispatcher';
 import history from '../../../router/history'
 
-var UserActions = {
-  signup: function (args) {
+export const USER_SIGNUP = 'USER_SIGNUP';
+export function userSignup (args) {
+  return function (dispatch) {
     $.ajax({
       url: '/auth/signup',
       method: 'POST',
@@ -15,24 +16,28 @@ var UserActions = {
         position: args.position
       }
     }).done((data, textStatus, jqXHR) => {
-      this.loginUser(data);
-      return true;
+      dispatch(authPassed(data));
     });
-  },
+  };
+};
 
-  update: function (args) {
+export const USER_UPDATE = 'USER_UPDATE';
+export function userUpdate (args) {
+  return function (dispatch) {
     $.ajax({
       url: '/auth/update',
       method: 'PUT',
       dataType: 'json',
       data: JSON.stringify(args)
     }).done((data, textStatus, jqXHR) => {
-      this.loginUser(data);
-      return true;
+      dispatch(authPassed(data));
     });
-  },
+  };
+};
 
-  login: function (args) {
+export const USER_LOGIN = 'USER_LOGIN';
+export function userLogin (args) {
+  return function (dispatch) {
     $.ajax({
       url: '/auth/login',
       method: 'POST',
@@ -43,38 +48,37 @@ var UserActions = {
         token: args.token
       }
     }).done((data, textStatus, jqXHR) => {
-      this.loginUser(data);
-      true;
+      dispatch(authPassed(data));
     });
-  },
-
-  loginUser: (args) => {
-    if (args.operationSuccess) {
-      localStorage.setItem('_easy_interview_username', args.username);
-      localStorage.setItem('_easy_interview_token', args.token);
-      AuthDispatcher.dispatch({
-        actionType: 'LOGIN_USER',
-        content: args,
-        callback: () => {
-          history.replaceState(null, '/')
-        }
-      });
-    }
-    MessageDispatcher.dispatch({
-      actionType: 'REFRESH_MESSAGE',
-      content: args.messages
-    });
-  },
-
-  logout: () => {
-    history.replaceState(null, '/');
-    MessageDispatcher.dispatch({
-      actionType: 'REFRESH_MESSAGE',
-      content: ['Logout successfully']
-    });
-    localStorage.clear();
-    AuthDispatcher.dispatch({actionType: 'LOGOUT_USER'});
-  }
+  };
 };
 
-export default UserActions;
+export const AUTH_PASSED = 'AUTH_PASSED';
+export function authPassed (args) {
+  if (args.operationSuccess) {
+    localStorage.setItem('_easy_interview_username', args.username);
+    localStorage.setItem('_easy_interview_token', args.token);
+    // MessageDispatcher.dispatch({
+    //   actionType: 'REFRESH_MESSAGE',
+    //   content: args.messages
+    // });
+    history.replaceState(null, '/');
+    return {
+      type    : AUTH_PASSED,
+      content : args
+    };
+  }
+}
+
+export const USER_LOGOUT = 'USER_LOGOUT';
+export function userLogout () {
+  history.replaceState(null, '/');
+  MessageDispatcher.dispatch({
+    actionType: 'REFRESH_MESSAGE',
+    content: ['Logout successfully']
+  });
+  localStorage.clear();
+  return {
+    type: USER_LOGOUT
+  };
+};
