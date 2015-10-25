@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import QuestionStore from '../../Question/stores/QuestionStore';
 import QuestionList from '../../Question/components/QuestionList.react';
 import { Link } from 'react-router';
 import { requestQuestions } from '../../Question/actions/QuestionActions';
@@ -8,7 +7,6 @@ import { connect } from 'react-redux';
 class Dashboard extends Component {
   constructor (props) {
     super(props);
-    QuestionStore.initSearchConditions({});
   }
 
   componentDidMount () {

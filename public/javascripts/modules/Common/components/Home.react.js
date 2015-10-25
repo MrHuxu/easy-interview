@@ -3,7 +3,6 @@ import QuestionList from '../../Question/components/QuestionList.react';
 import { MessageDispatcher } from '../dispatcher/AppDispatcher';
 import UserStore from '../../User/stores/UserStore';
 import QuestionActions from '../../Question/actions/QuestionActions';
-import QuestionStore from '../../Question/stores/QuestionStore';
 import { Link } from 'react-router';
 
 class Home extends Component {

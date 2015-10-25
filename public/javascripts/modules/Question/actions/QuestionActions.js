@@ -1,7 +1,6 @@
 import $ from 'jquery';
 import NProgress from 'nprogress';
 import { QuestionDispatcher } from '../../Common/dispatcher/AppDispatcher';
-import QuestionStore from '../stores/QuestionStore';
 import history from '../../../router/history';
 
 export const REQUEST_QUESTIONS = 'REQUEST_QUESTIONS';

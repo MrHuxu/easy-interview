@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import { selectQuestion, unselectQuestion } from '../actions/SelectionActions';
 import { deleteQuestion } from '../actions/QuestionActions';
 
-class Question extends Component {
+class SingleQuestion extends Component {
   constructor (props) {
     super(props);
 
@@ -56,4 +56,4 @@ class Question extends Component {
   }
 }
 
-export default connect()(Question);
+export default connect()(SingleQuestion);

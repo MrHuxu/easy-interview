@@ -1,7 +1,6 @@
 import $ from 'jquery';
 import React, { Component } from 'react';
 import QuestionActions from '../../Question/actions/QuestionActions';
-import QuestionStore from '../../Question/stores/QuestionStore';
 import { requestQuestions } from '../actions/QuestionActions';
 import { connect } from 'react-redux';
 

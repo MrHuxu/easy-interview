@@ -3,38 +3,13 @@ import NProgress from 'nprogress';
 import React, { Component } from 'react';
 import Router, { Link } from 'react-router';
 import QuestionFilter from './QuestionFilter.react';
-import Question from './Question.react';
 import Selection from './Selection.react';
+import SingleQuestion from './SingleQuestion.react';
+import Pagination from './Pagination.react';
 import UserStore from '../../User/stores/UserStore';
 import QuestionActions from '../../Question/actions/QuestionActions';
-import QuestionStore from '../../Question/stores/QuestionStore';
 import { QuestionEvent } from '../../Common/events';
 import { connect } from 'react-redux';
-
-class Pagination extends Component {
-  constructor (props) {
-    super(props);
-    this.changePage = this.changePage.bind(this);
-  }
-
-  changePage (page) {
-    $('.item').removeClass('active');
-    $(`.item.page${page}`).addClass('active');
-    this.props.changePage(page);
-  }
-
-  render () {
-    var pageBtns = [];
-    for (var i = 0; i < this.props.pageCount; ++i) {
-      pageBtns.push(<a className={i ? `item page${i + 1}` : `item page${i + 1} active`} onClick={this.changePage.bind(null, i + 1)} key={i + 1}>{i + 1}</a>);
-    }
-    return (
-      <div className="ui borderless menu">
-        {pageBtns}
-      </div>
-    )
-  }
-};
 
 class QuestionList extends Component {
   constructor (props) {
@@ -69,8 +44,10 @@ class QuestionList extends Component {
   }
 
   render () {
-    var list = this.state.questions.length === 0 ? [] : this.state.questions.map(function (question) {
-      return <Question key={question.id} attr={question}/>
+    const { questions, pagination } = this.props;
+    var pagedQuestions = questions.slice(10 * (pagination.page - 1), 10 * pagination.page);
+    var list = pagedQuestions.length === 0 ? [] : pagedQuestions.map(function (question) {
+      return <SingleQuestion key={question.id} attr={question}/>
     });
 
     return (
@@ -105,7 +82,10 @@ class QuestionList extends Component {
 };
 
 function mapStateToProps (state) {
-  return state;
+  return {
+    questions  : state.questions,
+    pagination : state.pagination
+  };
 }
 
 export default connect(mapStateToProps)(QuestionList);

@@ -7,7 +7,6 @@ import LinkedStateMixin from 'react-addons-linked-state-mixin';
 import marked from 'marked';
 import UserStore from '../../User/stores/UserStore';
 import QuestionActions from '../actions/QuestionActions';
-import QuestionStore from '../stores/QuestionStore';
 import { QuestionEvent } from '../../Common/events';
 import { requestQuestions, updateQuestion, newQuestion } from '../actions/QuestionActions';
 import { connect } from 'react-redux';

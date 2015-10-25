@@ -1,4 +1,3 @@
-import { routerStateReducer } from 'redux-router';
 import { SELECT_QUESTION, UNSELECT_QUESTION } from '../actions/SelectionActions';
 
 function selection (state = [], action) {

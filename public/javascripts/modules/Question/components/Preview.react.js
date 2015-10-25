@@ -2,7 +2,6 @@ import $ from 'jquery';
 import NProgress from 'nprogress';
 import React, { Component } from 'react';
 import marked from 'marked';
-import QuestionStore from '../stores/QuestionStore';
 import { QuestionEvent } from '../../Common/events';
 
 class PreviewSingleQuestion extends Component {
