@@ -39,35 +39,19 @@ class Pagination extends Component {
 class QuestionList extends Component {
   constructor (props) {
     super(props);
-    this.state = { questions: this.paginateQuestions(1) };
+    this.state = { questions: [] };
 
     this.paginateQuestions = this.paginateQuestions.bind(this);
     this.handlePageChange = this.handlePageChange.bind(this);
     this.loadPreview = this.loadPreview.bind(this);
-    this.loadQuestion = this.loadQuestion.bind(this);
   }
 
   paginateQuestions (page) {
-    return QuestionStore.getQuestions().slice(10 * (page - 1), 10 * page);
-  }
-
-  componentDidMount () {
-    let callback = this.loadQuestion;
-    QuestionEvent.addListener('LOAD_QUESTION', callback);
-  }
-
-  componentWillUnmount () {
-    let callback = this.loadQuestion;
-    QuestionEvent.removeListener('LOAD_QUESTION', callback);
+    return this.props.questions.slice(10 * (page - 1), 10 * page);
   }
 
   handlePageChange (page) {
     this.setState({questions: this.paginateQuestions(page)});
-  }
-
-  loadQuestion () {
-    NProgress.done();
-    this.setState({questions: this.paginateQuestions(1)});
   }
 
   loadPreview () {
@@ -76,8 +60,16 @@ class QuestionList extends Component {
     });
   }
 
+  componentDidMound () {
+    this.setState({ questions: this.paginateQuestions(1) });
+  }
+
+  componentWillReceiveProps () {
+    this.setState({ questions: this.paginateQuestions(1) });
+  }
+
   render () {
-    var list = this.props.questions.length === 0 ? [] : this.props.questions.map(function (question) {
+    var list = this.state.questions.length === 0 ? [] : this.state.questions.map(function (question) {
       return <Question key={question.id} attr={question}/>
     });
 
