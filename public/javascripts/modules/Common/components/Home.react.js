@@ -2,40 +2,37 @@ import React, { Component } from 'react';
 import QuestionList from '../../Question/components/QuestionList.react';
 import { MessageDispatcher } from '../dispatcher/AppDispatcher';
 import UserStore from '../../User/stores/UserStore';
-import QuestionActions from '../../Question/actions/QuestionActions';
+import { changePage } from '../../Question/actions/PaginationActions';
 import { Link } from 'react-router';
+import { connect } from 'react-redux';
 
 class Home extends Component {
   constructor (props) {
     super(props);
-    this.state = {
-      userLoggedIn: UserStore.isLoggedIn(),
-      username: UserStore.getUser(),
-      token: UserStore.getToken()
-    };
-    QuestionStore.initSearchConditions({creator: UserStore.getId()});
   }
 
   componentDidMount () {
-    QuestionActions.get(QuestionStore.getSearchConditions());
+    this.props.dispatch(changePage(1));
   }
 
   render () {
+    const { username, position, team } = this.props.user;
+
     return (
       <div className='ui stackable grid'>
         <div className='three wide column'></div>
         <div className='ten wide column'>
           <div className='ui stackable grid'>
             <div className='sixteen wide column'>
-              <h2>Hello {this.state.username}</h2>
+              <h2>Hello {username}</h2>
             </div>
             <div className='fourteen wide column'>
               <div className='ui grid'>
                 <div className='three wide column'>
-                  <p>Team: {UserStore._team}</p>
+                  <p>Team: {team}</p>
                 </div>
                 <div className='three wide column'>
-                  <p>Position: {UserStore._position}</p>
+                  <p>Position: {position}</p>
                 </div>
               </div>
             </div>
@@ -45,11 +42,18 @@ class Home extends Component {
           </div>
           <div className="ui horizontal divider"><i className="tag icon"></i></div>
           <h5>Go to <strong><Link to='/'>Dashboard</Link></strong> to see all questions!</h5>
-          <QuestionList page={1}/>
+          <QuestionList />
         </div>
       </div>
     );
   }
 }
 
-export default Home;
+function mapStateToProps (state) {
+  return {
+    user         : state.user,
+    token        : state.user.token,
+    userLoggedIn : state.user.id
+  }
+}
+export default connect(mapStateToProps)(Home);

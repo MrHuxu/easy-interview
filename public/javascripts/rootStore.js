@@ -15,7 +15,7 @@ const rootReducer = combineReducers({
   router: routerStateReducer
 });
 
-export const store = compose(
+export const rootStore = compose(
   applyMiddleware(thunkMiddleware),
   reduxReactRouter({ createHistory })
 )(createStore)(rootReducer);

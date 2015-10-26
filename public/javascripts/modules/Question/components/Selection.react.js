@@ -40,7 +40,9 @@ class Selection extends Component {
 
 
 function mapStateToProps (state) {
-  return state;
+  return {
+    selection: state.selection
+  };
 }
 
 export default connect(mapStateToProps)(Selection);

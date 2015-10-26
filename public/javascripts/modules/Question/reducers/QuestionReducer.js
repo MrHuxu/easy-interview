@@ -11,7 +11,7 @@ import history from '../../../router/history';
 function questions (state = [], action) {
   switch (action.type) {
     case RECEIVE_QUESTIONS:
-      return action.content;
+      return [...action.content];
 
     case NEW_QUESTION:
       history.goBack();

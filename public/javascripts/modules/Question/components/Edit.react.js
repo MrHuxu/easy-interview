@@ -5,18 +5,16 @@ import reactMixin from 'react-mixin';
 import history from '../../../router/history';
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
 import marked from 'marked';
-import UserStore from '../../User/stores/UserStore';
-import QuestionActions from '../actions/QuestionActions';
-import { QuestionEvent } from '../../Common/events';
 import { requestQuestions, updateQuestion, newQuestion } from '../actions/QuestionActions';
 import { connect } from 'react-redux';
+import { rootStore } from '../../../rootStore';
 
 class Edit extends Component {
   constructor (props) {
     super(props);
     this.hasPermission = true;
     this.state = {
-      creator_id  : UserStore.getId(),
+      creator_id  : this.props.user.id,
       difficulty  : 0,
       interviewee : '',
       category    : '',
@@ -26,8 +24,6 @@ class Edit extends Component {
     };
 
     this.saveQuestion = this.saveQuestion.bind(this);
-
-    if (this.props.params.questionId) this.loadQuestion();
   }
 
   goBack () {
@@ -42,26 +38,11 @@ class Edit extends Component {
     })) : this.props.dispatch(newQuestion(this.state));
   }
 
-  loadQuestion () {
-    this.props.dispatch(requestQuestions({ _id: this.props.params.questionId }));
-  }
-
-  componentWillReceiveProps () {
-    var question = this.props.questions[0];
-    // this.hasPermission = question.creator._id === UserStore.getId();
-    this.hasPermission = true;
-
-    $('.ui.rating').rating(this.hasPermission ? 'enable' : 'disable').rating('set rating', question.difficulty)
-    $('.question-interviewee').addClass(this.hasPermission ? '' : 'disabled').dropdown('set selected', question.interviewee);
-    $('.question-category').addClass(this.hasPermission ? '' : 'disabled').dropdown('set selected', question.category);
-
-    if (!this.hasPermission) {
-      $('.edit-area label').css({opacity: 0.5});
-    }
-
-    this.state.creator_id = question.creator._id;
-    NProgress.done();
-    this.setState(question);
+  componentWillUpdate (nextProps) {
+    const { question } = nextProps;
+    this.state.title = question.title;
+    this.state.question = question.question;
+    this.state.answer = question.answer;
   }
 
   componentDidMount () {
@@ -76,14 +57,6 @@ class Edit extends Component {
     $('.question-category').dropdown('setting', 'onChange', (value) => {
       this.setState({category: value});
     });
-
-    let callback = this.loadQuestion;
-    QuestionEvent.addListener('LOAD_QUESTION', callback);
-  }
-
-  componentWillUnmount () {
-    let callback = this.loadQuestion;
-    QuestionEvent.removeListener('LOAD_QUESTION', callback);
   }
 
   renderEditArea () {
@@ -99,7 +72,7 @@ class Edit extends Component {
           <div className='field'>
             <label>Interviewee</label>
             <select className={`ui dropdown question-interviewee`}>
-              <option value=''>Select Interviewee</option>
+              <option value=''>Select Category</option>
               <option value='Campus'>Campus</option>
               <option value='Social'>Social</option>
             </select>
@@ -137,6 +110,17 @@ class Edit extends Component {
   }
 
   render () {
+    const { user, question } = this.props;
+    this.hasPermission = !this.props.params.questionId || question.creator._id === user.id;
+
+    $('.ui.rating').rating(this.hasPermission ? 'enable' : 'disable');
+    $('.question-interviewee').addClass(this.hasPermission ? '' : 'disabled');
+    $('.question-category').addClass(this.hasPermission ? '' : 'disabled');
+
+    if (!this.hasPermission) {
+      $('.edit-area label').css({opacity: 0.5});
+    }
+
     return (
       <div className='ui stackable grid'>
         <div className="ui horizontal divider"></div>
@@ -190,7 +174,21 @@ class Edit extends Component {
 reactMixin(Edit.prototype, LinkedStateMixin);
 
 function mapStateToProps (state) {
-  return state;
+  return {
+    user     : state.user,
+    router   : state.router,
+    question : state.questions[0]
+  }
 }
+
+rootStore.subscribe(() => {
+  var state = rootStore.getState();
+  if (state.questions[0]) {
+    var question = state.questions[0];
+    $('.ui.rating').rating('set rating', question.difficulty);
+    $('.question-interviewee').dropdown('set selected', question.interviewee);
+    $('.question-category').dropdown('set selected', question.category);
+  }
+});
 
 export default connect(mapStateToProps)(Edit);

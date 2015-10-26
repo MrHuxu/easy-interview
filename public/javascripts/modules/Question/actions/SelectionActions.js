@@ -1,8 +1,8 @@
 export const SELECT_QUESTION = 'SELECT_QUESTION';
-export function selectQuestion (id) {
+export function selectQuestion (question) {
   return {
     type: SELECT_QUESTION,
-    content: id
+    content: question
   };
 }
 

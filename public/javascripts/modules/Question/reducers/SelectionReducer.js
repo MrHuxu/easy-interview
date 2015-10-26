@@ -6,8 +6,8 @@ function selection (state = [], action) {
       return [...state, action.content];
 
     case UNSELECT_QUESTION:
-      return state.filter(data =>
-        data.id !== action.content
+      return state.filter(question =>
+        question.id !== action.content
       );
 
     default:

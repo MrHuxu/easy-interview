@@ -22,7 +22,7 @@ class Dashboard extends Component {
           <p>This page show <strong>ALL</strong> questions, or you can go to your&nbsp;
             <Link to='/home'>homepage</Link> to deal with your own questions.
           </p>
-          <QuestionList page={1}/>
+          <QuestionList />
         </div>
       </div>
     );

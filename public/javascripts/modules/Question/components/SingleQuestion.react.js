@@ -26,7 +26,7 @@ class SingleQuestion extends Component {
 
   componentDidMount () {
     $(`.${this.props.attr.id}`)
-    // .checkbox(QuestionStore.isSelected(this.props.attr.id) ? 'set checked' : 'set unchecked')
+    .checkbox(this.props.selectedIds.indexOf(this.props.attr.id) !== -1 ? 'set checked' : 'set unchecked')
     .checkbox({
       onChecked: () => this.handleChange(true),
       onUnchecked: () => this.handleChange(false)
@@ -56,4 +56,10 @@ class SingleQuestion extends Component {
   }
 }
 
-export default connect()(SingleQuestion);
+function mapStateToProps (state) {
+  return {
+    selectedIds: state.selection.map(question => question.id)
+  }
+}
+
+export default connect(mapStateToProps)(SingleQuestion);
