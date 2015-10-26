@@ -5,7 +5,7 @@ function pagination (state = {
 }, action) {
   switch (action.type) {
     case CHANGE_PAGE:
-      return Object.assign(state, action.content);
+      return Object.assign({}, action.content);
 
     default:
       return state;

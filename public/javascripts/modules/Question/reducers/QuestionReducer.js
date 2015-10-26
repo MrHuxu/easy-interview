@@ -10,22 +10,22 @@ import history from '../../../router/history';
 
 function questions (state = [], action) {
   switch (action.type) {
-  case RECEIVE_QUESTIONS:
-    return action.content;
+    case RECEIVE_QUESTIONS:
+      return action.content;
 
-  case NEW_QUESTION:
-    history.goBack();
-    return state;
+    case NEW_QUESTION:
+      history.goBack();
+      return state;
 
-  case UPDATE_QUESTION:
-    history.goBack();
-    return state;
+    case UPDATE_QUESTION:
+      history.goBack();
+      return state;
 
-  case DELETE_QUESTION:
-    return state.filter(question => question.id !== action.content);
+    case DELETE_QUESTION:
+      return state.filter(question => question.id !== action.content);
 
-  default:
-    return state;
+    default:
+      return state;
   }
 }
 

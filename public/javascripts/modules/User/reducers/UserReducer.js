@@ -14,7 +14,7 @@ function user (state = {
       return Object.assign(state, action.content);
 
     case USER_LOGOUT:
-      return Object.assign(state, {
+      return Object.assign({}, {
         id       : null,
         username : null,
         token    : null,

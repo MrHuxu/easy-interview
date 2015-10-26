@@ -16,31 +16,13 @@ class QuestionList extends Component {
     super(props);
     this.state = { questions: [] };
 
-    this.paginateQuestions = this.paginateQuestions.bind(this);
-    this.handlePageChange = this.handlePageChange.bind(this);
     this.loadPreview = this.loadPreview.bind(this);
-  }
-
-  paginateQuestions (page) {
-    return this.props.questions.slice(10 * (page - 1), 10 * page);
-  }
-
-  handlePageChange (page) {
-    this.setState({questions: this.paginateQuestions(page)});
   }
 
   loadPreview () {
     QuestionActions.get({
       _id: { $in: QuestionStore.getSelectedQuestionIds() }
     });
-  }
-
-  componentDidMound () {
-    this.setState({ questions: this.paginateQuestions(1) });
-  }
-
-  componentWillReceiveProps () {
-    this.setState({ questions: this.paginateQuestions(1) });
   }
 
   render () {
@@ -71,7 +53,7 @@ class QuestionList extends Component {
             {list}
           </tbody>
         </table>
-        <Pagination pageCount={this.props.questions.length / 10} changePage={this.handlePageChange.bind(this)}/>
+        <Pagination pageCount={this.props.questions.length / 10}/>
         <div className='two wide column'>
             <Link className="ui blue button" to='/question/interviewee/view' onClick={this.loadPreview}>View</Link>
             <Link className="ui blue button" to='/question/interviewer/view' onClick={this.loadPreview}>View With Answer</Link>
