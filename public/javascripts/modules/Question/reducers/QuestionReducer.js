@@ -4,14 +4,21 @@ import {
   RECEIVE_QUESTIONS,
   NEW_QUESTION,
   UPDATE_QUESTION,
-  DELETE_QUESTION
+  DELETE_QUESTION,
+  SET_CONDITION
 } from '../actions/QuestionActions';
 import history from '../../../router/history';
 
-function questions (state = [], action) {
+function question (state = {
+  initCondition : {},
+  entities      : []
+}, action) {
   switch (action.type) {
     case RECEIVE_QUESTIONS:
-      return [...action.content];
+      return Object.assign({}, {
+        initCondition : state.initCondition,
+        entities      : action.content
+      });
 
     case NEW_QUESTION:
       history.goBack();
@@ -24,9 +31,15 @@ function questions (state = [], action) {
     case DELETE_QUESTION:
       return state.filter(question => question.id !== action.content);
 
+    case SET_CONDITION:
+      return Object.assign({}, {
+        initCondition : action.content,
+        entities      : state.entities
+      });
+
     default:
       return state;
   }
 }
 
-export default questions;
+export default question;

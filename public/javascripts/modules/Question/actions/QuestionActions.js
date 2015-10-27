@@ -75,3 +75,11 @@ export function deleteQuestion (args) {
     });
   };
 };
+
+export const SET_CONDITION = 'SET_CONDITION';
+export function setCondition (condition) {
+  return {
+    type    : SET_CONDITION,
+    content : condition
+  };
+};

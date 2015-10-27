@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 import Edit from './Edit.react';
-import UserActions from '../actions/UserActions';
+import { userSignup } from '../actions/UserActions';
 import { MessageDispatcher } from '../../Common/dispatcher/AppDispatcher';
+import { connect } from 'react-redux';
 
 class Signup extends Component {
+  constructor (props) {
+    super(props);
+    this.signup = this.signup.bind(this);
+  }
+
   signup () {
     var userData = arguments[0];
     if (userData.password !== userData.confirmPassword) {
@@ -12,7 +18,7 @@ class Signup extends Component {
         content: ['Are you sure you confirmed the password?']
       });
     } else {
-      UserActions.signup(userData);
+      this.props.dispatch(userSignup(userData));
     }
   }
 
@@ -21,4 +27,4 @@ class Signup extends Component {
   }
 };
 
-export default Signup;
+export default connect()(Signup);

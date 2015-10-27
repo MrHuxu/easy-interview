@@ -40,9 +40,11 @@ class Edit extends Component {
 
   componentWillUpdate (nextProps) {
     const { question } = nextProps;
-    this.state.title = question.title;
-    this.state.question = question.question;
-    this.state.answer = question.answer;
+    if (question) {
+      this.state.title = question.title;
+      this.state.question = question.question;
+      this.state.answer = question.answer;
+    }
   }
 
   componentDidMount () {
@@ -177,14 +179,14 @@ function mapStateToProps (state) {
   return {
     user     : state.user,
     router   : state.router,
-    question : state.questions[0]
+    question : state.question.entities[0]
   }
 }
 
 rootStore.subscribe(() => {
   var state = rootStore.getState();
-  if (state.questions[0]) {
-    var question = state.questions[0];
+  var question = state.question.entities[0];
+  if (question) {
     $('.ui.rating').rating('set rating', question.difficulty);
     $('.question-interviewee').dropdown('set selected', question.interviewee);
     $('.question-category').dropdown('set selected', question.category);

@@ -5,23 +5,27 @@ import { requestQuestions } from '../actions/QuestionActions';
 class Selection extends Component {
   constructor (props) {
     super(props);
+
+    this.chooseSelected = this.chooseSelected.bind(this);
+    this.showAllSelected = this.showAllSelected.bind(this);
   }
 
   chooseSelected (id) {
-    // QuestionActions.get({
-    //   $and: [
-    //     { _id: id },
-    //     QuestionStore.getSearchConditions()
-    //   ]
+    this.props.dispatch(requestQuestions({
+      $and: [
+        { _id: id },
+        this.props.initCondition
+      ]
+    }));
   }
 
   showAllSelected () {
-    // QuestionActions.get({
-    //   $and: [
-    //     QuestionStore.getSearchConditions(),
-    //     { _id: {$in: QuestionStore.getSelectedQuestionIds()} }
-    //   ]
-    // });
+    this.props.dispatch(requestQuestions({
+      $and: [
+        { _id: {$in: this.props.selection.map(question => question.id)} },
+        this.props.initCondition
+      ]
+    }));
   }
 
   render () {
@@ -41,7 +45,8 @@ class Selection extends Component {
 
 function mapStateToProps (state) {
   return {
-    selection: state.selection
+    selection     : state.selection,
+    initCondition : state.question.initCondition
   };
 }
 

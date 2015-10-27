@@ -16,9 +16,11 @@ class Pagination extends Component {
   }
 
   render () {
+    const { currentPage } = this.props;
+
     var pageBtns = [];
     for (var i = 0; i < this.props.pageCount; ++i) {
-      pageBtns.push(<a className={i ? `item page${i + 1}` : `item page${i + 1} active`} onClick={this.changePage.bind(null, i + 1)} key={i + 1}>{i + 1}</a>);
+      pageBtns.push(<a className={i + 1 === currentPage ? `item page${i + 1} active` : `item page${i + 1}`} onClick={this.changePage.bind(null, i + 1)} key={i + 1}>{i + 1}</a>);
     }
     return (
       <div className="ui borderless menu">
@@ -28,4 +30,10 @@ class Pagination extends Component {
   }
 };
 
-export default connect()(Pagination);
+function mapStateToProps (state) {
+  return {
+    currentPage: state.pagination.page
+  };
+}
+
+export default connect(mapStateToProps)(Pagination);

@@ -5,6 +5,7 @@ import UserStore from '../../User/stores/UserStore';
 import { changePage } from '../../Question/actions/PaginationActions';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
+import { requestQuestions } from '../../Question/actions/QuestionActions';
 
 class Home extends Component {
   constructor (props) {
@@ -12,7 +13,9 @@ class Home extends Component {
   }
 
   componentDidMount () {
+    const { initCondition } = this.props;
     this.props.dispatch(changePage(1));
+    this.props.dispatch(requestQuestions(initCondition));
   }
 
   render () {
@@ -53,7 +56,8 @@ function mapStateToProps (state) {
   return {
     user         : state.user,
     token        : state.user.token,
-    userLoggedIn : state.user.id
+    userLoggedIn : state.user.id,
+    initCondition: state.question.initCondition
   }
 }
 export default connect(mapStateToProps)(Home);

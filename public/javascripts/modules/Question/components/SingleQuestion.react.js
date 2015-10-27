@@ -34,7 +34,8 @@ class SingleQuestion extends Component {
   }
 
   render () {
-    var hasPermission = true //= this.props.attr.creator && this.props.attr.creator._id === UserStore.getId();
+    const { userId } = this.props;
+    var hasPermission = this.props.attr.creator && this.props.attr.creator._id === userId;
     return (
       <tr>
         <td className='collapsing'>
@@ -58,7 +59,8 @@ class SingleQuestion extends Component {
 
 function mapStateToProps (state) {
   return {
-    selectedIds: state.selection.map(question => question.id)
+    userId      : state.user.id,
+    selectedIds : state.selection.map(question => question.id)
   }
 }
 

@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 import Edit from './Edit.react';
-import UserActions from '../actions/UserActions';
+import { userUpdate } from '../actions/UserActions';
 import { MessageDispatcher } from '../../Common/dispatcher/AppDispatcher';
+import { connect } from 'react-redux';
 
 class Update extends Component {
+  constructor (props) {
+    super(props);
+    this.update = this.update.bind(this);
+  }
+
   update () {
     var userData = arguments[0];
     if (userData.password !== userData.confirmPassword) {
@@ -12,10 +18,10 @@ class Update extends Component {
         content: ['Are you sure you confirmed the password?']
       });
     } else {
-      UserActions.update({
-        id   : UserStore.getId(),
+      this.props.dispatch(userUpdate({
+        id   : this.props.userId,
         data : userData
-      });
+      }));
     }
   }
 
@@ -24,4 +30,10 @@ class Update extends Component {
   }
 };
 
-export default Update;
+function mapStateToProps (state) {
+  return {
+    userId: state.user.id
+  };
+}
+
+export default connect(mapStateToProps)(Update);

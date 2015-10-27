@@ -25,6 +25,10 @@ class QuestionList extends Component {
     });
   }
 
+  componentDidMound () {
+
+  }
+
   render () {
     const { questions, pagination } = this.props;
     var pagedQuestions = questions.slice(10 * (pagination.page - 1), 10 * pagination.page);
@@ -65,8 +69,9 @@ class QuestionList extends Component {
 
 function mapStateToProps (state) {
   return {
-    questions  : state.questions,
-    pagination : state.pagination
+    initCondition : state.question.initCondition,
+    questions     : state.question.entities,
+    pagination    : state.pagination
   };
 }
 

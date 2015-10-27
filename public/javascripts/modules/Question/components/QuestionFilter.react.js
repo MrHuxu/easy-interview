@@ -18,9 +18,11 @@ class QuestionFilter extends Component {
 
   reloadQuestions () {
     var self = this;
+    const { initCondition } = this.props;
     this.props.dispatch(requestQuestions({
       $and: [
-        self.searchConditions
+        self.searchConditions,
+        initCondition
       ]
     }));
   }
@@ -96,4 +98,10 @@ class QuestionFilter extends Component {
   }
 }
 
-export default connect()(QuestionFilter);
+function mapStateToProps (state) {
+  return {
+    initCondition: state.question.initCondition
+  };
+}
+
+export default connect(mapStateToProps)(QuestionFilter);
