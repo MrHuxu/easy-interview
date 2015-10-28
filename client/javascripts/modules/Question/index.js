@@ -8,12 +8,19 @@ module.exports = {
   childRoutes: [
     { path: 'new', component: Edit },
     {
-      path: ':questionId/edit',
-      component: Edit,
-      onEnter: function (nextState, replaceState) {
+      path      : ':questionId/edit',
+      component : Edit,
+      onEnter   : (nextState, replaceState) => {
         rootStore.dispatch(requestQuestions({ _id: nextState.params.questionId }));
       }
     },
-    { path: ':role/view', component: Preview }
+    {
+      path      : ':role/view',
+      component : Preview,
+      onEnter   : (nextState, replaceState) => {
+        var selectedIds = rootStore.getState().selection.map(question => question.id);
+        rootStore.dispatch(requestQuestions({ _id: { $in: selectedIds } }));
+      }
+    }
   ]
 };

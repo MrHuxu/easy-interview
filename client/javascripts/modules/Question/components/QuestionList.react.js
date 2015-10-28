@@ -5,7 +5,6 @@ import QuestionFilter from './QuestionFilter.react';
 import Selection from './Selection.react';
 import SingleQuestion from './SingleQuestion.react';
 import Pagination from './Pagination.react';
-import QuestionActions from '../../Question/actions/QuestionActions';
 import { QuestionEvent } from '../../Common/events';
 import { connect } from 'react-redux';
 
@@ -13,18 +12,6 @@ class QuestionList extends Component {
   constructor (props) {
     super(props);
     this.state = { questions: [] };
-
-    this.loadPreview = this.loadPreview.bind(this);
-  }
-
-  loadPreview () {
-    QuestionActions.get({
-      _id: { $in: QuestionStore.getSelectedQuestionIds() }
-    });
-  }
-
-  componentDidMound () {
-
   }
 
   render () {
@@ -57,8 +44,8 @@ class QuestionList extends Component {
         </table>
         <Pagination pageCount={this.props.questions.length / 10}/>
         <div className='two wide column'>
-            <Link className="ui blue button" to='/question/interviewee/view' onClick={this.loadPreview}>View</Link>
-            <Link className="ui blue button" to='/question/interviewer/view' onClick={this.loadPreview}>View With Answer</Link>
+            <Link className="ui blue button" to='/question/interviewee/view'>View</Link>
+            <Link className="ui blue button" to='/question/interviewer/view'>View With Answer</Link>
         </div>
       </div>
     );

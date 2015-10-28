@@ -1,6 +1,7 @@
 import $ from 'jquery';
 import React, { Component } from 'react';
 import marked from 'marked';
+import { connect } from 'react-redux';
 
 class PreviewSingleQuestion extends Component {
   render () {
@@ -33,21 +34,6 @@ class PreviewSingleQuestion extends Component {
 class Preview extends Component {
   constructor (props) {
     super(props);
-
-    if (this.props.params.role) {
-      this.role = this.props.params.role;
-    }
-    this.state = {
-      role      : this.role,
-      questions : []
-    };
-
-    this.loadQuestion = this.loadQuestion.bind(this);
-  }
-
-  loadQuestion () {
-    var question_previews = QuestionStore.getQuestions();
-    this.setState({questions: question_previews});
   }
 
   componentDidMount () {
@@ -59,8 +45,10 @@ class Preview extends Component {
   }
 
   render () {
-    var list = this.state.questions.map((question) => {
-      return <PreviewSingleQuestion key={question.id} attr={question} role={this.state.role}/>
+    const { loadFinish } = this.props;
+    var questions = loadFinish ? this.props.questions : [];
+    var list = questions.map((question) => {
+      return <PreviewSingleQuestion key={question.id} attr={question} role={this.props.params.role}/>
     });
     return (
       <div className="ui grid">
@@ -78,4 +66,12 @@ class Preview extends Component {
   }
 };
 
-export default Preview;
+function mapStateToProps (state) {
+  return {
+    router     : state.router,
+    loadFinish : state.selection.length === state.question.entities.length,
+    questions  : state.question.entities
+  };
+}
+
+export default connect(mapStateToProps)(Preview);
