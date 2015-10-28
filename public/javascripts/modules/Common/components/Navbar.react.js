@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Router, { Link } from 'react-router';
 import history from '../../../router/history';
 import Message from './Message.react';
+import { Link } from 'react-router';
 import { userLogout } from '../../User/actions/UserActions';
 import { AuthEvent } from '../events';
 import { connect } from 'react-redux';
@@ -13,14 +13,6 @@ class Navbar extends Component {
 
     this.logout = this.logout.bind(this);
     this.toDashboard = this.toDashboard.bind(this);
-  }
-
-  componentDidMount () {
-    AuthEvent.addListener('USER_LOGIN', this.login.bind(this));
-  }
-
-  componentWillUnmound () {
-    AuthEvent.removeListener('USER_LOGIN', this.login.bind(this));
   }
 
   login () {

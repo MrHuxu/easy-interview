@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import QuestionList from '../../Question/components/QuestionList.react';
-import { MessageDispatcher } from '../dispatcher/AppDispatcher';
-import UserStore from '../../User/stores/UserStore';
 import { changePage } from '../../Question/actions/PaginationActions';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';

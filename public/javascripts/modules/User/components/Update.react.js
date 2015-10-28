@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Edit from './Edit.react';
 import { userUpdate } from '../actions/UserActions';
-import { MessageDispatcher } from '../../Common/dispatcher/AppDispatcher';
+import { addMessages } from '../../Common/actions/MessageActions';
 import { connect } from 'react-redux';
 
 class Update extends Component {
@@ -13,10 +13,7 @@ class Update extends Component {
   update () {
     var userData = arguments[0];
     if (userData.password !== userData.confirmPassword) {
-      MessageDispatcher.dispatch({
-        actionType: 'REFRESH_MESSAGE',
-        content: ['Are you sure you confirmed the password?']
-      });
+      this.props.dispatch(addMessages(['Are you sure you confirmed the password?']));
     } else {
       this.props.dispatch(userUpdate({
         id   : this.props.userId,

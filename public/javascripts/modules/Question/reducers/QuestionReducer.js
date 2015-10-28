@@ -9,7 +9,7 @@ import {
 } from '../actions/QuestionActions';
 import history from '../../../router/history';
 
-function question (state = {
+export function question (state = {
   initCondition : {},
   entities      : []
 }, action) {
@@ -41,5 +41,3 @@ function question (state = {
       return state;
   }
 }
-
-export default question;

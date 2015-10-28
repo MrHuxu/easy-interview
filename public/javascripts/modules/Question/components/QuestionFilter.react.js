@@ -1,6 +1,5 @@
 import $ from 'jquery';
 import React, { Component } from 'react';
-import QuestionActions from '../../Question/actions/QuestionActions';
 import { requestQuestions } from '../actions/QuestionActions';
 import { connect } from 'react-redux';
 
@@ -63,14 +62,14 @@ class QuestionFilter extends Component {
     return (
       <div className="ui menu">
         <a className="item"><i className="filter icon"></i>Filters</a>
-        <select className="ui dropdown compact filter-team item">
+        <select multiple={[]} className="ui multiple dropdown compact filter-team">
           <option value="">Select Team</option>
           <option value="UI">UI</option>
           <option value="Ad Serving">Ad Serving</option>
           <option value='Forecasting'>Forecasting</option>
           <option value='Reporting'>Reporting</option>
         </select>
-        <select className="ui dropdown compact filter-position item">
+        <select multiple={[]} className="ui multiple dropdown compact filter-position">
           <option value="">Select Position</option>
           <option value='DEV'>DEV</option>
           <option value='QA'>QA</option>

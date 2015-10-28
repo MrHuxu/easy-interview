@@ -1,6 +1,7 @@
 import $ from 'jquery';
-import { AuthDispatcher, MessageDispatcher } from '../../Common/dispatcher/AppDispatcher';
 import history from '../../../router/history'
+import { rootStore } from '../../../rootStore';
+import { addMessages } from '../../Common/actions/MessageActions';
 
 export const USER_SIGNUP = 'USER_SIGNUP';
 export function userSignup (args) {
@@ -58,10 +59,7 @@ export function authPassed (args) {
   if (args.operationSuccess) {
     localStorage.setItem('_easy_interview_username', args.username);
     localStorage.setItem('_easy_interview_token', args.token);
-    // MessageDispatcher.dispatch({
-    //   actionType: 'REFRESH_MESSAGE',
-    //   content: args.messages
-    // });
+    rootStore.dispatch(addMessages(args.messages));
     history.replaceState(null, '/');
     return {
       type    : AUTH_PASSED,
@@ -73,10 +71,7 @@ export function authPassed (args) {
 export const USER_LOGOUT = 'USER_LOGOUT';
 export function userLogout () {
   history.replaceState(null, '/');
-  MessageDispatcher.dispatch({
-    actionType: 'REFRESH_MESSAGE',
-    content: ['Logout successfully']
-  });
+  rootStore.dispatch(addMessages(['Logout successfully']));
   localStorage.clear();
   return {
     type: USER_LOGOUT

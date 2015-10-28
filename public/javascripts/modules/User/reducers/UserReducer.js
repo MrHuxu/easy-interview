@@ -1,8 +1,6 @@
-import { AuthDispatcher } from '../../Common/dispatcher/AppDispatcher';
-import { AuthEvent } from '../../Common/events';
 import { AUTH_PASSED, USER_LOGOUT } from '../actions/UserActions';
 
-function user (state = {
+export function user (state = {
   id       : null,
   username : null,
   token    : null,
@@ -26,5 +24,3 @@ function user (state = {
       return state;
   }
 }
-
-export default user;

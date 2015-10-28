@@ -1,6 +1,6 @@
 import { SELECT_QUESTION, UNSELECT_QUESTION } from '../actions/SelectionActions';
 
-function selection (state = [], action) {
+export function selection (state = [], action) {
   switch (action.type) {
     case SELECT_QUESTION:
       return [...state, action.content];
@@ -14,5 +14,3 @@ function selection (state = [], action) {
       return state;
   }
 }
-
-export default selection;

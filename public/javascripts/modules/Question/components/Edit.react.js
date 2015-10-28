@@ -24,6 +24,7 @@ class Edit extends Component {
     };
 
     this.saveQuestion = this.saveQuestion.bind(this);
+    this.checkPermission = this.checkPermission.bind(this);
   }
 
   goBack () {
@@ -36,6 +37,20 @@ class Edit extends Component {
       condition: {_id: questionId},
       content: this.state
     })) : this.props.dispatch(newQuestion(this.state));
+  }
+
+  checkPermission () {
+    const { user, question } = this.props;
+    var fetchSuccess = question && question.id === this.props.params.questionId;
+    if (fetchSuccess) {
+      this.hasPermission = !this.props.params.questionId || question.creator._id === user.id;
+
+      $('.ui.rating').rating(this.hasPermission ? 'enable' : 'disable');
+      $('.ui.dropdown').addClass(this.hasPermission ? '' : 'disabled');
+
+      if (!this.hasPermission)
+        $('.edit-area label').css({opacity: 0.5});
+    }
   }
 
   componentWillUpdate (nextProps) {
@@ -112,16 +127,7 @@ class Edit extends Component {
   }
 
   render () {
-    const { user, question } = this.props;
-    this.hasPermission = !this.props.params.questionId || question.creator._id === user.id;
-
-    $('.ui.rating').rating(this.hasPermission ? 'enable' : 'disable');
-    $('.question-interviewee').addClass(this.hasPermission ? '' : 'disabled');
-    $('.question-category').addClass(this.hasPermission ? '' : 'disabled');
-
-    if (!this.hasPermission) {
-      $('.edit-area label').css({opacity: 0.5});
-    }
+    this.checkPermission();
 
     return (
       <div className='ui stackable grid'>

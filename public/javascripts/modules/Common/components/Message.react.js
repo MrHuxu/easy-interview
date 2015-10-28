@@ -1,22 +1,10 @@
 import $ from 'jquery';
 import React, { Component } from 'react';
-import MessageStore from '../stores/MessageStore';
-import { MessageEvent } from '../events';
+import { connect } from 'react-redux';
 
 class Message extends Component {
   constructor (props) {
     super(props);
-    this.state = { messages: [] };
-
-    this.refreshMessages = this.refreshMessages.bind(this);
-  }
-
-  componentDidMount () {
-    MessageEvent.addListener('REFRESH_MESSAGE', this.refreshMessages);
-  }
-
-  componentWillUnmound () {
-    MessageEvent.removeListener('REFRESH_MESSAGE', this.refreshMessages);
   }
 
   componentDidUpdate () {
@@ -25,14 +13,11 @@ class Message extends Component {
     });
   }
 
-  refreshMessages () {
-    this.setState({messages: MessageStore.getMessages()});
-  }
-
   render () {
-    var messageItems = this.state.messages.map((message) => {
+    const { messages } = this.props;
+    var messageItems = messages.map((message) => {
       return (
-        <div className='ui small floating teal message' key={this.state.messages.indexOf(message)}>
+        <div className='ui small floating teal message' key={messages.indexOf(message)}>
           <i className='close icon'></i>
           <div className='header'>
             {message}
@@ -50,4 +35,10 @@ class Message extends Component {
   }
 }
 
-export default Message;
+function mapStateToProps (state) {
+  return {
+    messages: state.message.records
+  };
+}
+
+export default connect(mapStateToProps)(Message);

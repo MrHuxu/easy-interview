@@ -2,7 +2,6 @@ import $ from 'jquery';
 import NProgress from 'nprogress';
 import React, { Component } from 'react';
 import marked from 'marked';
-import { QuestionEvent } from '../../Common/events';
 
 class PreviewSingleQuestion extends Component {
   render () {
@@ -55,14 +54,10 @@ class Preview extends Component {
 
   componentDidMount () {
     $('.action-item').hide();
-    let callback = this.loadQuestion;
-    QuestionEvent.addListener('LOAD_QUESTION', callback);
   }
 
   componentWillUnmount () {
     $('.action-item').show();
-    let callback = this.loadQuestion;
-    QuestionEvent.removeListener('LOAD_QUESTION', callback);
   }
 
   render () {

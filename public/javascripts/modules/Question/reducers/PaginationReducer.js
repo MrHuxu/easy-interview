@@ -1,6 +1,6 @@
 import { CHANGE_PAGE } from '../actions/PaginationActions';
 
-function pagination (state = {
+export function pagination (state = {
   page: 1
 }, action) {
   switch (action.type) {
@@ -11,5 +11,3 @@ function pagination (state = {
       return state;
   }
 }
-
-export default pagination;
