@@ -68,9 +68,9 @@ gulp.task("webpack", function(callback) {
     module  : webpackModule,
     plugins : webpackPlugins,
     output : {
-      path: './client/built',
+      path: './server/public/built',
       filename: 'bundle.js',
-      publicPath: './client/built'
+      publicPath: './server/public/built'
     }
   }, function(err, stats) {
     if(err) throw new gutil.PluginError("webpack", err);
