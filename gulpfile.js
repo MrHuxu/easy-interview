@@ -45,7 +45,7 @@ gulp.task('dev', function () {
 });
 */
 
-var webpackEntry = { app: ['webpack/hot/dev-server', './public/javascripts/index.js'] };
+var webpackEntry = { app: ['webpack/hot/dev-server', './client/javascripts/index.js'] };
 var webpackModule = {
   loaders: [
     { test: /\.js$/, loader: 'babel-loader' },
@@ -68,9 +68,9 @@ gulp.task("webpack", function(callback) {
     module  : webpackModule,
     plugins : webpackPlugins,
     output : {
-      path: './public/built',
+      path: './client/built',
       filename: 'bundle.js',
-      publicPath: './public/built'
+      publicPath: './client/built'
     }
   }, function(err, stats) {
     if(err) throw new gutil.PluginError("webpack", err);
@@ -98,6 +98,6 @@ gulp.task("webpack-dev-server", function(callback) {
   });
 });
 
-gulp.task('prd', ['webpack'], shell.task('NODE_ENV=production forever start bin/www --harmony'));
+gulp.task('prd', ['webpack'], shell.task('NODE_ENV=production forever start server/bin/www --harmony'));
 
-gulp.task('dev', ['webpack-dev-server'], shell.task('nodemon bin/www --harmony'));
+gulp.task('dev', ['webpack-dev-server'], shell.task('nodemon server/bin/www --harmony'));

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link type="image/x-icon" rel=icon href="/favicon.ico">
+    <title><%= title %></title>
+    <link rel="stylesheet" type="text/css" href="/bower_components/semantic/dist/semantic.min.css">
+  </head>
+  <body>
+    <div id="easy-interview"></div>
+  </body>
+<% if (process.env.NODE_ENV === 'production') { %>
+  <script type="text/javascript" src="/built/bundle.js"></script>
+<% } else { %>
+  <script type="text/javascript" src="http://localhost:8080/bundle.js"></script>
+<% } %>
+</html>
