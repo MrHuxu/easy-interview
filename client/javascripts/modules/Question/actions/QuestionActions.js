@@ -5,6 +5,7 @@ import history from '../../../router/history';
 export const REQUEST_QUESTIONS = 'REQUEST_QUESTIONS';
 export function requestQuestions (args) {
   console.log('fetchOptions: ', args);
+  NProgress.set(0.4);
   return function (dispatch) {
     return $.ajax({
       type: 'POST',
@@ -13,6 +14,7 @@ export function requestQuestions (args) {
       contentType: 'application/json',
       dataType: 'JSON'
     }).done((data, textStatus, jqXHR) => {
+      NProgress.set(0.8);
       dispatch(receiveQuestions(data));
     });
   };

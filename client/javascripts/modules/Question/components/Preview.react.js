@@ -1,5 +1,4 @@
 import $ from 'jquery';
-import NProgress from 'nprogress';
 import React, { Component } from 'react';
 import marked from 'marked';
 
@@ -48,7 +47,6 @@ class Preview extends Component {
 
   loadQuestion () {
     var question_previews = QuestionStore.getQuestions();
-    NProgress.done();
     this.setState({questions: question_previews});
   }
 

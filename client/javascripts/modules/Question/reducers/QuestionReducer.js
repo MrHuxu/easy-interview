@@ -8,6 +8,7 @@ import {
   SET_CONDITION
 } from '../actions/QuestionActions';
 import history from '../../../router/history';
+import NProgress from 'nprogress';
 
 export function question (state = {
   initCondition : {},
@@ -15,6 +16,7 @@ export function question (state = {
 }, action) {
   switch (action.type) {
     case RECEIVE_QUESTIONS:
+      NProgress.done();
       return Object.assign({}, {
         initCondition : state.initCondition,
         entities      : action.content

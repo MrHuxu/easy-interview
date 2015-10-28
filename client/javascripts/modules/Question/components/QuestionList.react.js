@@ -1,5 +1,4 @@
 import $ from 'jquery';
-import NProgress from 'nprogress';
 import React, { Component } from 'react';
 import Router, { Link } from 'react-router';
 import QuestionFilter from './QuestionFilter.react';

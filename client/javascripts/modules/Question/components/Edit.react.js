@@ -1,5 +1,4 @@
 import $ from 'jquery';
-import NProgress from 'nprogress';
 import React, { Component } from 'react';
 import reactMixin from 'react-mixin';
 import history from '../../../router/history';
