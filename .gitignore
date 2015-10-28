@@ -1,7 +1,7 @@
-public/bower_components
+server/public/bower_components
 node_modules
-log/
-/public/dist/all.min.js
-/public/dist/all.min.css
-/public/built
-public/.DS_Store
+server/log/
+/client/dist/all.min.js
+/client/dist/all.min.css
+/client/built
+client/.DS_Store
