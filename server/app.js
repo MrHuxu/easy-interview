@@ -22,8 +22,8 @@ logger.token('reqBody', function (req) {
   return ' request: ' + JSON.stringify(req.body);
 });
 if (app.get('env') == 'production') {
-  if (!fs.existsSync('log')) fs.mkdirSync('log');
-  var logFile = fs.createWriteStream('./log/production.log', {flags: 'a'});
+  if (!fs.existsSync('./server/log')) fs.mkdirSync('./server/log');
+  var logFile = fs.createWriteStream('./server/log/production.log', {flags: 'a'});
   app.use(logger(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version"  :reqBody :status :res[content-length]', {stream: logFile }));
 } else {
   app.use(logger(':method :url :reqBody :status :response-time ms - :res[content-length]'));

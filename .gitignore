@@ -1,4 +1,5 @@
 server/public/bower_components
+server/public/built
 node_modules
 server/log/
 /client/dist/all.min.js
