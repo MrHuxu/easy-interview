@@ -37,15 +37,24 @@ class QuestionFilter extends Component {
     $('.filter-team').dropdown();
     $('.filter-position').dropdown();
     $('.filter-difficulty').dropdown('setting', 'onChange', (value) => {
-      this.searchConditions['difficulty'] = value;
+      if (value.length > 0)
+        this.searchConditions.difficulty = { $in: value };
+      else
+        delete this.searchConditions.difficulty;
       this.reloadQuestions();
     });
     $('.filter-interviewee').dropdown('setting', 'onChange', (value) => {
-      this.searchConditions['interviewee'] = value;
+      if (value.length > 0)
+        this.searchConditions.interviewee = { $in: value };
+      else
+        delete this.searchConditions.interviewee;
       this.reloadQuestions();
     });
     $('.filter-category').dropdown('setting', 'onChange', (value) => {
-      this.searchConditions['category'] = value;
+      if (value.length > 0)
+        this.searchConditions.category = { $in: value };
+      else
+        delete this.searchConditions.category;
       this.reloadQuestions();
     });
   }
@@ -66,7 +75,7 @@ class QuestionFilter extends Component {
           <option value='DEV'>DEV</option>
           <option value='QA'>QA</option>
         </select>
-        <select className="ui pointing dropdown compact filter-difficulty item">
+        <select multiple={[]} className="ui multiple dropdown compact filter-difficulty">
           <option value="">Select Difficulty</option>
           <option value='0'>0</option>
           <option value='1'>1</option>
@@ -75,12 +84,12 @@ class QuestionFilter extends Component {
           <option value='4'>4</option>
           <option value='5'>5</option>
         </select>
-        <select className="ui dropdown compact filter-interviewee">
+        <select multiple={[]} className="ui multiple dropdown compact filter-interviewee">
           <option value="">Select Interviewee</option>
           <option value='Campus'>Campus</option>
           <option value='Social'>Social</option>
         </select>
-        <select className="ui dropdown compact filter-category">
+        <select multiple={[]} className="ui multiple dropdown compact filter-category">
           <option value="">Select Category</option>
           <option value='Algorithms'>Algorithms</option>
           <option value='Basic'>Basic</option>
