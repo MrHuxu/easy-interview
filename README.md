@@ -8,11 +8,10 @@ Hackathon project, for easier interview and better FreeWheel!
 - Qinting Han (PM & QA)
 - Zhongkai Zhao (DEV)
 - Xu Hu (DEV)
-- Xue Zhao (DEV)
 
 ### Tech
 
-Mainly written in Javascript, powered by [Nodejs][1] and [Reactjs][2], and use [Semantic UI][3] for UI framework.
+Mainly written in Javascript, powered by [Expressjs][1], [Reactjs][2] and [Redux][3], and use [Semantic UI][4] for UI framework.
 
 ### Usage
 
@@ -37,15 +36,7 @@ Mainly written in Javascript, powered by [Nodejs][1] and [Reactjs][2], and use [
         # under the project directory
         gulp dev
 
-### Todo
-
-- [ ] [P1] Login/Logout by **Xu**
-- [ ] [P1] Create/Edit/Delete Questions by **Xu**
-- [ ] [P1] Filter by Team/Owner/Difficurty by **Xu**
-- [ ] [P1] Choose Questions and Preview by **Zhongkai**
-- [ ] [P1] Print Preview Testing Page by **Zhongkai**
-
-
-  [1]: https://nodejs.org/
+  [1]: http://expressjs.com/
   [2]: http://facebook.github.io/react/
-  [3]: http://semantic-ui.com/
+  [3]: http://rackt.org/redux/
+  [4]: http://semantic-ui.com/
