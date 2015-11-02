@@ -91,6 +91,7 @@ class Edit extends Component {
               <option value=''>Select Category</option>
               <option value='Campus'>Campus</option>
               <option value='Social'>Social</option>
+              <option value='Both'>Both</option>
             </select>
           </div>
           <div className='field'>
