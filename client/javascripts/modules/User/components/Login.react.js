@@ -27,8 +27,8 @@ class Login extends Component {
   render () {
     return (
       <div className='ui stackable grid'>
-        <div className='six wide column'></div>
-        <div className='four wide column'>
+        <div className='five wide column'></div>
+        <div className='six wide column'>
           <div className="ui segments">
             <div className="ui top attached secondary segment">Login</div>
             <div className="ui blue segment">

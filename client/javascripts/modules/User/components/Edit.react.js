@@ -26,9 +26,9 @@ class Edit extends Component {
 
   render () {
     return (
-      <div className='ui three column grid'>
-        <div className='column'></div>
-        <div className='column'>
+      <div className='ui stackable grid'>
+        <div className='four wide column'></div>
+        <div className='eight wide column'>
           <div className="ui segments">
             <div className="ui top attached secondary segment">Signup</div>
             <div className="ui green segment">

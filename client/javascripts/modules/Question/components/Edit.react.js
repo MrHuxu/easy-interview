@@ -129,46 +129,42 @@ class Edit extends Component {
     this.checkPermission();
 
     return (
-      <div className='ui stackable grid'>
-        <div className="ui horizontal divider"></div>
-        <div className='three wide column'></div>
-        <div className='ten wide column'>
-          <div className='ui grid'>
-            <div className='sixteen wide column'>
-              <button className='ui blue button' onClick={this.goBack}>{'<< Back'}</button>
+      <div>
+        <div className='ui grid'>
+          <div className='sixteen wide column'>
+            <button className='ui blue button' onClick={this.goBack}>{'<< Back'}</button>
+          </div>
+          {this.renderEditArea()}
+          <div className='eight wide column ui form'>
+            <h3>Preview</h3>
+            <div className="ui horizontal divider"><i className="wizard icon"></i></div>
+            <div className='field'>
+              <label>Difficulty: {this.state.difficulty}</label>
             </div>
-            {this.renderEditArea()}
-            <div className='eight wide column ui form'>
-              <h3>Preview</h3>
-              <div className="ui horizontal divider"><i className="wizard icon"></i></div>
+            <div className='four fields'>
               <div className='field'>
-                <label>Difficulty: {this.state.difficulty}</label>
-              </div>
-              <div className='four fields'>
-                <div className='field'>
-                  <label>Interviewee:</label>
-                </div>
-                <div className='field'>
-                  <p>{this.state.interviewee}</p>
-                </div>
-                <div className='field'>
-                  <label>Category:</label>
-                </div>
-                <div className='field'>
-                  <p>{this.state.category}</p>
-                </div>
+                <label>Interviewee:</label>
               </div>
               <div className='field'>
-                <div className='ui piled segment'>
-                  <h4 className='ui header'>Title</h4>
-                  <p>{this.state.title}</p>
-                  <div className='ui divider'></div>
-                  <h4 className='ui header'>Question</h4>
-                  <span dangerouslySetInnerHTML={{__html: marked(this.state.question || '')}} />
-                  <div className='ui divider'></div>
-                  <h4 className='ui header'>Answer</h4>
-                  <span dangerouslySetInnerHTML={{__html: marked(this.state.answer || '')}} />
-                </div>
+                <p>{this.state.interviewee}</p>
+              </div>
+              <div className='field'>
+                <label>Category:</label>
+              </div>
+              <div className='field'>
+                <p>{this.state.category}</p>
+              </div>
+            </div>
+            <div className='field'>
+              <div className='ui piled segment'>
+                <h4 className='ui header'>Title</h4>
+                <p>{this.state.title}</p>
+                <div className='ui divider'></div>
+                <h4 className='ui header'>Question</h4>
+                <span dangerouslySetInnerHTML={{__html: marked(this.state.question || '')}} />
+                <div className='ui divider'></div>
+                <h4 className='ui header'>Answer</h4>
+                <span dangerouslySetInnerHTML={{__html: marked(this.state.answer || '')}} />
               </div>
             </div>
           </div>
