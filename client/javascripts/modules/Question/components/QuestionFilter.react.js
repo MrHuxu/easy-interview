@@ -6,7 +6,10 @@ import { connect } from 'react-redux';
 class QuestionFilter extends Component {
   constructor (props) {
     super(props);
-    this.state = {username: ''};
+    this.state = {
+      username : '',
+      onCancle : false
+    };
 
     this.searchConditionKyes = ['team', 'position', 'difficulty', 'interviewee', 'category'];
     this.searchConditions = {};
@@ -24,9 +27,11 @@ class QuestionFilter extends Component {
         initCondition
       ]
     }));
+    this.state.onCancle = false;
   }
 
   cancleFilter () {
+    this.state.onCancle = true;
     $('.ui.dropdown').dropdown('clear');
     this.searchConditions = {};
     this.reloadQuestions();
@@ -40,21 +45,21 @@ class QuestionFilter extends Component {
         this.searchConditions.difficulty = { $in: value };
       else
         delete this.searchConditions.difficulty;
-      this.reloadQuestions();
+      if (!this.state.onCancle) this.reloadQuestions();
     });
     $('.filter-interviewee').dropdown('setting', 'onChange', (value) => {
       if (value.length > 0)
         this.searchConditions.interviewee = { $in: value };
       else
         delete this.searchConditions.interviewee;
-      this.reloadQuestions();
+      if (!this.state.onCancle) this.reloadQuestions();
     });
     $('.filter-category').dropdown('setting', 'onChange', (value) => {
       if (value.length > 0)
         this.searchConditions.category = { $in: value };
       else
         delete this.searchConditions.category;
-      this.reloadQuestions();
+      if (!this.state.onCancle) this.reloadQuestions();
     });
   }
 
