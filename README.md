@@ -13,6 +13,11 @@ Hackathon project, for easier interview and better FreeWheel!
 
 Mainly written in Javascript, powered by [Expressjs][1], [Reactjs][2] and [Redux][3], and use [Semantic UI][4] for UI framework.
 
+### Dependency
+
+1. Nodejs (v4.0 or higher)
+2. Browser which supports HTML5
+
 ### Usage
 
 1. First of all, install ```node``` and ```mongodb```, then use ```npm``` to install ```bower``` and ```gulp```.
@@ -25,9 +30,9 @@ Mainly written in Javascript, powered by [Expressjs][1], [Reactjs][2] and [Redux
         git clone https://github.com/MrHuxu/easy-interview easy-interview
         cd easy-interview
         npm install
-        cd public && bower install
+        cd server/public && bower install
 
-3. Start mongodb as our backend. The default port is 27017.
+3. Start mongodb as our database. The default port is 27017.
 
         mongod
 
