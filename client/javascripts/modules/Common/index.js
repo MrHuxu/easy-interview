@@ -18,6 +18,7 @@ export default {
       }
     },
     require('../User'),
-    require('../Question')
+    require('../Question'),
+    require('../Paper')
   ]
 };

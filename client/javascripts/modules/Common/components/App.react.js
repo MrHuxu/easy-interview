@@ -23,11 +23,14 @@ class App extends Component {
           <div className='three wide column'></div>
           <div className='ten wide column'>
             <div className='ui secondary pointing menu'>
-              <Link to='/' className='active nav item'>
+              <Link to='/' className='active nav brown item'>
                 Dashboard
               </Link>
-              <Link to='/home' className='nav item'>
+              <Link to='/home' className='nav red item'>
                 Homepage
+              </Link>
+              <Link to='/paper' className='nav blue item'>
+                Papers
               </Link>
             </div>
             {this.props.children || <Dashboard />}
