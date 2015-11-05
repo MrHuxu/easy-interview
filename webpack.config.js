@@ -1,19 +1,15 @@
+var path    = require('path');
 var webpack = require('webpack');
 
 module.exports = {
   entry: {
-    app: ['webpack/hot/dev-server', './public/javascripts/index.js']
+    app: ['webpack/hot/dev-server', './client/javascripts/index.js']
   },
 
   output: {
-    path: './public/built',
+    path: path.join(__dirname, 'server', 'public', 'built'),
     filename: 'bundle.js',
-    publicPath: './public/dist'
-  },
-
-  devServer: {
-    contentBase: './public',
-    publicPath: 'http://localhost:8080/built/'
+    publicPath: '/assets/'
   },
 
   module: {
