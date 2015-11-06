@@ -1,6 +1,8 @@
+import $ from 'jquery';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { requestQuestions } from '../actions/QuestionActions';
+import SaveSelection from './SaveSelection.react';
 
 class Selection extends Component {
   constructor (props) {
@@ -37,6 +39,7 @@ class Selection extends Component {
       <span>
         <button className='ui sm olive button' onClick={this.showAllSelected}>Selected >></button>
         {questionBtns}
+        <SaveSelection />
       </span>
     );
   }
