@@ -34,5 +34,8 @@ export function paper (state = {
     }]
   }]
 }, action) {
+  switch (action.type) {
+    
+  }
   return state;
 };
