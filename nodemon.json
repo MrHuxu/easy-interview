@@ -1,4 +1,4 @@
 {
-  "ignore": [".git", "public"],
+  "ignore": [".git", "client"],
   "verbose": true
 }

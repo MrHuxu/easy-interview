@@ -1,3 +1,5 @@
+import { SAVE_PAPER } from '../actions/PaperActions';
+
 export function paper (state = {
   records: [{
     id: 1,
@@ -35,7 +37,11 @@ export function paper (state = {
   }]
 }, action) {
   switch (action.type) {
-    
+    case SAVE_PAPER:
+      return Object.assign({}, {
+        records: [...state.records, action.content]
+      });
+      break;
   }
   return state;
 };

@@ -8,30 +8,44 @@ class SaveSelection extends Component {
     super(props);
 
     this.showConfrimDialog = this.showConfrimDialog.bind(this);
-    this.saveSelection = this.saveSelection.bind(this);
+    this.saveInputName = this.saveInputName.bind(this);
   }
 
   showConfrimDialog () {
-    $('.ui.modal').modal('show');
+    $('.small.modal')
+    .modal('show')
+    .modal('setting', 'onShow', () => {
+      $('.paper-name')[0].value = '';
+    })
+    .modal('setting', 'onApprove', () => {
+      this.saveInputName();
+    });
   }
 
-  saveSelection () {
-    const { dispatch } = this.props;
-
-    dispatch(savePaper('hehe'));
+  saveInputName () {
+    var inputName = $('.paper-name')[0].value;
+    this.props.dispatch(savePaper(inputName));
   }
 
   render () {
     return (
       <div>
-        <div className="ui modal">
-          <div className="header">Header</div>
-          <div className="content">
-            <p></p>
+        <div className='ui small modal'>
+          <div className="header">
+            Save Selection as Paper
           </div>
-          <div className="actions">
-            <div className="ui approve button" onClick={this.saveSelection}>Approve</div>
-            <div className="ui cancel button">Cancel</div>
+          <div className='content'>
+            <label>Enter Paper Name: </label>
+            <div className='ui action input'>
+              <input type='text' className='paper-name'/>
+            </div>
+          </div>
+          <div className='actions'>
+            <button className='ui teal right labeled icon approve button'>
+              <i className='save icon'></i>
+              Save
+            </button>
+            <button className='ui cancel red button'>Cancel</button>
           </div>
         </div>
         <button className='ui grey button' onClick={this.showConfrimDialog}>Save as Paper</button>
