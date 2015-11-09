@@ -53,11 +53,13 @@ class SaveSelection extends Component {
   }
 
   componentDidMount () {
-    ReactDom.render(this._overlay, this._overlayTarget);
+    this._overlayInstance = ReactDom.render(this._overlay, this._overlayTarget);
   }
 
   componentWillUnmount () {
-    ReactDom.unmountComponentAtNode(this._overlayTarget)
+    ReactDom.unmountComponentAtNode(this._overlayTarget);
+    this._overlayInstance = null;
+    $('.small.modal').remove();
   }
 
   render () {
