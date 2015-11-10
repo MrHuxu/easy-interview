@@ -16,6 +16,7 @@ Mainly written in Javascript, powered by [Expressjs][1], [Reactjs][2] and [Redux
 ### Dependency
 
 1. Nodejs (v4.0 or higher)
+3. npm (v3.0 or higher, run the command ```npm install npm -g```)
 2. Browser which supports HTML5
 
 ### Usage
