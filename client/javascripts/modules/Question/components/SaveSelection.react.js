@@ -12,14 +12,37 @@ class SaveSelection extends Component {
     this._overlay = (
       <div>
         <div className='ui small modal'>
-          <div className="header">
+          <div className='header'>
             Save Selection as Paper
           </div>
           <div className='content'>
-            <label>Enter Paper Name: </label>
-            <div className='ui action input'>
-              <input type='text' className='paper-name'/>
-            </div>
+            <form className='ui form'>
+              <div className='two fields'>
+                <div className='field'>
+                  <label>Paper Name</label>
+                  <input className='paper-name' type='text'/>
+                </div>
+                <div className='field'>
+                  <label>Time</label>
+                  <div className='ui right labeled input'>
+                    <input type="number"/>
+                    <div className='ui label'>
+                      min(s)
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className='two fields'>
+                <div className='field'>
+                  <label>Interviewee</label>
+                  <input type='text'/>
+                </div>
+                <div className='field'>
+                  <label>Email</label>
+                  <input type='text'/>
+                </div>
+              </div>
+            </form>
           </div>
           <div className='actions'>
             <button className='ui teal right labeled icon approve button'>
