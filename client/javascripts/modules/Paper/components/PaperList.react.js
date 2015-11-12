@@ -76,6 +76,9 @@ class PaperList extends Component {
           <div className='title'>
             <i className='dropdown icon'></i>
             {paper.name}
+            {paper.interviewee}
+            {paper.time}
+            {paper.email}
           </div>
           <div className='content'>
             <div className='ui middle aligned selection list'>
@@ -87,14 +90,14 @@ class PaperList extends Component {
     });
 
     return (
-      <div className='ui stackable grid'>
-        <div className='eight wide column'>
+      <div>
+        <div>
           <div className='ui header'>Papers</div>
           <div className='ui styled fluid accordion'>
             {paperItems}
           </div>
         </div>
-        <div className='eight wide column'>
+        <div>
           <div className='ui header'>Question Preview</div>
           <QuestionPreview question={this.state.selectedQuestion} />
         </div>

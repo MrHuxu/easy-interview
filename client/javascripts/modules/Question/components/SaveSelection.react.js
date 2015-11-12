@@ -23,9 +23,9 @@ class SaveSelection extends Component {
                   <input className='paper-name' type='text'/>
                 </div>
                 <div className='field'>
-                  <label>Time</label>
+                  <label>Duration</label>
                   <div className='ui right labeled input'>
-                    <input type="number"/>
+                    <input className='paper-duration' type="number"/>
                     <div className='ui label'>
                       min(s)
                     </div>
@@ -35,11 +35,11 @@ class SaveSelection extends Component {
               <div className='two fields'>
                 <div className='field'>
                   <label>Interviewee</label>
-                  <input type='text'/>
+                  <input className='paper-interviewee' type='text'/>
                 </div>
                 <div className='field'>
                   <label>Email</label>
-                  <input type='text'/>
+                  <input className='paper-email' type='text'/>
                 </div>
               </div>
             </form>
@@ -62,9 +62,6 @@ class SaveSelection extends Component {
   showConfrimDialog () {
     $('.small.modal')
     .modal('show')
-    .modal('setting', 'onShow', () => {
-      $('.paper-name')[0].value = '';
-    })
     .modal('setting', 'onApprove', () => {
       this.saveInputName();
     });
@@ -72,7 +69,12 @@ class SaveSelection extends Component {
 
   saveInputName () {
     var inputName = $('.paper-name')[0].value;
-    this.props.dispatch(savePaper(inputName));
+    this.props.dispatch(savePaper({
+      name        : $('.paper-name')[0].value,
+      duration    : $('.paper-interviewee')[0].value,
+      interviewee : $('.paper-interviewee')[0].value,
+      email       : $('.paper-email')[0].value
+    }));
   }
 
   componentDidMount () {

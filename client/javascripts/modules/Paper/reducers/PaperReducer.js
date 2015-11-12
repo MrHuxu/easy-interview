@@ -4,6 +4,9 @@ export function paper (state = {
   records: [{
     id: 1,
     name : 'paper1',
+    duration : 120,
+    interviewee : 'xhu',
+    email : 'x@x.com',
     questions: [{
       id: 1,
       title: 'question1',
@@ -18,6 +21,9 @@ export function paper (state = {
   }, {
     id: 2,
     name : 'paper2',
+    duration : 110,
+    interviewee : 'zkzhao',
+    email : 'z@z.com',
     questions: [{
       id: 3,
       title: 'question3',
