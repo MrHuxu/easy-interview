@@ -13,11 +13,11 @@ Hackathon project, for easier interview and better FreeWheel!
 
 Mainly written in Javascript, powered by [Expressjs][1], [Reactjs][2] and [Redux][3], and use [Semantic UI][4] for UI framework.
 
-### Dependency
+### Requirements
 
 1. Nodejs (v4.0 or higher)
 3. npm (v3.0 or higher, run the command ```npm install npm -g```)
-2. Browser which supports HTML5
+2. Browser which supports HTML5 & ES6 ([here][5] is a doc about ```Object.assign```)
 
 ### Usage
 
@@ -46,3 +46,4 @@ Mainly written in Javascript, powered by [Expressjs][1], [Reactjs][2] and [Redux
   [2]: http://facebook.github.io/react/
   [3]: http://rackt.org/redux/
   [4]: http://semantic-ui.com/
+  [5]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
