@@ -31,15 +31,14 @@ router.post('/get', function (req, res) {
 });
 
 router.put('/update', function (req, res) {
-  Question.update(req.body.condition, req.body.content, function (err) {
-    if (err) {
-      res.status(500).send(err);
-    } else {
-      res.status(201).send({
-        operationSuccess: true
-      });
-    }
-  })
+  var promise = Question.update(req.body.condition, req.body.content).exec();
+  promise.then(() => {
+    res.status(201).send({
+      operationSuccess: true
+    });
+  }, (err) => {
+    res.status(500).send(err);
+  });
 });
 
 router.delete('/destroy', function (req, res) {
