@@ -31,7 +31,10 @@ export function question (state = {
       return state;
 
     case DELETE_QUESTION:
-      return state.filter(question => question.id !== action.content);
+      return Object.assign({}, {
+        initCondition : state.initCondition,
+        entities      : state.entities.filter(question => question.id !== action.content)
+      });
 
     case SET_CONDITION:
       return Object.assign({}, {

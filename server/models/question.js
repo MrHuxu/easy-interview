@@ -31,8 +31,8 @@ QuestionSchema.plugin(timestamp);
 
 var Question = mongoose.model('Question', QuestionSchema);
 
-Question.saveWithCreator = function (args, callback) {
-  var question = new Question({
+Question.saveWithCreator = (args) => {
+  var promise = new Question({
     creator: args.creator_id,
     difficulty: args.difficulty,
     interviewee: args.interviewee,
@@ -40,15 +40,18 @@ Question.saveWithCreator = function (args, callback) {
     title: args.title,
     question: args.question,
     answer: args.answer
-  });
-  question.save(function (err, question) {
+  }).save();
+  promise.then((question) => {
     var User = require('./user');
-    callback.call(null, err, question);
-    User.findOne({_id: question.creator}, function (err, user) {
+    User.findOne({_id: question.creator}, (err, user) => {
       user.questions.push(question._id);
       user.save();
     });
+    resolve(question);
+  }, (err) => {
+    reject(err);
   });
+  return promise;
 }
 
 module.exports = Question;
