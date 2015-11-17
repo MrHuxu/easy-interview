@@ -77,8 +77,9 @@ var User = mongoose.model('User', UserSchema);
 
 User.saveWithSalt = function (req, callback) {
   var username = req.body.username,
-      team = req.body.team,
+      team     = req.body.team,
       position = req.body.position;
+
   crypto.randomBytes(128, function (err, salt) {
     if (err) {
       throw err;

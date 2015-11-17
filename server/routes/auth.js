@@ -15,24 +15,23 @@ var generateResponse = (user) => {
 };
 
 router.post('/login', (req, res) => {
-  User.findOne({username: req.body.username}).exec((err, user) => {
+  var promise = User.findOne({username: req.body.username}).exec();
+  promise.then((user) => {
     var callback = function (user) {
       var resContent = generateResponse(user);
       resContent.messages = ['Welcome ' + user.username + ' ! ' + famousSayings[parseInt(Math.random() * 10)]];
       res.status(201).send(resContent);
     };
-    if (user) {
-      if (req.body.password) {
-        user.loginWithPassword(req.body.password, callback);
-      } else if (req.body.token) {
-        user.loginWithToken(req.body.token, callback);
-      }
-    } else {
-      res.send({
-        operationSuccess: false,
-        messages: ['Incorrect name or password']
-      });
+    if (req.body.password) {
+      user.loginWithPassword(req.body.password, callback);
+    } else if (req.body.token) {
+      user.loginWithToken(req.body.token, callback);
     }
+  }, (err) => {
+    res.send({
+      operationSuccess: false,
+      messages: ['Incorrect name or password']
+    });
   });
 });
 
