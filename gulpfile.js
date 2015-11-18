@@ -21,9 +21,9 @@ gulp.task("webpack-dev-server", function(callback) {
     hot        : true,
     stats      : { colors : true },
     publicPath : '/assets/'
-  }).listen(8080, "localhost", function(err) {
+  }).listen(6789, "localhost", function(err) {
     if(err) throw new gutil.PluginError("webpack-dev-server", err);
-    gutil.log("[webpack-dev-server]", "http://localhost:8080/assets/bundle.js");
+    gutil.log("[webpack-dev-server]", "http://localhost:6789/assets/bundle.js");
     callback();
   });
 });
