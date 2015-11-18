@@ -36,22 +36,22 @@ router.post('/login', (req, res) => {
 });
 
 router.post('/signup', (req, res) => {
-  User.saveWithSalt(req, (err, user) => {
-    if (err) {
-      var errorMessages = Object.keys(err.errors).map((key) => {
-        error = err.errors[key];
-        return error.value + ' is not valid for ' + error.path.toUpperCase();
-      });
-      res.send({
-        operationSuccess: false,
-        messages: errorMessages
-      });
-    } else {
-      var resContent = generateResponse(user);
-      resContent.messages = ['User ' + user.username + ' successfully created!'];
-      res.status(201).send(resContent);
-    }
-  })
+  var promise = User.saveWithSalt(req);
+
+  promise.then((user) => {
+    var resContent = generateResponse(user);
+    resContent.messages = ['User ' + user.username + ' successfully created!'];
+    res.status(201).send(resContent);
+  }, (err) => {
+    var errorMessages = Object.keys(err.errors).map((key) => {
+      error = err.errors[key];
+      return error.value + ' is not valid for ' + error.path.toUpperCase();
+    });
+    res.send({
+      operationSuccess: false,
+      messages: errorMessages
+    });
+  });
 });
 
 router.put('/update', (req, res) => {

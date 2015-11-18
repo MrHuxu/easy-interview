@@ -75,35 +75,49 @@ UserSchema.methods.updatePassword = function (password, callback) {
 
 var User = mongoose.model('User', UserSchema);
 
-User.saveWithSalt = function (req, callback) {
+User.saveWithSalt = function (req) {
   var username = req.body.username,
       team     = req.body.team,
       position = req.body.position;
 
-  crypto.randomBytes(128, function (err, salt) {
-    if (err) {
-      throw err;
-    } else {
-      var user_salt = salt.toString('hex');
-      crypto.pbkdf2(req.body.password, user_salt, 4096, 256, function (err, hash) {
+  var promise = new Promise((resolve, reject) => {
+    crypto.randomBytes(128, (err, salt) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(salt);
+      }
+    });
+  });
+
+  return promise.then((salt) => {
+    return new Promise((resolve, reject) => {
+      var userSalt = salt.toString('hex');
+      crypto.pbkdf2(req.body.password, userSalt, 4096, 256, function (err, hash) {
         if (err) {
-          throw err;
+          reject(err);
         } else {
-          var user_crypted_password = hash.toString('hex');
-          var user = new User({
-            username: username,
-            crypted_password: user_crypted_password,
-            salt: user_salt,
-            team: team,
-            position: position
+          var userHash = hash.toString('hex');
+          resolve({
+            salt: userSalt,
+            hash: userHash
           });
-          user.save(function (err, data) {
-            callback.call(null, err, data);
-          })
-          return;
         }
       });
-    }
+    });
+  }, (err) => {
+    reject(err);
+  }).then((args) => {
+    var user = new User({
+      username         : username,
+      crypted_password : args.hash,
+      salt             : args.salt,
+      team             : team,
+      position         : position
+    });
+    return user.save();
+  }, (err) => {
+    reject(err);
   });
 };
 
