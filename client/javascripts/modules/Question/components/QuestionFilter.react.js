@@ -92,6 +92,7 @@ class QuestionFilter extends Component {
           <option value="">Select Interviewee</option>
           <option value='Campus'>Campus</option>
           <option value='Social'>Social</option>
+          <option value='Both'>Both</option>
         </select>
         <select multiple={[]} className="ui multiple dropdown compact filter-category">
           <option value="">Select Category</option>

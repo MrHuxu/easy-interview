@@ -10,7 +10,7 @@ var QuestionSchema = Schema({
   difficulty  : Number,
   interviewee : {
     type      : String,
-    enum      : ['Campus', 'Social']
+    enum      : ['Campus', 'Social', 'Both']
   },
   category    : {
     type      : String,
