@@ -4,9 +4,14 @@ import Update from './components/Update.react';
 
 module.exports = {
   path: 'user',
-  childRoutes: [
-    { path: 'login', component: Login },
-    { path: 'signup', component: Signup},
-    { path: 'update', component: Update}
-  ]
+  childRoutes: [{
+    path: 'login',
+    component: Login
+  }, {
+    path: 'signup',
+    component: Signup
+  }, {
+    path: 'update',
+    component: Update
+  }]
 };
