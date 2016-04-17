@@ -64,21 +64,26 @@ class QuestionFilter extends Component {
   }
 
   render () {
+    var teamFilter;
+      // <select multiple={[]} className="ui multiple dropdown compact filter-team">
+      //   <option value="">Select Team</option>
+      //   <option value="UI">UI</option>
+      //   <option value="Ad Serving">Ad Serving</option>
+      //   <option value='Forecasting'>Forecasting</option>
+      //   <option value='Reporting'>Reporting</option>
+      // </select>
+    var positionFilter;
+      // <select multiple={[]} className="ui multiple dropdown compact filter-position">
+      //   <option value="">Select Position</option>
+      //   <option value='DEV'>DEV</option>
+      //   <option value='QA'>QA</option>
+      // </select>
+    
     return (
       <div className="ui menu">
         <a className="item"><i className="filter icon"></i>Filters</a>
-        <select multiple={[]} className="ui multiple dropdown compact filter-team">
-          <option value="">Select Team</option>
-          <option value="UI">UI</option>
-          <option value="Ad Serving">Ad Serving</option>
-          <option value='Forecasting'>Forecasting</option>
-          <option value='Reporting'>Reporting</option>
-        </select>
-        <select multiple={[]} className="ui multiple dropdown compact filter-position">
-          <option value="">Select Position</option>
-          <option value='DEV'>DEV</option>
-          <option value='QA'>QA</option>
-        </select>
+        {teamFilter}
+        {positionFilter}
         <select multiple={[]} className="ui multiple dropdown compact filter-difficulty">
           <option value="">Select Difficulty</option>
           <option value='0'>0</option>
